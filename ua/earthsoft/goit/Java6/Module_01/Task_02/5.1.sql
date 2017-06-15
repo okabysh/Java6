@@ -1,14 +1,14 @@
 /*Клиент который приносит меньше всего для компании "EarthSoft KYIV"*/
 select customers.name AS customer, 
 SUM(projects.cost) AS profit
-from _company_customer
-left join _customer_project
-	on _company_customer.customer = _customer_project.customer
+from mtm_company_customer
+left join mtm_customer_project
+	on mtm_company_customer.customer = mtm_customer_project.customer
 left join projects
-	on _customer_project.project = projects.id
+	on mtm_customer_project.project = projects.id
 left join customers
-	on _company_customer.customer = customers.id
-where _company_customer.company = 1
+	on mtm_company_customer.customer = customers.id
+where mtm_company_customer.company = 1
 group by customer
 order by cost
 limit 1

@@ -2,13 +2,14 @@
 Select
 projects.name as project,
 SUM(developers.salary) AS CostProject
-from _customer_project
+from mtm_customer_project
 left join projects
-on _customer_project.project = projects.id
-left join _customerproject_developer
-on _customer_project.id = _customerproject_developer.id
+	on mtm_customer_project.project = projects.id 
+left join mtm_customer_project_developer
+	on mtm_customer_project.customer = mtm_customer_project_developer.customer
+    AND mtm_customer_project.project = mtm_customer_project_developer.project 
 left join developers
-on _customerproject_developer.developer = developers.id
+	on mtm_customer_project_developer.developer = developers.id
 group by project
 order by CostProject desc
 limit 1
