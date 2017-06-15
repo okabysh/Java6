@@ -1,6 +1,3 @@
-/* sql files for MySQL Server*/
-/* Initialized DB*/
-
 /*drop database java6;*/
 create database if not exists java6;
 
@@ -48,38 +45,36 @@ id INT auto_increment NOT NULL,
 name varchar(100) NOT NULL,
 PRIMARY KEY(id));
 
-/*DROP TABLE _company_customer Cascade;*/
-CREATE TABLE java6._company_customer (
-id INT auto_increment NOT NULL,
+/*DROP TABLE mtm_company_customer Cascade;*/
+CREATE TABLE java6.mtm_company_customer (
 company INT NOT NULL,
 customer INT NOT NULL,
-PRIMARY KEY(id),
+PRIMARY KEY(company, customer),
 foreign key (company) references companies(id),
 foreign key (customer) references customers(id));
 
-/*DROP TABLE _customer_project Cascade;*/
-CREATE TABLE java6._customer_project (
-id INT auto_increment NOT NULL,
+/*DROP TABLE mtm_customer_project Cascade;*/
+CREATE TABLE java6.mtm_customer_project (
 customer INT NOT NULL,
 project INT NOT NULL,
-PRIMARY KEY(id),
+PRIMARY KEY(customer, project),
 foreign key (customer) references customers(id),
 foreign key (project) references projects(id));
 
-/*DROP TABLE _customerProject_developer Cascade;*/
-CREATE TABLE java6._customerProject_developer (
-id INT auto_increment NOT NULL,
-customerProject INT NOT NULL,
+/*DROP TABLE mtm_customer_project_developer Cascade;*/
+CREATE TABLE java6.mtm_customer_project_developer (
+customer INT NOT NULL,
+project INT NOT NULL,
 developer INT NOT NULL,
-PRIMARY KEY(id),
-foreign key (customerProject) references _customer_project(id),
+PRIMARY KEY(customer, project, developer),
+foreign key (customer) references mtm_customer_project(customer),
+foreign key (project) references mtm_customer_project(project),
 foreign key (developer) references developers(id));
 
-/*DROP TABLE _developer_skill Cascade;*/
-CREATE TABLE java6._developer_skill (
-id INT auto_increment NOT NULL,
+/*DROP TABLE mtm_developer_skill Cascade;*/
+CREATE TABLE java6.mtm_developer_skill (
 developer INT NOT NULL,
 skill INT NOT NULL,
-PRIMARY KEY(id),
+PRIMARY KEY(developer, skill),
 foreign key (developer) references developers(id),
 foreign key (skill) references skills(id));

@@ -1,6 +1,3 @@
-/* sql files for MySQL Server*/
-/* Populate DB*/
-
 INSERT INTO companies (name, fullName, City, identificationCode) VALUES
 ("EarthSoft KYIV", "EarthSoft KYIV Ltd.", "KYIV", "04557876"),
 ("EarthSoft ODESSA", "EarthSoft ODESSA Ltd.", "ODESSA", "04326955");
@@ -36,45 +33,49 @@ INSERT INTO skills (name) VALUES("Java Core"),
 ("SQL"), ("JDBC"), ("JPA"), ("JSP/Servlets"), ("OOP"),
 ("JavaScript"), ("CSS"), ("Design Patterns");
 
-INSERT INTO _company_customer (company, customer) VALUES
+INSERT INTO mtm_company_customer (company, customer) VALUES
 (1, 1), (1, 3), (1, 5),
 (2, 1), (2, 2), (2, 3), (2, 4), (2, 5);
 
-INSERT INTO _customer_project (customer, project) VALUES
+INSERT INTO mtm_customer_project (customer, project) VALUES
 (1, 1), (1, 3), (1, 5), (1, 6), (1, 7), (1, 9),
 (2, 1), (2, 2), (2, 9), (2, 10), (2, 11), (2, 6),
 (3, 2), (3, 7), (3, 8), (3, 3), (3, 10),
 (4, 1), (4, 2), (4, 5), (4, 6),
 (5, 3), (5, 5), (5, 7), (5, 9);
 
-INSERT INTO _customerProject_developer (customerProject, developer) VALUES
-(1, 1), (1, 2)
-(2, 4),
-(3, 4), (3, 2),
-(4, 2),
-(5, 1), (5, 2),
-(6, 3),
-(7, 3), (7, 2),
-(8, 3),
-(9, 4), (9, 2),
-(10, 4),
-(11, 4), (11, 2),
-(12, 3),
-(13, 3), (13, 1),
-(14, 4),
-(15, 3), (15, 2),
-(16, 3),
-(17, 4), (17, 2),
-(18, 3),
-(19, 3), (19, 2),
-(20, 2),
-(21, 3), (21, 1),
-(22, 2),
-(23, 3), (23, 2),
-(24, 3),
-(25, 2) (25, 1);
+INSERT INTO mtm_customer_project_developer (customer, project, developer) VALUES
+(1, 1, 1), (1, 1, 2),
+(1, 3, 4),
+(1, 5, 4), (1, 5, 2),
+(1, 6, 2),
+(1, 7, 1), (1, 7, 2), 
+(1, 9, 3),
 
-INSERT INTO _developer_skill (developer, skill) VALUES
+(2, 1, 3), (2, 1, 2), 
+(2, 2, 3),
+(2, 9, 4), (2, 9, 2), 
+(2, 10, 4), 
+(2, 11, 4), (2, 11, 2), 
+(2, 6, 3),
+
+(3, 2, 3), (3, 2, 1),
+(3, 7, 4),
+(3, 8, 3), (3, 8, 2), 
+(3, 3, 3),
+(3, 10, 4), (3, 10, 2),
+
+(4, 1, 3),
+(4, 2, 3), (4, 2, 2),
+(4, 5, 2),
+(4, 6, 3), (4, 6, 1),
+
+(5, 3, 2), 
+(5, 5, 3), (5, 5, 2),
+(5, 7, 3),
+(5, 9, 2), (5, 9, 1);
+
+INSERT INTO mtm_developer_skill (developer, skill) VALUES
 (1, 1), (1, 5), (1, 9),
 (2, 1), (2, 3), (2, 5), (2, 9),
 (3, 1), (3, 4), (3, 7), (3, 8), (3, 10), (3, 11),
