@@ -12,7 +12,7 @@ public class LoadDriver {
     static final String DATABASE_URL = "jdbc:mysql://195.78.112.104/java6";
     static final String USER = "sa";
     static final String PASSWORD = "12345";
-    static final Connection connection = null;
+    static Connection connection = null;
 
     public Connection getConnection() {
         try {
@@ -22,7 +22,7 @@ public class LoadDriver {
         }
 
         try {
-            Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
         }

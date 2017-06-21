@@ -11,7 +11,7 @@ import java.sql.Statement;
 public class DeveloperDAO {
     public boolean create(Developer dev, Connection connection) {
         Statement statement = null;
-        ResultSet resultSet = null;
+        //ResultSet resultSet = 0;
         try {
             statement = connection.createStatement();
         } catch (SQLException e) {
@@ -19,12 +19,12 @@ public class DeveloperDAO {
             return false;
         }
         if (statement != null) {
-            String sql = "INSERT INTO developers (fullName, firstName, surName, identificationCode, birthday, phone, salary) VALUES" +
-                    "(" + dev.getFirstName() + dev.getSurName() + "," + dev.getFirstName() + "," + dev.getSurName() +
-                    "," + dev.getIdentificationCode() + "," + dev.getBirthday() + "," + dev.getPhone() + dev.getSalary() + ")";
+            String sql = "INSERT INTO developers (fullName, firstName, surName, identificationCode, birthday, phone, salary) VALUES " +
+                    "(\"" + dev.getFirstName() + " " + dev.getSurName() + "\",\"" + dev.getFirstName() + "\",\"" + dev.getSurName() +
+                    "\",\"" + dev.getIdentificationCode() + "\",\'" + dev.getBirthday() + "\',\"" + dev.getPhone() + "\","+ dev.getSalary() + ")";
             try {
-                resultSet = statement.executeQuery(sql);
-                if (resultSet.next()) {
+                int result = statement.executeUpdate(sql);
+                if (result>0) {
                     return true;
                 } else {
                     return false;
@@ -50,14 +50,14 @@ public class DeveloperDAO {
                 return true;
             }
         }
-        if (resultSet != null) {
-            try {
-                resultSet.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return true;
-            }
-        }
+//        if (resultSet != null) {
+//            try {
+//                resultSet.close();
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//                return true;
+//            }
+//        }
         return true;
     }
 }

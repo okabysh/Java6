@@ -10,12 +10,12 @@ public class Developer {
     private String firstName;
     private String surName;
     private String identificationCode;
-    private Date birthday;
+    private java.sql.Date birthday;
     private String phone;
     private BigDecimal salary;
 
     public Developer(String firstName, String surName, String identificationCode,
-                     Date birthday, String phone, BigDecimal salary) {
+                     java.sql.Date birthday, String phone, BigDecimal salary) {
         this.firstName = firstName;
         this.surName = surName;
         this.identificationCode = identificationCode;
@@ -36,7 +36,7 @@ public class Developer {
         return identificationCode;
     }
 
-    public Date getBirthday() {
+    public java.sql.Date getBirthday() {
         return birthday;
     }
 
