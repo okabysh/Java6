@@ -1,14 +1,16 @@
-package earthsoft.goit.Java6.Module_02.Mrachkovskiy.HomeTask.Branch1;
+package earthsoft.goit.Java6.Module_02.HomeTask.model.jdbc;
+
+import earthsoft.goit.Java6.Module_02.HomeTask.model.Developer;
+import earthsoft.goit.Java6.Module_02.HomeTask.model.IDeveloperDAO;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
  * Created by kabysh_ol on 21.06.2017.
  */
-public class DeveloperDAO {
+public class jdbcDeveloperDAO implements IDeveloperDAO{
     public boolean create(Developer dev, Connection connection) {
         Statement statement = null;
         //ResultSet resultSet = 0;
