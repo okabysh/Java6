@@ -1,4 +1,7 @@
-package earthsoft.goit.Java6.Module_02.Mrachkovskiy.HomeTask.Branch1;
+package earthsoft.goit.Java6.Module_02.HomeTask;
+
+import earthsoft.goit.Java6.Module_02.HomeTask.model.Developer;
+import earthsoft.goit.Java6.Module_02.HomeTask.model.jdbc.jdbcDeveloperDAO;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -19,8 +22,8 @@ public class Launch {
         Developer developer = new Developer("Ivan","Tsarevich", "3232323232",
                 Date.valueOf("1990-01-01"), "+380670001122", new BigDecimal("1500.00"));
 
-        DeveloperDAO developerDAO = new DeveloperDAO();
-        developerDAO.create(developer, connection);
+        jdbcDeveloperDAO jdbcDeveloperDAO = new jdbcDeveloperDAO();
+        jdbcDeveloperDAO.create(developer, connection);
 
 
 

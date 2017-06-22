@@ -1,4 +1,4 @@
-package earthsoft.goit.Java6.Module_02.Mrachkovskiy.HomeTask.Branch1;
+package earthsoft.goit.Java6.Module_02.HomeTask;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

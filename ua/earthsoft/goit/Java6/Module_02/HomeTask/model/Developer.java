@@ -1,7 +1,6 @@
-package earthsoft.goit.Java6.Module_02.Mrachkovskiy.HomeTask.Branch1;
+package earthsoft.goit.Java6.Module_02.HomeTask.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * Created by kabysh_ol on 21.06.2017.
