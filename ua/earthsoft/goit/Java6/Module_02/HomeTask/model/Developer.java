@@ -1,6 +1,7 @@
 package earthsoft.goit.Java6.Module_02.HomeTask.model;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 
 /**
  * Created by kabysh_ol on 21.06.2017.
@@ -13,13 +14,27 @@ public class Developer {
     private String phone;
     private BigDecimal salary;
 
-    public Developer(String firstName, String surName, String identificationCode,
-                     java.sql.Date birthday, String phone, BigDecimal salary) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public void setSurName(String surName) {
         this.surName = surName;
+    }
+
+    public void setIdentificationCode(String identificationCode) {
         this.identificationCode = identificationCode;
+    }
+
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public void setSalary(BigDecimal salary) {
         this.salary = salary;
     }
 
@@ -47,4 +62,15 @@ public class Developer {
         return salary;
     }
 
+    @Override
+    public String toString() {
+        return "Developer{" +
+                "firstName='" + firstName + '\'' +
+                ", surName='" + surName + '\'' +
+                ", identificationCode='" + identificationCode + '\'' +
+                ", birthday=" + birthday +
+                ", phone='" + phone + '\'' +
+                ", salary=" + salary +
+                '}';
+    }
 }
