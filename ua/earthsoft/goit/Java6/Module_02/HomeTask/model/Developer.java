@@ -7,12 +7,18 @@ import java.sql.Date;
  * Created by kabysh_ol on 21.06.2017.
  */
 public class Developer {
+    private int id;
+
     private String firstName;
     private String surName;
     private String identificationCode;
     private java.sql.Date birthday;
     private String phone;
     private BigDecimal salary;
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -36,6 +42,10 @@ public class Developer {
 
     public void setSalary(BigDecimal salary) {
         this.salary = salary;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -65,7 +75,8 @@ public class Developer {
     @Override
     public String toString() {
         return "Developer{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", surName='" + surName + '\'' +
                 ", identificationCode='" + identificationCode + '\'' +
                 ", birthday=" + birthday +

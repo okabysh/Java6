@@ -1,8 +1,4 @@
-package earthsoft.goit.Java6.Module_02.HomeTask;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+package earthsoft.goit.Java6.Module_02.HomeTask.Drivers;
 
 /**
  * Created by kabysh_ol on 21.06.2017.
