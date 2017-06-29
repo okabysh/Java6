@@ -1,7 +1,7 @@
-package earthsoft.goit.Java6.Module_02.HomeTask.model.jdbc;
+package earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc;
 
 import earthsoft.goit.Java6.Module_02.HomeTask.Ather.*;
-import earthsoft.goit.Java6.Module_02.HomeTask.model.*;
+import earthsoft.goit.Java6.Module_02.HomeTask.Model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class jdbcDeveloperDAO implements IDeveloperDAO {
     SQLQuery sqlQuery = new SQLQuery();
 
     public void create(Developer dev) {
-        String sql = sqlQuery.getQuery("developers", CRUD.CREATE);
+        String sql = sqlQuery.getQuery("developers", CRUD.CREATE, 0);
         try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, dev.getFirstName() + " " + dev.getSurName());
@@ -33,7 +33,7 @@ public class jdbcDeveloperDAO implements IDeveloperDAO {
     public List<Developer> read() {
         List<Developer> developerList = new ArrayList<Developer>();
 
-        String sql = sqlQuery.getQuery("developers", CRUD.READ);
+        String sql = sqlQuery.getQuery("developers", CRUD.READ, 0);
         try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
                 Statement statement = connection.createStatement();
                 ResultSet rs  = statement.executeQuery(sql))
@@ -56,12 +56,8 @@ public class jdbcDeveloperDAO implements IDeveloperDAO {
         return null;
     }
 
-    public void update(Developer developer) {
-
-    }
-
-    public void delete(int id) {
-        String sql = sqlQuery.getQuery("developers", CRUD.DELETE);
+    public void update(Developer dev) {
+        String sql = sqlQuery.getQuery("developers", CRUD.UPDATE, dev.getId());
         try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, dev.getFirstName() + " " + dev.getSurName());
@@ -72,6 +68,16 @@ public class jdbcDeveloperDAO implements IDeveloperDAO {
             ps.setString(6, dev.getPhone());
             ps.setBigDecimal(7, dev.getSalary());
             ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void delete(int id) {
+        String sql = sqlQuery.getQuery("developers", CRUD.DELETE, id);
+        try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
+             Statement statement = connection.createStatement())
+            {statement.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }

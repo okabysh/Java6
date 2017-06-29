@@ -1,4 +1,4 @@
-package earthsoft.goit.Java6.Module_02.HomeTask.model;
+package earthsoft.goit.Java6.Module_02.HomeTask.Model;
 
 import java.util.List;
 
