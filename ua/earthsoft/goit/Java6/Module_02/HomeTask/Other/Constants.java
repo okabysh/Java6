@@ -1,4 +1,4 @@
-package earthsoft.goit.Java6.Module_02.HomeTask.Ather;
+package earthsoft.goit.Java6.Module_02.HomeTask.Other;
 
 /**
  * Created by Oleg Kabysh on 26.06.2017.

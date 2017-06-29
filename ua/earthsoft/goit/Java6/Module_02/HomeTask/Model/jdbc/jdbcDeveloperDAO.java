@@ -1,6 +1,6 @@
 package earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc;
 
-import earthsoft.goit.Java6.Module_02.HomeTask.Ather.*;
+import earthsoft.goit.Java6.Module_02.HomeTask.Other.*;
 import earthsoft.goit.Java6.Module_02.HomeTask.Model.*;
 
 import java.sql.*;
@@ -13,23 +13,18 @@ import java.util.List;
 public class jdbcDeveloperDAO implements IDeveloperDAO {
     SQLQuery sqlQuery = new SQLQuery();
 
+    @Override
     public void create(Developer dev) {
         String sql = sqlQuery.getQuery("developers", CRUD.CREATE, 0);
         try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, dev.getFirstName() + " " + dev.getSurName());
-            ps.setString(2, dev.getFirstName());
-            ps.setString(3, dev.getSurName());
-            ps.setString(4, dev.getIdentificationCode());
-            ps.setDate(5, dev.getBirthday());
-            ps.setString(6, dev.getPhone());
-            ps.setBigDecimal(7, dev.getSalary());
-            ps.executeUpdate();
+            fillStatement(dev, ps);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    @Override
     public List<Developer> read() {
         List<Developer> developerList = new ArrayList<Developer>();
 
@@ -56,23 +51,18 @@ public class jdbcDeveloperDAO implements IDeveloperDAO {
         return null;
     }
 
+    @Override
     public void update(Developer dev) {
         String sql = sqlQuery.getQuery("developers", CRUD.UPDATE, dev.getId());
         try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, dev.getFirstName() + " " + dev.getSurName());
-            ps.setString(2, dev.getFirstName());
-            ps.setString(3, dev.getSurName());
-            ps.setString(4, dev.getIdentificationCode());
-            ps.setDate(5, dev.getBirthday());
-            ps.setString(6, dev.getPhone());
-            ps.setBigDecimal(7, dev.getSalary());
-            ps.executeUpdate();
+            fillStatement(dev, ps);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    @Override
     public void delete(int id) {
         String sql = sqlQuery.getQuery("developers", CRUD.DELETE, id);
         try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
@@ -81,5 +71,16 @@ public class jdbcDeveloperDAO implements IDeveloperDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void fillStatement(Developer dev, PreparedStatement ps) throws SQLException {
+        ps.setString(1, dev.getFirstName() + " " + dev.getSurName());
+        ps.setString(2, dev.getFirstName());
+        ps.setString(3, dev.getSurName());
+        ps.setString(4, dev.getIdentificationCode());
+        ps.setDate(5, dev.getBirthday());
+        ps.setString(6, dev.getPhone());
+        ps.setBigDecimal(7, dev.getSalary());
+        ps.executeUpdate();
     }
 }

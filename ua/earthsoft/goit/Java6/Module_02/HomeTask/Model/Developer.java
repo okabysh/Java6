@@ -12,7 +12,7 @@ public class Developer {
     private String firstName;
     private String surName;
     private String identificationCode;
-    private java.sql.Date birthday;
+    private Date birthday;
     private String phone;
     private BigDecimal salary;
 
@@ -60,7 +60,7 @@ public class Developer {
         return identificationCode;
     }
 
-    public java.sql.Date getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 

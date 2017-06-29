@@ -1,11 +1,14 @@
 package earthsoft.goit.Java6.Module_02.HomeTask;
 
 import earthsoft.goit.Java6.Module_02.HomeTask.Drivers.RegisterDriver;
+import earthsoft.goit.Java6.Module_02.HomeTask.Model.Company;
 import earthsoft.goit.Java6.Module_02.HomeTask.Model.Developer;
-import earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc.jdbcDeveloperDAO;
+import earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc.*;
+import earthsoft.goit.Java6.Module_02.HomeTask.Other.CRUD;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.List;
 
 /**
  * Created by kabysh_ol on 21.06.2017.
@@ -25,8 +28,12 @@ public class Launch {
         // Вопрос пользователю: Введи Имя, Фамилию, ИНН, Дату рождения, телефон, зарплату
         // вносим все что ввели в класс Developer
 
+        String table = "companies"; CRUD crud = CRUD.READ; //test 6
 
         jdbcDeveloperDAO jdbcDeveloperDAO = new jdbcDeveloperDAO();
+        jdbcCompanyDAO jdbcCompanyDAO = new jdbcCompanyDAO();
+
+
 
         // create new developer
 //        Developer developer = new Developer();
@@ -45,18 +52,30 @@ public class Launch {
 //        }
 
         // update developer
-        Developer developer = new Developer();
-        developer.setId(10);
-        developer.setFirstName("Ivan4");
-        developer.setSurName("Tsarevich4");
-        developer.setIdentificationCode("3232323232");
-        developer.setBirthday(Date.valueOf("1990-04-04"));
-        developer.setPhone("+380670001144");
-        developer.setSalary(new BigDecimal("4444.00"));
-        jdbcDeveloperDAO.update(developer);
+//        Developer developer = new Developer();
+//        developer.setId(10);
+//        developer.setFirstName("Ivan4");
+//        developer.setSurName("Tsarevich4");
+//        developer.setIdentificationCode("3232323232");
+//        developer.setBirthday(Date.valueOf("1990-04-04"));
+//        developer.setPhone("+380670001144");
+//        developer.setSalary(new BigDecimal("4444.00"));
+//        jdbcDeveloperDAO.update(developer);
 
         // delete developer
-        jdbcDeveloperDAO.delete(9);
+//        jdbcDeveloperDAO.delete(9);
+
+
+        //test 6
+        if (table == "companies" && crud == CRUD.READ) {
+            // read all companies from companies table
+            List<Company> companyList = jdbcCompanyDAO.read();
+            for (Company company : companyList) {
+                System.out.println(company.toString());
+            }
+        }
+
+
     }
 
 }
