@@ -2,10 +2,12 @@ package earthsoft.goit.Java6.Module_02.HomeTask;
 
 import earthsoft.goit.Java6.Module_02.HomeTask.Drivers.RegisterDriver;
 import earthsoft.goit.Java6.Module_02.HomeTask.Model.Company;
+import earthsoft.goit.Java6.Module_02.HomeTask.Model.Project;
 import earthsoft.goit.Java6.Module_02.HomeTask.Model.Skill;
 import earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc.*;
 import earthsoft.goit.Java6.Module_02.HomeTask.Other.CRUD;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -21,25 +23,26 @@ public class Launch {
             System.exit(1);
         }
 
-        // Вопрос пользователю: хочешь ли ты создать девелопера?
-        // Пользователь, да.
-        // Вопрос пользователю: Введи Имя, Фамилию, ИНН, Дату рождения, телефон, зарплату
-        // вносим все что ввели в класс Developer
-
+        // This is input data for test (uncomment only one row)
         //String table = "companies"; CRUD crud = CRUD.CREATE; //test 5 - OK
         //String table = "companies"; CRUD crud = CRUD.READ; //test 6 - OK
         //String table = "companies"; CRUD crud = CRUD.UPDATE; //test 7 - OK
         //String table = "companies"; CRUD crud = CRUD.DELETE; //test 8 - OK
 
-        String table = "skills"; CRUD crud = CRUD.CREATE; //test 9 - OK
+        //String table = "skills"; CRUD crud = CRUD.CREATE; //test 9 - OK
         //String table = "skills"; CRUD crud = CRUD.READ; //test 10 - OK
         //String table = "skills"; CRUD crud = CRUD.UPDATE; //test 11 - OK
         //String table = "skills"; CRUD crud = CRUD.DELETE; //test 12 - OK
 
+        //String table = "projects"; CRUD crud = CRUD.CREATE; //test 13 - OK
+        String table = "projects"; CRUD crud = CRUD.READ; //test 14 - OK
+        //String table = "projects"; CRUD crud = CRUD.UPDATE; //test 15 - OK
+        //String table = "projects"; CRUD crud = CRUD.DELETE; //test 16 - OK
+
         JdbcDeveloperDAO jdbcDeveloperDAO = new JdbcDeveloperDAO();
         JdbcCompanyDAO jdbcCompanyDAO = new JdbcCompanyDAO();
         JdbcSkillDAO jdbcSkillDAO = new JdbcSkillDAO();
-
+        JdbcProjectDAO jdbcProjectDAO = new JdbcProjectDAO();
 
         // create new developer
 //        Developer developer = new Developer();
@@ -125,6 +128,32 @@ public class Launch {
         } else if (table == "skills" && crud == CRUD.DELETE) {
             //test 12, delete company
             jdbcSkillDAO.delete(13);
+
+        } else if (table == "projects" && crud == CRUD.CREATE) {
+            //test 13, create new project
+            Project project = new Project();
+            project.setName("Migrate to new version Java");
+            project.setCost(BigDecimal.valueOf(79499.99));
+            jdbcProjectDAO.create(project);
+
+        } else if (table == "projects" && crud == CRUD.READ) {
+            //test 14, read all projects from project table
+            List<Project> projectList = jdbcProjectDAO.read();
+            for (Project project : projectList) {
+                System.out.println(project.toString());
+            }
+
+        } else if (table == "projects" && crud == CRUD.UPDATE) {
+            //test 14, update project
+            Project project = new Project();
+            project.setId(12);
+            project.setName("Migrate to new version Java -up");
+            project.setCost(BigDecimal.valueOf(75999.99));
+            jdbcProjectDAO.update(project);
+
+        } else if (table == "projects" && crud == CRUD.DELETE) {
+            //test 16, delete project
+            jdbcProjectDAO.delete(13);
 
         }
 
