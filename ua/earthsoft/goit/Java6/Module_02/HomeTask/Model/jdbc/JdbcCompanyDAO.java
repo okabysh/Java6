@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by Oleg Kabysh on 30.06.2017.
  */
-public class jdbcCompanyDAO implements ICompanyDAO {
+public class JdbcCompanyDAO implements ICompanyDAO {
     SQLQuery sqlQuery = new SQLQuery();
 
     @Override

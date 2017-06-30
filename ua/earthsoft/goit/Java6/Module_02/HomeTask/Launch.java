@@ -2,12 +2,10 @@ package earthsoft.goit.Java6.Module_02.HomeTask;
 
 import earthsoft.goit.Java6.Module_02.HomeTask.Drivers.RegisterDriver;
 import earthsoft.goit.Java6.Module_02.HomeTask.Model.Company;
-import earthsoft.goit.Java6.Module_02.HomeTask.Model.Developer;
+import earthsoft.goit.Java6.Module_02.HomeTask.Model.Skill;
 import earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc.*;
 import earthsoft.goit.Java6.Module_02.HomeTask.Other.CRUD;
 
-import java.math.BigDecimal;
-import java.sql.Date;
 import java.util.List;
 
 /**
@@ -31,11 +29,16 @@ public class Launch {
         //String table = "companies"; CRUD crud = CRUD.CREATE; //test 5 - OK
         //String table = "companies"; CRUD crud = CRUD.READ; //test 6 - OK
         //String table = "companies"; CRUD crud = CRUD.UPDATE; //test 7 - OK
-        String table = "companies"; CRUD crud = CRUD.DELETE; //test 8 - OK
+        //String table = "companies"; CRUD crud = CRUD.DELETE; //test 8 - OK
 
-        jdbcDeveloperDAO jdbcDeveloperDAO = new jdbcDeveloperDAO();
-        jdbcCompanyDAO jdbcCompanyDAO = new jdbcCompanyDAO();
+        String table = "skills"; CRUD crud = CRUD.CREATE; //test 9 - OK
+        //String table = "skills"; CRUD crud = CRUD.READ; //test 10 - OK
+        //String table = "skills"; CRUD crud = CRUD.UPDATE; //test 11 - OK
+        //String table = "skills"; CRUD crud = CRUD.DELETE; //test 12 - OK
 
+        JdbcDeveloperDAO jdbcDeveloperDAO = new JdbcDeveloperDAO();
+        JdbcCompanyDAO jdbcCompanyDAO = new JdbcCompanyDAO();
+        JdbcSkillDAO jdbcSkillDAO = new JdbcSkillDAO();
 
 
         // create new developer
@@ -46,10 +49,10 @@ public class Launch {
 //        developer.setBirthday(Date.valueOf("1990-01-01"));
 //        developer.setPhone("+380670001122");
 //        developer.setSalary(new BigDecimal("1500.00"));
-        //jdbcDeveloperDAO.create(developer);
+        //JdbcDeveloperDAO.create(developer);
 
         // read all developers from developers table
-//        List<Developer> developerList = jdbcDeveloperDAO.read();
+//        List<Developer> developerList = JdbcDeveloperDAO.read();
 //        for (Developer dev:developerList) {
 //            System.out.println(dev.toString());
 //        }
@@ -63,10 +66,10 @@ public class Launch {
 //        developer.setBirthday(Date.valueOf("1990-04-04"));
 //        developer.setPhone("+380670001144");
 //        developer.setSalary(new BigDecimal("4444.00"));
-//        jdbcDeveloperDAO.update(developer);
+//        JdbcDeveloperDAO.update(developer);
 
         // delete developer
-//        jdbcDeveloperDAO.delete(9);
+//        JdbcDeveloperDAO.delete(9);
 
 
         if (table == "companies" && crud == CRUD.CREATE) {
@@ -98,6 +101,30 @@ public class Launch {
         } else if (table == "companies" && crud == CRUD.DELETE) {
             //test 8, delete company
             jdbcCompanyDAO.delete(3);
+
+        } else if (table == "skills" && crud == CRUD.CREATE) {
+            //test 9, create new skill
+            Skill skill = new Skill();
+            skill.setName("noSQL");
+            jdbcSkillDAO.create(skill);
+
+        } else if (table == "skills" && crud == CRUD.READ) {
+            //test 10, read all skills from skills table
+            List<Skill> skillList = jdbcSkillDAO.read();
+            for (Skill skill : skillList) {
+                System.out.println(skill.toString());
+            }
+
+        } else if (table == "skills" && crud == CRUD.UPDATE) {
+            //test 11, update skill
+            Skill skill = new Skill();
+            skill.setId(13);
+            skill.setName("noSQL -up");
+            jdbcSkillDAO.update(skill);
+
+        } else if (table == "skills" && crud == CRUD.DELETE) {
+            //test 12, delete company
+            jdbcSkillDAO.delete(13);
 
         }
 

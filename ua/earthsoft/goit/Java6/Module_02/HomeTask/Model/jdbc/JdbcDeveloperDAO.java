@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by kabysh_ol on 21.06.2017.
  */
-public class jdbcDeveloperDAO implements IDeveloperDAO {
+public class JdbcDeveloperDAO implements IDeveloperDAO {
     SQLQuery sqlQuery = new SQLQuery();
 
     @Override

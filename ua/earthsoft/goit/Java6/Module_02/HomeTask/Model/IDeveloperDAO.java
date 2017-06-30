@@ -14,4 +14,5 @@ public interface IDeveloperDAO {
     public void update(Developer developer);
 
     public void delete(int id);
+
 }
