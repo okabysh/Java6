@@ -28,7 +28,10 @@ public class Launch {
         // Вопрос пользователю: Введи Имя, Фамилию, ИНН, Дату рождения, телефон, зарплату
         // вносим все что ввели в класс Developer
 
-        String table = "companies"; CRUD crud = CRUD.READ; //test 6
+        //String table = "companies"; CRUD crud = CRUD.CREATE; //test 5 - OK
+        //String table = "companies"; CRUD crud = CRUD.READ; //test 6 - OK
+        //String table = "companies"; CRUD crud = CRUD.UPDATE; //test 7 - OK
+        String table = "companies"; CRUD crud = CRUD.DELETE; //test 8 - OK
 
         jdbcDeveloperDAO jdbcDeveloperDAO = new jdbcDeveloperDAO();
         jdbcCompanyDAO jdbcCompanyDAO = new jdbcCompanyDAO();
@@ -66,13 +69,36 @@ public class Launch {
 //        jdbcDeveloperDAO.delete(9);
 
 
-        //test 6
-        if (table == "companies" && crud == CRUD.READ) {
-            // read all companies from companies table
+        if (table == "companies" && crud == CRUD.CREATE) {
+            //test 5, create new company
+            Company company = new Company();
+            company.setName("EarthSoft LVIV");
+            company.setFullName("EarthSoft LVIV Ltd.");
+            company.setCity("LVIV");
+            company.setIdentificationCode("05565846");
+            jdbcCompanyDAO.create(company);
+
+        } else if (table == "companies" && crud == CRUD.READ) {
+            //test 6, read all companies from companies table
             List<Company> companyList = jdbcCompanyDAO.read();
             for (Company company : companyList) {
                 System.out.println(company.toString());
             }
+
+        } else if (table == "companies" && crud == CRUD.UPDATE) {
+            //test 7, update company
+            Company company = new Company();
+            company.setId(3);
+            company.setName("EarthSoft LVIV -up");
+            company.setFullName("EarthSoft LVIV Ltd. -up");
+            company.setCity("LVIV-up");
+            company.setIdentificationCode("05565846-up");
+            jdbcCompanyDAO.update(company);
+
+        } else if (table == "companies" && crud == CRUD.DELETE) {
+            //test 8, delete company
+            jdbcCompanyDAO.delete(3);
+
         }
 
 
