@@ -1,7 +1,7 @@
 package earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc;
 
-import earthsoft.goit.Java6.Module_02.HomeTask.Model.IProjectDAO;
-import earthsoft.goit.Java6.Module_02.HomeTask.Model.Project;
+import earthsoft.goit.Java6.Module_02.HomeTask.Model.Customer;
+import earthsoft.goit.Java6.Module_02.HomeTask.Model.ICustomerDAO;
 import earthsoft.goit.Java6.Module_02.HomeTask.Other.CRUD;
 import earthsoft.goit.Java6.Module_02.HomeTask.Other.Constants;
 import earthsoft.goit.Java6.Module_02.HomeTask.Other.SQLQuery;
@@ -11,39 +11,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by kabysh_ol on 30.06.2017.
+ * Created by Oleg Kabysh on 02.07.2017.
  */
-public class JdbcProjectDAO implements IProjectDAO {
+public class JdbcCustomerDAO implements ICustomerDAO{
     SQLQuery sqlQuery = new SQLQuery();
 
     @Override
-    public void create(Project project) {
-        String sql = sqlQuery.getQuery("projects", CRUD.CREATE, 0);
+    public void create(Customer customer) {
+        String sql = sqlQuery.getQuery("customers", CRUD.CREATE, 0);
         try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql)) {
-            fillStatement(project, ps);
+            fillStatement(customer, ps);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public List<Project> read() {
-        List<Project> projectList = new ArrayList<Project>();
+    public List<Customer> read() {
+        List<Customer> customerList = new ArrayList<Customer>();
 
-        String sql = sqlQuery.getQuery("projects", CRUD.READ, 0);
+        String sql = sqlQuery.getQuery("customers", CRUD.READ, 0);
         try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
              Statement statement = connection.createStatement();
              ResultSet rs  = statement.executeQuery(sql))
         {
             while (rs.next()) {
-                Project project = new Project();
-                project.setId(rs.getInt("id"));
-                project.setName(rs.getString("name"));
-                project.setCost(rs.getBigDecimal("cost"));
-                projectList.add(project);
+                Customer customer = new Customer();
+                customer.setId(rs.getInt("id"));
+                customer.setName(rs.getString("name"));
+                customer.setIdentificationCode(rs.getString("identificationCode"));
+                customer.setPhone(rs.getString("phone"));
+                customerList.add(customer);
             }
-            return projectList;
+            return customerList;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -51,11 +52,11 @@ public class JdbcProjectDAO implements IProjectDAO {
     }
 
     @Override
-    public void update(Project project) {
-        String sql = sqlQuery.getQuery("projects", CRUD.UPDATE, project.getId());
+    public void update(Customer customer) {
+        String sql = sqlQuery.getQuery("customers", CRUD.UPDATE, customer.getId());
         try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql)) {
-            fillStatement(project, ps);
+            fillStatement(customer, ps);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -63,7 +64,7 @@ public class JdbcProjectDAO implements IProjectDAO {
 
     @Override
     public void delete(int id) {
-        String sql = sqlQuery.getQuery("projects", CRUD.DELETE, id);
+        String sql = sqlQuery.getQuery("customers", CRUD.DELETE, id);
         try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
              Statement statement = connection.createStatement())
         {statement.executeUpdate(sql);
@@ -72,9 +73,10 @@ public class JdbcProjectDAO implements IProjectDAO {
         }
     }
 
-    private void fillStatement(Project project, PreparedStatement ps) throws SQLException {
-        ps.setString(1, project.getName());
-        ps.setBigDecimal(2, project.getCost());
+    private void fillStatement(Customer customer, PreparedStatement ps) throws SQLException {
+        ps.setString(1, customer.getName());
+        ps.setString(2, customer.getIdentificationCode());
+        ps.setString(3, customer.getPhone());
         ps.executeUpdate();
     }
 }

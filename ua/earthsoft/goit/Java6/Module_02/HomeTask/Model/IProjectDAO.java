@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by kabysh_ol on 30.06.2017.
  */
-public interface IProject {
+public interface IProjectDAO {
 
     public void create(Project project);
 

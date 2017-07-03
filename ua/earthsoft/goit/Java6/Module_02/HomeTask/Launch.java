@@ -2,6 +2,7 @@ package earthsoft.goit.Java6.Module_02.HomeTask;
 
 import earthsoft.goit.Java6.Module_02.HomeTask.Drivers.RegisterDriver;
 import earthsoft.goit.Java6.Module_02.HomeTask.Model.Company;
+import earthsoft.goit.Java6.Module_02.HomeTask.Model.Customer;
 import earthsoft.goit.Java6.Module_02.HomeTask.Model.Project;
 import earthsoft.goit.Java6.Module_02.HomeTask.Model.Skill;
 import earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc.*;
@@ -35,14 +36,20 @@ public class Launch {
         //String table = "skills"; CRUD crud = CRUD.DELETE; //test 12 - OK
 
         //String table = "projects"; CRUD crud = CRUD.CREATE; //test 13 - OK
-        String table = "projects"; CRUD crud = CRUD.READ; //test 14 - OK
+        //String table = "projects"; CRUD crud = CRUD.READ; //test 14 - OK
         //String table = "projects"; CRUD crud = CRUD.UPDATE; //test 15 - OK
         //String table = "projects"; CRUD crud = CRUD.DELETE; //test 16 - OK
+
+        //String table = "customers"; CRUD crud = CRUD.CREATE; //test 17 - OK
+        String table = "customers"; CRUD crud = CRUD.READ; //test 18 - OK
+        //String table = "customers"; CRUD crud = CRUD.UPDATE; //test 19 - OK
+        //String table = "customers"; CRUD crud = CRUD.DELETE; //test 20 - OK
 
         JdbcDeveloperDAO jdbcDeveloperDAO = new JdbcDeveloperDAO();
         JdbcCompanyDAO jdbcCompanyDAO = new JdbcCompanyDAO();
         JdbcSkillDAO jdbcSkillDAO = new JdbcSkillDAO();
         JdbcProjectDAO jdbcProjectDAO = new JdbcProjectDAO();
+        JdbcCustomerDAO jdbcCustomerDAO = new JdbcCustomerDAO();
 
         // create new developer
 //        Developer developer = new Developer();
@@ -154,6 +161,34 @@ public class Launch {
         } else if (table == "projects" && crud == CRUD.DELETE) {
             //test 16, delete project
             jdbcProjectDAO.delete(13);
+
+        } else if (table == "customers" && crud == CRUD.CREATE) {
+            //test 17, create new customer
+            Customer customer = new Customer();
+            customer.setName("Migrate to new version Java");
+            customer.setIdentificationCode("Migrate to new version Java");
+            customer.setPhone("Migrate to new version Java");
+            jdbcCustomerDAO.create(customer);
+
+        } else if (table == "customers" && crud == CRUD.READ) {
+            //test 18, read all customers from customer table
+            List<Customer> customerList = jdbcCustomerDAO.read();
+            for (Customer customer : customerList) {
+                System.out.println(customer.toString());
+            }
+
+        } else if (table == "customers" && crud == CRUD.UPDATE) {
+            //test 19, update customer
+            Customer customer = new Customer();
+            customer.setId(12);
+            customer.setName("Migrate to new version Java -up");
+            customer.setIdentificationCode("Migrate to new version Java -up");
+            customer.setPhone("Migrate to new version Java -up");
+            jdbcCustomerDAO.update(customer);
+
+        } else if (table == "customers" && crud == CRUD.DELETE) {
+            //test 20, delete customer
+            jdbcCustomerDAO.delete(13);
 
         }
 

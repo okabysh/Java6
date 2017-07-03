@@ -25,6 +25,9 @@ public class SQLQuery {
             } else if (tableName == "projects") {
                 CreateColumnsNames = "(name, cost)";
                 CreateColumnsValues = "(?, ?)";
+            } else if (tableName == "customers") {
+                CreateColumnsNames = "(name, identificationCode, phone)";
+                CreateColumnsValues = "(?, ?, ?)";
             }
             sql = sql.replace("[COLUMNS]", CreateColumnsNames);
             sql = sql.replace("[VALUES]", CreateColumnsValues);
@@ -42,6 +45,8 @@ public class SQLQuery {
                 UpdateColumnsNames = "name=?";
             } else if (tableName == "projects") {
                 UpdateColumnsNames = "name=?, cost=?";
+            } else if (tableName == "customers") {
+                UpdateColumnsNames = "name=?, identificationCode=?, phone=?";
             }
             sql = "UPDATE [TABLE] SET [COLUMNS] WHERE id = [ID]";
             sql = sql.replace("[TABLE]",tableName);
