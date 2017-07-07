@@ -14,11 +14,11 @@ public class JdbcDeveloperDAO implements IDeveloperDAO {
     SQLQuery sqlQuery = new SQLQuery();
 
     @Override
-    public void create(Developer dev) {
+    public void create(Developer developer) {
         String sql = sqlQuery.getQuery("developers", CRUD.CREATE, 0);
         try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql)) {
-            fillStatement(dev, ps);
+            fillStatement(developer, ps);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -52,11 +52,11 @@ public class JdbcDeveloperDAO implements IDeveloperDAO {
     }
 
     @Override
-    public void update(Developer dev) {
-        String sql = sqlQuery.getQuery("developers", CRUD.UPDATE, dev.getId());
+    public void update(Developer developer) {
+        String sql = sqlQuery.getQuery("developers", CRUD.UPDATE, developer.getId());
         try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql)) {
-            fillStatement(dev, ps);
+            fillStatement(developer, ps);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -71,6 +71,33 @@ public class JdbcDeveloperDAO implements IDeveloperDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void addSkill(Skill skill) {
+
+    }
+
+    @Override
+    public List<Skill> getSkills(int developerId) {
+        List<Skill> skillList = new ArrayList<>();
+        String sql = SQLQuery.GET_SKILLS_BY_DEVELOPER;
+        JdbcSkillDAO jdbcSkillDAO = new JdbcSkillDAO();
+
+        try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
+             PreparedStatement ps = connection.prepareStatement(sql))
+             //   Statement ps = connection.createStatement();)
+        { ps.setInt(1, developerId);
+            ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Skill skill = new Skill();
+                    skillList.add(jdbcSkillDAO.getById(rs.getInt("skill")));
+                }
+            return skillList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private void fillStatement(Developer dev, PreparedStatement ps) throws SQLException {

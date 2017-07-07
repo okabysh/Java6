@@ -71,6 +71,26 @@ public class JdbcSkillDAO implements ISkillDAO {
         }
     }
 
+    @Override
+    public Skill getById(int id) {
+        String sql = SQLQuery.GET_SKILL_BY_ID;
+
+        try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
+             PreparedStatement ps = connection.prepareStatement(sql))
+        { ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Skill skill = new Skill();
+                skill.setId(rs.getInt("id"));
+                skill.setName(rs.getString("name"));
+                return skill;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private void fillStatement(Skill skill, PreparedStatement ps) throws SQLException {
         ps.setString(1, skill.getName());
         ps.executeUpdate();

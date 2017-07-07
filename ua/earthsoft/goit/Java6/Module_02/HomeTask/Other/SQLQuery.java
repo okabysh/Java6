@@ -4,6 +4,9 @@ package earthsoft.goit.Java6.Module_02.HomeTask.Other;
  * Created by Oleg Kabysh on 28.06.2017.
  */
 public class SQLQuery {
+    public static final String GET_SKILL_BY_ID = "SELECT * FROM skills WHERE id = ?";
+    public static final String GET_SKILLS_BY_DEVELOPER = "SELECT skill FROM mtm_developer_skill WHERE developer = ?";
+
     public String getQuery(String tableName, CRUD crud, int id) {
         String sql = "";
         String CreateColumnsNames = "";

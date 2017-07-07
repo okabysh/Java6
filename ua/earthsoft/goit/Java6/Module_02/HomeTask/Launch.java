@@ -1,12 +1,10 @@
 package earthsoft.goit.Java6.Module_02.HomeTask;
 
 import earthsoft.goit.Java6.Module_02.HomeTask.Drivers.RegisterDriver;
-import earthsoft.goit.Java6.Module_02.HomeTask.Model.Company;
-import earthsoft.goit.Java6.Module_02.HomeTask.Model.Customer;
-import earthsoft.goit.Java6.Module_02.HomeTask.Model.Project;
-import earthsoft.goit.Java6.Module_02.HomeTask.Model.Skill;
+import earthsoft.goit.Java6.Module_02.HomeTask.Model.*;
 import earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc.*;
 import earthsoft.goit.Java6.Module_02.HomeTask.Other.CRUD;
+import earthsoft.goit.Java6.Module_02.HomeTask.Other.SQLQuery;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -44,6 +42,8 @@ public class Launch {
         String table = "customers"; CRUD crud = CRUD.READ; //test 18 - OK
         //String table = "customers"; CRUD crud = CRUD.UPDATE; //test 19 - OK
         //String table = "customers"; CRUD crud = CRUD.DELETE; //test 20 - OK
+
+        String typeQuery = SQLQuery.GET_SKILLS_BY_DEVELOPER;
 
         JdbcDeveloperDAO jdbcDeveloperDAO = new JdbcDeveloperDAO();
         JdbcCompanyDAO jdbcCompanyDAO = new JdbcCompanyDAO();
@@ -192,6 +192,12 @@ public class Launch {
 
         }
 
+        if (typeQuery == SQLQuery.GET_SKILLS_BY_DEVELOPER) {
+            List<Skill> skillList = jdbcDeveloperDAO.getSkills(1);
+            for (Skill skill : skillList) {
+                System.out.println(skill.toString());
+            }
+        }
 
     }
 

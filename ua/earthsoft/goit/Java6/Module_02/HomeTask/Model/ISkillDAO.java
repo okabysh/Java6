@@ -15,4 +15,6 @@ public interface ISkillDAO {
 
     public void delete(int id);
 
+    public Skill getById(int id);
+
 }
