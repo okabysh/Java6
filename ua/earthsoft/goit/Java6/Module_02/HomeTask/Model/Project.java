@@ -1,4 +1,4 @@
-package earthsoft.goit.Java6.Module_02.HomeTask.Model;
+package ua.earthsoft.goit.Java6.Module_02.HomeTask.Model;
 
 import java.math.BigDecimal;
 

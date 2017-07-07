@@ -1,4 +1,4 @@
-package earthsoft.goit.Java6.Module_02.test;
+package ua.earthsoft.goit.Java6.Module_02.test;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

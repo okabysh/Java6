@@ -1,7 +1,7 @@
-package earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc;
+package ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc;
 
-import earthsoft.goit.Java6.Module_02.HomeTask.Other.*;
-import earthsoft.goit.Java6.Module_02.HomeTask.Model.*;
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Other.*;
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.*;
 
 import java.sql.*;
 import java.util.ArrayList;

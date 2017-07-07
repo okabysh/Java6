@@ -1,10 +1,10 @@
-package earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc;
+package ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc;
 
-import earthsoft.goit.Java6.Module_02.HomeTask.Model.IProjectDAO;
-import earthsoft.goit.Java6.Module_02.HomeTask.Model.Project;
-import earthsoft.goit.Java6.Module_02.HomeTask.Other.CRUD;
-import earthsoft.goit.Java6.Module_02.HomeTask.Other.Constants;
-import earthsoft.goit.Java6.Module_02.HomeTask.Other.SQLQuery;
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.IProjectDAO;
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.Project;
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Other.CRUD;
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Other.Constants;
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Other.SQLQuery;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package earthsoft.goit.Java6.Module_02.Mrachkovskiy;
+package ua.earthsoft.goit.Java6.Module_02.Mrachkovskiy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
