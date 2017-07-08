@@ -1,10 +1,10 @@
-package earthsoft.goit.Java6.Module_02.HomeTask;
+package ua.earthsoft.goit.Java6.Module_02.HomeTask;
 
-import earthsoft.goit.Java6.Module_02.HomeTask.Drivers.RegisterDriver;
-import earthsoft.goit.Java6.Module_02.HomeTask.Model.*;
-import earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc.*;
-import earthsoft.goit.Java6.Module_02.HomeTask.Other.CRUD;
-import earthsoft.goit.Java6.Module_02.HomeTask.Other.SQLQuery;
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Drivers.RegisterDriver;
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.*;
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc.*;
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Other.CRUD;
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Other.SQLQuery;
 
 import java.math.BigDecimal;
 import java.util.List;
