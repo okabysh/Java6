@@ -1,4 +1,4 @@
-package earthsoft.goit.Java6.Module_02.HomeTask.Model;
+package ua.earthsoft.goit.Java6.Module_02.HomeTask.Model;
 
 /**
  * Created by Oleg Kabysh on 30.06.2017.
