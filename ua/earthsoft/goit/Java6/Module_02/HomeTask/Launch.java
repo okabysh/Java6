@@ -43,7 +43,8 @@ public class Launch {
         //String table = "customers"; CRUD crud = CRUD.UPDATE; //test 19 - OK
         //String table = "customers"; CRUD crud = CRUD.DELETE; //test 20 - OK
 
-        String typeQuery = SQLQuery.GET_SKILLS_BY_DEVELOPER;
+        //String typeQuery = SQLQuery.GET_SKILLS_BY_DEVELOPER;
+        String typeQuery = SQLQuery.GET_CUSTOMERS_BY_COMPANY;
 
         JdbcDeveloperDAO jdbcDeveloperDAO = new JdbcDeveloperDAO();
         JdbcCompanyDAO jdbcCompanyDAO = new JdbcCompanyDAO();
@@ -196,6 +197,11 @@ public class Launch {
             List<Skill> skillList = jdbcDeveloperDAO.getSkills(1);
             for (Skill skill : skillList) {
                 System.out.println(skill.toString());
+            }
+        } else if (typeQuery == SQLQuery.GET_CUSTOMERS_BY_COMPANY) {
+            List<Customer> customerList = jdbcCompanyDAO.getCustomers(1);
+            for (Customer customer : customerList) {
+                System.out.println(customer.toString());
             }
         }
 

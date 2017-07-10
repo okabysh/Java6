@@ -2,6 +2,7 @@ package ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc;
 
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.Customer;
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.ICustomerDAO;
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.Skill;
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Other.CRUD;
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Other.Constants;
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Other.SQLQuery;
@@ -71,6 +72,28 @@ public class JdbcCustomerDAO implements ICustomerDAO{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Customer getById(int id) {
+        String sql = SQLQuery.GET_CUSTOMER_BY_ID;
+
+        try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
+             PreparedStatement ps = connection.prepareStatement(sql))
+        { ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Customer customer = new Customer();
+                customer.setId(rs.getInt("id"));
+                customer.setName(rs.getString("name"));
+                customer.setIdentificationCode(rs.getString("identificationCode"));
+                customer.setPhone(rs.getString("phone"));
+                return customer;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private void fillStatement(Customer customer, PreparedStatement ps) throws SQLException {

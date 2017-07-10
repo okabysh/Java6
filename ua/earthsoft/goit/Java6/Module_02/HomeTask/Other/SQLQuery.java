@@ -6,6 +6,8 @@ package ua.earthsoft.goit.Java6.Module_02.HomeTask.Other;
 public class SQLQuery {
     public static final String GET_SKILL_BY_ID = "SELECT * FROM skills WHERE id = ?";
     public static final String GET_SKILLS_BY_DEVELOPER = "SELECT skill FROM mtm_developer_skill WHERE developer = ?";
+    public static final String GET_CUSTOMER_BY_ID = "SELECT * FROM customers WHERE id = ?";
+    public static final String GET_CUSTOMERS_BY_COMPANY = "SELECT customer FROM mtm_company_customer WHERE company = ?";
 
     public String getQuery(String tableName, CRUD crud, int id) {
         String sql = "";

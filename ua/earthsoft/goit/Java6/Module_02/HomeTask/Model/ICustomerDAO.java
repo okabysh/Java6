@@ -14,4 +14,6 @@ public interface ICustomerDAO {
     public void update(Customer customer);
 
     public void delete(int id);
+
+    public Customer getById(int id);
 }

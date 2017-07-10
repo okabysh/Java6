@@ -15,4 +15,5 @@ public interface ICompanyDAO {
 
     public void delete(int id);
 
+    public List<Customer> getCustomers(int companyId);
 }

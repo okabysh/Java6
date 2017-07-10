@@ -1,7 +1,9 @@
 package ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc;
 
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.Company;
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.Customer;
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.ICompanyDAO;
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.Skill;
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Other.CRUD;
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Other.Constants;
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Other.SQLQuery;
@@ -21,7 +23,10 @@ public class JdbcCompanyDAO implements ICompanyDAO {
         String sql = sqlQuery.getQuery("companies", CRUD.CREATE, 0);
         try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql)) {
+            connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            connection.setAutoCommit(false);
             fillStatement(company, ps);
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,6 +77,26 @@ public class JdbcCompanyDAO implements ICompanyDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public List<Customer> getCustomers(int companyId) {
+        List<Customer> customerList = new ArrayList<>();
+        String sql = SQLQuery.GET_CUSTOMERS_BY_COMPANY;
+        JdbcCustomerDAO jdbcCustomerDAO = new JdbcCustomerDAO();
+
+        try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
+             PreparedStatement ps = connection.prepareStatement(sql))
+        { ps.setInt(1, companyId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                customerList.add(jdbcCustomerDAO.getById(rs.getInt("customer")));
+            }
+            return customerList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private void fillStatement(Company company, PreparedStatement ps) throws SQLException {
