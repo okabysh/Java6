@@ -16,4 +16,9 @@ public interface ICustomerDAO {
     public void delete(int id);
 
     public Customer getById(int id);
+
+    public List<Project> getProjects(int projectId);
+
+    public List<Developer> getDevelopers(int customerId);
+
 }

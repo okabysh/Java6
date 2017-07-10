@@ -1,5 +1,7 @@
 package ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc;
 
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.Customer;
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.Developer;
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.IProjectDAO;
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.Project;
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Other.CRUD;
@@ -70,6 +72,47 @@ public class JdbcProjectDAO implements IProjectDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Project getById(int id) {
+        String sql = SQLQuery.GET_PROJECT_BY_ID;
+
+        try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
+             PreparedStatement ps = connection.prepareStatement(sql))
+        { ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Project project = new Project();
+                project.setId(rs.getInt("id"));
+                project.setName(rs.getString("name"));
+                project.setCost(rs.getBigDecimal("cost"));
+                return project;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Developer> getDevelopers(int projectId) {
+        List<Developer> developerList = new ArrayList<>();
+        String sql = SQLQuery.GET_DEVELOPERS_BY_PROJECT;
+        JdbcDeveloperDAO jdbcDeveloperDAO = new JdbcDeveloperDAO();
+
+        try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
+             PreparedStatement ps = connection.prepareStatement(sql))
+        { ps.setInt(1, projectId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                developerList.add(jdbcDeveloperDAO.getById(rs.getInt("developer")));
+            }
+            return developerList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private void fillStatement(Project project, PreparedStatement ps) throws SQLException {

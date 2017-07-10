@@ -14,4 +14,9 @@ public interface IProjectDAO {
     public void update(Project project);
 
     public void delete(int id);
+
+    public Project getById(int id);
+
+    public List<Developer> getDevelopers(int id);
+
 }

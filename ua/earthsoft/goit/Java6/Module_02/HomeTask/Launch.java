@@ -23,6 +23,8 @@ public class Launch {
         }
 
         // This is input data for test (uncomment only one row)
+        String table = ""; CRUD crud = CRUD.READ; //Empty
+
         //String table = "companies"; CRUD crud = CRUD.CREATE; //test 5 - OK
         //String table = "companies"; CRUD crud = CRUD.READ; //test 6 - OK
         //String table = "companies"; CRUD crud = CRUD.UPDATE; //test 7 - OK
@@ -39,12 +41,15 @@ public class Launch {
         //String table = "projects"; CRUD crud = CRUD.DELETE; //test 16 - OK
 
         //String table = "customers"; CRUD crud = CRUD.CREATE; //test 17 - OK
-        String table = "customers"; CRUD crud = CRUD.READ; //test 18 - OK
+        //String table = "customers"; CRUD crud = CRUD.READ; //test 18 - OK
         //String table = "customers"; CRUD crud = CRUD.UPDATE; //test 19 - OK
         //String table = "customers"; CRUD crud = CRUD.DELETE; //test 20 - OK
 
         //String typeQuery = SQLQuery.GET_SKILLS_BY_DEVELOPER;
-        String typeQuery = SQLQuery.GET_CUSTOMERS_BY_COMPANY;
+        //String typeQuery = SQLQuery.GET_CUSTOMERS_BY_COMPANY;
+        //String typeQuery = SQLQuery.GET_PROJECTS_BY_CUSTOMER;
+        //String typeQuery = SQLQuery.GET_DEVELOPERS_BY_PROJECT;
+        String typeQuery = SQLQuery.GET_DEVELOPERS_BY_CUSTOMER;
 
         JdbcDeveloperDAO jdbcDeveloperDAO = new JdbcDeveloperDAO();
         JdbcCompanyDAO jdbcCompanyDAO = new JdbcCompanyDAO();
@@ -82,8 +87,9 @@ public class Launch {
         // delete developer
 //        JdbcDeveloperDAO.delete(9);
 
+        if (table == "") {
 
-        if (table == "companies" && crud == CRUD.CREATE) {
+        } else if (table == "companies" && crud == CRUD.CREATE) {
             //test 5, create new company
             Company company = new Company();
             company.setName("EarthSoft LVIV");
@@ -199,9 +205,24 @@ public class Launch {
                 System.out.println(skill.toString());
             }
         } else if (typeQuery == SQLQuery.GET_CUSTOMERS_BY_COMPANY) {
-            List<Customer> customerList = jdbcCompanyDAO.getCustomers(1);
+            List<Customer> customerList = jdbcCompanyDAO.getCustomers(2);
             for (Customer customer : customerList) {
                 System.out.println(customer.toString());
+            }
+        } else if (typeQuery == SQLQuery.GET_PROJECTS_BY_CUSTOMER) {
+            List<Project> projectList = jdbcCustomerDAO.getProjects(1);
+            for (Project project : projectList) {
+                System.out.println(project.toString());
+            }
+        } else if (typeQuery == SQLQuery.GET_DEVELOPERS_BY_PROJECT) {
+            List<Developer> developerList = jdbcProjectDAO.getDevelopers(1);
+            for (Developer developer : developerList) {
+                System.out.println(developer.toString());
+            }
+        } else if (typeQuery == SQLQuery.GET_DEVELOPERS_BY_CUSTOMER) {
+            List<Developer> developerList = jdbcCustomerDAO.getDevelopers(1);
+            for (Developer developer : developerList) {
+                System.out.println(developer.toString());
             }
         }
 

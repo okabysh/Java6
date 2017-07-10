@@ -74,6 +74,31 @@ public class JdbcDeveloperDAO implements IDeveloperDAO {
     }
 
     @Override
+    public Developer getById(int id) {
+        String sql = SQLQuery.GET_DEVELOPER_BY_ID;
+
+        try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
+             PreparedStatement ps = connection.prepareStatement(sql))
+        { ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Developer developer = new Developer();
+                developer.setId(rs.getInt("id"));
+                developer.setFirstName(rs.getString("firstName"));
+                developer.setSurName(rs.getString("surName"));
+                developer.setIdentificationCode(rs.getString("identificationCode"));
+                developer.setBirthday(rs.getDate("birthday"));
+                developer.setPhone(rs.getString("phone"));
+                developer.setSalary(rs.getBigDecimal("salary"));
+                return developer;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public void addSkill(Skill skill) {
 
     }

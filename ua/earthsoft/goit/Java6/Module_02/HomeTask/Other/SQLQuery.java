@@ -8,6 +8,11 @@ public class SQLQuery {
     public static final String GET_SKILLS_BY_DEVELOPER = "SELECT skill FROM mtm_developer_skill WHERE developer = ?";
     public static final String GET_CUSTOMER_BY_ID = "SELECT * FROM customers WHERE id = ?";
     public static final String GET_CUSTOMERS_BY_COMPANY = "SELECT customer FROM mtm_company_customer WHERE company = ?";
+    public static final String GET_PROJECT_BY_ID = "SELECT * FROM projects WHERE id = ?";
+    public static final String GET_PROJECTS_BY_CUSTOMER = "SELECT project FROM mtm_customer_project WHERE customer = ?";
+    public static final String GET_DEVELOPER_BY_ID = "SELECT * FROM developers WHERE id = ?";
+    public static final String GET_DEVELOPERS_BY_CUSTOMER = "SELECT developer FROM mtm_customer_project_developer WHERE customer = ? GROUP BY developer";
+    public static final String GET_DEVELOPERS_BY_PROJECT = "SELECT developer FROM mtm_customer_project_developer WHERE project = ? GROUP BY developer";
 
     public String getQuery(String tableName, CRUD crud, int id) {
         String sql = "";

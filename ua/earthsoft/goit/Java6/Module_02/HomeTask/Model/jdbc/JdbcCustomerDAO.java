@@ -1,8 +1,6 @@
 package ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc;
 
-import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.Customer;
-import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.ICustomerDAO;
-import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.Skill;
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.*;
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Other.CRUD;
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Other.Constants;
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Other.SQLQuery;
@@ -90,6 +88,46 @@ public class JdbcCustomerDAO implements ICustomerDAO{
                 customer.setPhone(rs.getString("phone"));
                 return customer;
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Project> getProjects(int projectId) {
+        List<Project> projectList = new ArrayList<>();
+        String sql = SQLQuery.GET_PROJECTS_BY_CUSTOMER;
+        JdbcProjectDAO jdbcProjectDAO = new JdbcProjectDAO();
+
+        try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
+             PreparedStatement ps = connection.prepareStatement(sql))
+        { ps.setInt(1, projectId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                projectList.add(jdbcProjectDAO.getById(rs.getInt("project")));
+            }
+            return projectList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Developer> getDevelopers(int customerId) {
+        List<Developer> developerList = new ArrayList<>();
+        String sql = SQLQuery.GET_DEVELOPERS_BY_CUSTOMER;
+        JdbcDeveloperDAO jdbcDeveloperDAO = new JdbcDeveloperDAO();
+
+        try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
+             PreparedStatement ps = connection.prepareStatement(sql))
+        { ps.setInt(1, customerId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                developerList.add(jdbcDeveloperDAO.getById(rs.getInt("developer")));
+            }
+            return developerList;
         } catch (SQLException e) {
             e.printStackTrace();
         }
