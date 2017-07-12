@@ -99,12 +99,7 @@ public class JdbcDeveloperDAO implements IDeveloperDAO {
     }
 
     @Override
-    public void addSkill(Skill skill) {
-
-    }
-
-    @Override
-    public List<Skill> getSkills(int developerId) {
+    public List<Skill> getSkillsByDeveloper(int developerId) {
         List<Skill> skillList = new ArrayList<>();
         String sql = SQLQuery.GET_SKILLS_BY_DEVELOPER;
         JdbcSkillDAO jdbcSkillDAO = new JdbcSkillDAO();
@@ -123,6 +118,32 @@ public class JdbcDeveloperDAO implements IDeveloperDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public void addSkillByDeveloper(int developerId, int skillId) {
+        String sql = SQLQuery.ADD_SKILL_BY_DEVELOPER;
+        try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
+             PreparedStatement ps = connection.prepareStatement(sql))
+        { ps.setInt(1, developerId);
+            ps.setInt(2, skillId);
+            ResultSet rs = ps.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteSkillByDeveloper(int developerId, int skillId) {
+        String sql = SQLQuery.DELETE_SKILL_BY_DEVELOPER;
+        try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
+             PreparedStatement ps = connection.prepareStatement(sql))
+        { ps.setInt(1, developerId);
+            ps.setInt(2, skillId);
+            ResultSet rs = ps.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void fillStatement(Developer dev, PreparedStatement ps) throws SQLException {

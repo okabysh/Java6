@@ -17,8 +17,10 @@ public interface IDeveloperDAO {
 
     public Developer getById(int id);
 
-    public void addSkill(Skill skill);
+    public void addSkillByDeveloper(int developerId, int skillId);
 
-    public List<Skill> getSkills(int developerId);
+    public void deleteSkillByDeveloper(int developerId, int skillId);
+
+    public List<Skill> getSkillsByDeveloper(int developerId);
 
 }
