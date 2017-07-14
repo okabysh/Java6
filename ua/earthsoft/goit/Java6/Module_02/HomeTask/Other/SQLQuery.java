@@ -6,10 +6,12 @@ package ua.earthsoft.goit.Java6.Module_02.HomeTask.Other;
 public class SQLQuery {
     public static final String EMPTY = "";
     public static final String GET_COMPANY_BY_ID = "SELECT * FROM companies WHERE id = ?";
+    public static final String ADD_CUSTOMER_TO_COMPANY = "INSERT INTO mtm_company_customer VALUES(?, ?)";
+    public static final String DELETE_CUSTOMER_FROM_COMPANY = "DELETE FROM mtm_company_customer WHERE company=? AND customer=?";
     public static final String GET_SKILL_BY_ID = "SELECT * FROM skills WHERE id = ?";
     public static final String GET_SKILLS_BY_DEVELOPER = "SELECT skill FROM mtm_developer_skill WHERE developer = ?";
-    public static final String ADD_SKILL_BY_DEVELOPER = "INSERT INTO mtm_developer_skill VALUES(?, ?)";
-    public static final String DELETE_SKILL_BY_DEVELOPER = "DELETE FROM mtm_developer_skill WHERE developer = ? AND skill = ?";
+    public static final String ADD_SKILL_TO_DEVELOPER = "INSERT INTO mtm_developer_skill VALUES(?, ?)";
+    public static final String DELETE_SKILL_FROM_DEVELOPER = "DELETE FROM mtm_developer_skill WHERE developer = ? AND skill = ?";
     public static final String GET_CUSTOMER_BY_ID = "SELECT * FROM customers WHERE id = ?";
     public static final String GET_CUSTOMERS_BY_COMPANY = "SELECT customer FROM mtm_company_customer WHERE company = ?";
     public static final String GET_PROJECT_BY_ID = "SELECT * FROM projects WHERE id = ?";

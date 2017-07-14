@@ -122,7 +122,7 @@ public class JdbcDeveloperDAO implements IDeveloperDAO {
 
     @Override
     public void addSkillByDeveloper(int developerId, int skillId) {
-        String sql = SQLQuery.ADD_SKILL_BY_DEVELOPER;
+        String sql = SQLQuery.ADD_SKILL_TO_DEVELOPER;
         try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql))
         { ps.setInt(1, developerId);
@@ -135,7 +135,7 @@ public class JdbcDeveloperDAO implements IDeveloperDAO {
 
     @Override
     public void deleteSkillByDeveloper(int developerId, int skillId) {
-        String sql = SQLQuery.DELETE_SKILL_BY_DEVELOPER;
+        String sql = SQLQuery.DELETE_SKILL_FROM_DEVELOPER;
         try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql))
         { ps.setInt(1, developerId);

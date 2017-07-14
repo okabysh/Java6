@@ -122,6 +122,34 @@ public class JdbcCompanyDAO implements ICompanyDAO {
         return null;
     }
 
+    @Override
+    public void addCustomer(int customerId, int companyId) {
+        String sql = SQLQuery.ADD_CUSTOMER_TO_COMPANY;
+
+        try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
+             PreparedStatement ps = connection.prepareStatement(sql))
+        { ps.setInt(1, companyId);
+            ps.setInt(2, customerId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteCustomer(int customerId, int companyId) {
+        String sql = SQLQuery.DELETE_CUSTOMER_FROM_COMPANY;
+
+        try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
+             PreparedStatement ps = connection.prepareStatement(sql))
+        { ps.setInt(1, companyId);
+            ps.setInt(2, customerId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void fillStatement(Company company, PreparedStatement ps) throws SQLException {
         ps.setString(1, company.getName());
         ps.setString(2, company.getFullName());

@@ -1,7 +1,9 @@
 package ua.earthsoft.goit.Java6.Module_02.HomeTask.View;
 
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.Company;
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.Customer;
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc.JdbcCompanyDAO;
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc.JdbcCustomerDAO;
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Other.CRUD;
 
 import java.io.BufferedReader;
@@ -39,8 +41,12 @@ public class Console {
         String tableCompaniesAction2 = "\n#Main menu -> table: Companies -> Read all companies#";
         String tableCompaniesAction3 = "\n#Main menu -> table: Companies -> Update company#";
         String tableCompaniesAction4 = "\n#Main menu -> table: Companies -> Delete company#";
+        String tableCompaniesAction5 = "\n#Main menu -> table: Companies -> Read customers from company#";
+        String tableCompaniesAction6 = "\n#Main menu -> table: Companies -> Add customer to company#";
+        String tableCompaniesAction7 = "\n#Main menu -> table: Companies -> Delete customer from company#";
         int chooseKeyboard;
         JdbcCompanyDAO jdbcCompanyDAO = new JdbcCompanyDAO();
+        JdbcCustomerDAO jdbcCustomerDAO = new JdbcCustomerDAO();
 
         while (true) {
             System.out.println(mainMenu);
@@ -113,7 +119,7 @@ public class Console {
                         id = inputInt();
                         System.out.println("Current company data:");
                         company = jdbcCompanyDAO.getById(id);
-                        company.toString();
+                        System.out.println(company.toString());
 
                         System.out.println("Enter new name:");
                         company.setName(inputString());
@@ -134,12 +140,80 @@ public class Console {
 
                     } else if (chooseKeyboard == 4) {
                         // delete
+                        int id;
+                        Company company;
+
+                        System.out.println(tableCompaniesAction4);
+                        System.out.println("Please enter id for delete company:");
+                        System.out.println("Enter id:");
+                        id = inputInt();
+
+                        jdbcCompanyDAO.delete(id);
+                        System.out.println("Deleted successfully:");
+
+                        chooseKeyboard = 1;
+                        break;
+
                     } else if (chooseKeyboard == 5) {
                         // Read customers from company
+                        int id;
+                        Company company;
+
+                        System.out.println(tableCompaniesAction5);
+                        System.out.println("Please enter id company for read customers:");
+                        System.out.println("Enter id:");
+                        id = inputInt();
+
+                        System.out.println("Customers from "+jdbcCompanyDAO.getById(id).getName()+":");
+                        List<Customer> customerList = jdbcCompanyDAO.getCustomers(id);
+                        for (Customer customer : customerList) {
+                            System.out.println(customer.toString());
+                        }
+
+                        chooseKeyboard = 1;
+                        break;
+
                     } else if (chooseKeyboard == 6) {
                         // Add customer to company
+                        int idCustomer;
+                        int idCompany;
+                        Company company;
+                        Customer customer;
+
+                        System.out.println(tableCompaniesAction6);
+                        System.out.println("Please enter id customer and id company for add customer to company:");
+                        System.out.println("Enter id customer:");
+                        idCustomer = inputInt();
+                        System.out.println("Enter id company:");
+                        idCompany = inputInt();
+
+                        jdbcCompanyDAO.addCustomer(idCustomer, idCompany);
+                        System.out.println("Customer: " + jdbcCustomerDAO.getById(idCustomer).getName() + " was successfully added to "+
+                            jdbcCompanyDAO.getById(idCompany).getName());
+
+                        chooseKeyboard = 1;
+                        break;
+
                     } else if (chooseKeyboard == 7) {
                         // Delete customer from company
+                        int idCustomer;
+                        int idCompany;
+                        Company company;
+                        Customer customer;
+
+                        System.out.println(tableCompaniesAction7);
+                        System.out.println("Please enter id customer and id company for delete customer from company:");
+                        System.out.println("Enter id customer:");
+                        idCustomer = inputInt();
+                        System.out.println("Enter id company:");
+                        idCompany = inputInt();
+
+                        jdbcCompanyDAO.deleteCustomer(idCustomer, idCompany);
+                        System.out.println("Customer: " + jdbcCustomerDAO.getById(idCustomer).getName() + " was successfully delete from "+
+                                jdbcCompanyDAO.getById(idCompany).getName());
+
+                        chooseKeyboard = 1;
+                        break;
                     }
                 }
             }
