@@ -37,6 +37,8 @@ public class Console {
         String tableCompanies = "\n#Main menu -> table: Companies#";
         String tableCompaniesAction1 = "\n#Main menu -> table: Companies -> Create new company#";
         String tableCompaniesAction2 = "\n#Main menu -> table: Companies -> Read all companies#";
+        String tableCompaniesAction3 = "\n#Main menu -> table: Companies -> Update company#";
+        String tableCompaniesAction4 = "\n#Main menu -> table: Companies -> Delete company#";
         int chooseKeyboard;
         JdbcCompanyDAO jdbcCompanyDAO = new JdbcCompanyDAO();
 
@@ -102,6 +104,34 @@ public class Console {
 
                     } else if (chooseKeyboard == 3) {
                         // update
+                        int id;
+                        Company company;
+
+                        System.out.println(tableCompaniesAction3);
+                        System.out.println("Please enter id for update company:");
+                        System.out.println("Enter id:");
+                        id = inputInt();
+                        System.out.println("Current company data:");
+                        company = jdbcCompanyDAO.getById(id);
+                        company.toString();
+
+                        System.out.println("Enter new name:");
+                        company.setName(inputString());
+                        System.out.println("Enter new full name:");
+                        company.setFullName(inputString());
+                        System.out.println("Enter new city:");
+                        company.setCity(inputString());
+                        System.out.println("Enter identification code:");
+                        company.setIdentificationCode(inputString());
+
+                        jdbcCompanyDAO.update(company);
+
+                        System.out.println("Updated successfully:");
+                        System.out.println(company.toString());
+
+                        chooseKeyboard = 1;
+                        break;
+
                     } else if (chooseKeyboard == 4) {
                         // delete
                     } else if (chooseKeyboard == 5) {

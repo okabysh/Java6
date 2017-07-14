@@ -80,6 +80,29 @@ public class JdbcCompanyDAO implements ICompanyDAO {
     }
 
     @Override
+    public Company getById(int id) {
+        String sql = SQLQuery.GET_COMPANY_BY_ID;
+
+        try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
+             PreparedStatement ps = connection.prepareStatement(sql))
+        { ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Company company = new Company();
+                company.setId(rs.getInt("id"));
+                company.setName(rs.getString("name"));
+                company.setFullName(rs.getString("fullName"));
+                company.setCity(rs.getString("city"));
+                company.setIdentificationCode(rs.getString("identificationCode"));
+                return company;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public List<Customer> getCustomers(int companyId) {
         List<Customer> customerList = new ArrayList<>();
         String sql = SQLQuery.GET_CUSTOMERS_BY_COMPANY;

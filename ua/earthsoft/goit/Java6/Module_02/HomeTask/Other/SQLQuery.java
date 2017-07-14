@@ -5,6 +5,7 @@ package ua.earthsoft.goit.Java6.Module_02.HomeTask.Other;
  */
 public class SQLQuery {
     public static final String EMPTY = "";
+    public static final String GET_COMPANY_BY_ID = "SELECT * FROM companies WHERE id = ?";
     public static final String GET_SKILL_BY_ID = "SELECT * FROM skills WHERE id = ?";
     public static final String GET_SKILLS_BY_DEVELOPER = "SELECT skill FROM mtm_developer_skill WHERE developer = ?";
     public static final String ADD_SKILL_BY_DEVELOPER = "INSERT INTO mtm_developer_skill VALUES(?, ?)";
