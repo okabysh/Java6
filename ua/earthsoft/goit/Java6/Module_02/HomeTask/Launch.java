@@ -22,6 +22,7 @@ public class Launch {
         // false - it is the console mode
         //Boolean testMode = true;
         Boolean testMode = false;
+        Console console = new Console();
 
         RegisterDriver registerDriver = new RegisterDriver();
         if (!registerDriver.register()) {
@@ -231,40 +232,8 @@ public class Launch {
             }
         } else {
             // code for console
-            int choose;
-            Console.printMessage("Welcome to CRUD via JDBC application!");
-            while (true) {
-                Console.printMessage("\nPlease choose table: 1-Companies | 2-Customers | 3-Projects | 4-Developers | 5-Skills | 0-Exit");
-                choose = Console.inputInt();
-                if (choose == 0) {
-                    System.exit(1);
-                } else if (choose == 1) {
-                    Console.table = "companies";
-                    Console.printMessage("\nChoosed table: "+Console.table);
-                    Console.printMessage("Please choose an action: 1-Create | 2-Read all | 3-Update | 4-Delete | 0-Return to main menu");
-                    Console.printMessage("5-Read customers from company | 6-Add customer to company | 7-Delete customer from company");
-                    while (true) {
-                        choose = Console.inputInt();
-                        if (choose == 0) {
-                            return;
-                        } else if (choose == 1) {
-                            // create
-                        } else if (choose == 2) {
-                            // read
-                        } else if (choose == 3) {
-                            // update
-                        } else if (choose == 4) {
-                            // delete
-                        } else if (choose == 5) {
-                            // Read customers from company
-                        } else if (choose == 6) {
-                            // Add customer to company
-                        } else if (choose == 7) {
-                            // Delete customer from company
-                        }
-                    }
-                }
-            }
+            System.out.println("Welcome to CRUD via JDBC application!");
+            console.start();
         }
 
     }
