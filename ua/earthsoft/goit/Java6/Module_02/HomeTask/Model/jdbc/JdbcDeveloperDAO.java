@@ -127,7 +127,7 @@ public class JdbcDeveloperDAO implements IDeveloperDAO {
              PreparedStatement ps = connection.prepareStatement(sql))
         { ps.setInt(1, developerId);
             ps.setInt(2, skillId);
-            ResultSet rs = ps.executeQuery();
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -140,7 +140,7 @@ public class JdbcDeveloperDAO implements IDeveloperDAO {
              PreparedStatement ps = connection.prepareStatement(sql))
         { ps.setInt(1, developerId);
             ps.setInt(2, skillId);
-            ResultSet rs = ps.executeQuery();
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

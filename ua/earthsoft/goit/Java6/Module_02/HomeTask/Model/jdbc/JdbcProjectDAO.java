@@ -1,9 +1,6 @@
 package ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.jdbc;
 
-import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.Customer;
-import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.Developer;
-import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.IProjectDAO;
-import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.Project;
+import ua.earthsoft.goit.Java6.Module_02.HomeTask.Model.*;
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Other.CRUD;
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Other.Constants;
 import ua.earthsoft.goit.Java6.Module_02.HomeTask.Other.SQLQuery;
@@ -109,6 +106,26 @@ public class JdbcProjectDAO implements IProjectDAO {
                 developerList.add(jdbcDeveloperDAO.getById(rs.getInt("developer")));
             }
             return developerList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Skill> getSkills(int developerId) {
+        List<Skill> skillList = new ArrayList<>();
+        String sql = SQLQuery.GET_SKILLS_BY_DEVELOPER;
+        JdbcSkillDAO jdbcSkillDAO = new JdbcSkillDAO();
+
+        try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
+             PreparedStatement ps = connection.prepareStatement(sql))
+        { ps.setInt(1, developerId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                skillList.add(jdbcSkillDAO.getById(rs.getInt("skill")));
+            }
+            return skillList;
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -19,4 +19,6 @@ public interface IProjectDAO {
 
     public List<Developer> getDevelopers(int id);
 
+    public List<Skill> getSkills(int developerId);
+
 }

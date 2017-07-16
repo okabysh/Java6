@@ -134,6 +134,34 @@ public class JdbcCustomerDAO implements ICustomerDAO{
         return null;
     }
 
+    @Override
+    public void addProject(int projectId, int customerId) {
+        String sql = SQLQuery.ADD_PROJECT_TO_CUSTOMER;
+
+        try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
+             PreparedStatement ps = connection.prepareStatement(sql))
+        { ps.setInt(1, customerId);
+            ps.setInt(2, projectId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteProject(int projectId, int customerId) {
+        String sql = SQLQuery.DELETE_PROJECT_FROM_CUSTOMER;
+
+        try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.USER, Constants.PASSWORD);
+             PreparedStatement ps = connection.prepareStatement(sql))
+        { ps.setInt(1, customerId);
+            ps.setInt(2, projectId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void fillStatement(Customer customer, PreparedStatement ps) throws SQLException {
         ps.setString(1, customer.getName());
         ps.setString(2, customer.getIdentificationCode());

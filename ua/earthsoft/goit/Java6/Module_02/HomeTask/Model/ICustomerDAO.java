@@ -21,4 +21,8 @@ public interface ICustomerDAO {
 
     public List<Developer> getDevelopers(int customerId);
 
+    public void addProject(int projectId, int customerId);
+
+    public void deleteProject(int projectId, int customerId);
+
 }

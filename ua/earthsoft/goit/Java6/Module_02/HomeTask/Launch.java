@@ -10,6 +10,7 @@ import ua.earthsoft.goit.Java6.Module_02.HomeTask.View.Console;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public class Launch {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParseException {
         // true - it is the manual mode
         // false - it is the console mode
         //Boolean testMode = true;

@@ -8,6 +8,8 @@ public class SQLQuery {
     public static final String GET_COMPANY_BY_ID = "SELECT * FROM companies WHERE id = ?";
     public static final String ADD_CUSTOMER_TO_COMPANY = "INSERT INTO mtm_company_customer VALUES(?, ?)";
     public static final String DELETE_CUSTOMER_FROM_COMPANY = "DELETE FROM mtm_company_customer WHERE company=? AND customer=?";
+    public static final String ADD_PROJECT_TO_CUSTOMER = "INSERT INTO mtm_customer_project VALUES(?, ?)";
+    public static final String DELETE_PROJECT_FROM_CUSTOMER = "DELETE FROM mtm_customer_project WHERE customer=? AND project=?";
     public static final String GET_SKILL_BY_ID = "SELECT * FROM skills WHERE id = ?";
     public static final String GET_SKILLS_BY_DEVELOPER = "SELECT skill FROM mtm_developer_skill WHERE developer = ?";
     public static final String ADD_SKILL_TO_DEVELOPER = "INSERT INTO mtm_developer_skill VALUES(?, ?)";
