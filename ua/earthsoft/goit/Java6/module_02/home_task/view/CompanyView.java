@@ -3,185 +3,193 @@ package ua.earthsoft.goit.Java6.module_02.home_task.view;
 import ua.earthsoft.goit.Java6.module_02.home_task.model.Company;
 import ua.earthsoft.goit.Java6.module_02.home_task.model.Customer;
 import ua.earthsoft.goit.Java6.module_02.home_task.model.jdbc.dao.impl.JdbcCompanyDaoImpl;
+import ua.earthsoft.goit.Java6.module_02.home_task.model.jdbc.dao.impl.JdbcCustomerDaoImpl;
+import ua.earthsoft.goit.Java6.module_02.home_task.util.KeyboardUtil;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
  * Created by kabysh_ol on 17.07.2017.
  */
 public class CompanyView {
-    String tableCompanies = "\n#Main menu -> table: Companies#";
-    String addActionCompanies = "5-Read customers from company | 6-Add customer to company | 7-Delete customer from company";
-    String tableCompaniesAction1 = "\n#Main menu -> table: Companies -> Create new company#";
-    String tableCompaniesAction2 = "\n#Main menu -> table: Companies -> Read all companies#";
-    String tableCompaniesAction3 = "\n#Main menu -> table: Companies -> Update company#";
-    String tableCompaniesAction4 = "\n#Main menu -> table: Companies -> Delete company#";
-    String tableCompaniesAction5 = "\n#Main menu -> table: Companies -> Read customers from company#";
-    String tableCompaniesAction6 = "\n#Main menu -> table: Companies -> Add customer to company#";
-    String tableCompaniesAction7 = "\n#Main menu -> table: Companies -> Delete customer from company#";
-    JdbcCompanyDaoImpl jdbcCompanyDaoImpl = new JdbcCompanyDaoImpl();
+    private final String tableCompanies = "\n#Main menu -> table: Companies#";
+    private final String crudAction = "Please choose an action: 1-Create | 2-Read all | 3-Update | 4-Delete | 0-Return to main menu";
+    private final String addActionCompanies = "5-Read customers from company | 6-Add customer to company | 7-Delete customer from company";
+    private final String tableCompaniesAction1 = "\n#Main menu -> table: Companies -> Create new company#";
+    private final String tableCompaniesAction2 = "\n#Main menu -> table: Companies -> Read all companies#";
+    private final String tableCompaniesAction3 = "\n#Main menu -> table: Companies -> Update company#";
+    private final String tableCompaniesAction4 = "\n#Main menu -> table: Companies -> Delete company#";
+    private final String tableCompaniesAction5 = "\n#Main menu -> table: Companies -> Read customers from company#";
+    private final String tableCompaniesAction6 = "\n#Main menu -> table: Companies -> Add customer to company#";
+    private final String tableCompaniesAction7 = "\n#Main menu -> table: Companies -> Delete customer from company#";
+
+    private KeyboardUtil keyboardUtil = new KeyboardUtil();
+    JdbcCompanyDaoImpl jdbcCompanyDao = new JdbcCompanyDaoImpl();
+    JdbcCustomerDaoImpl jdbcCustomerDao = new JdbcCustomerDaoImpl();
     int chooseKeyboard;
 
-    public void view() {
-//        chooseTable = "companies";
-//        System.out.println(tableCompanies);
-//        System.out.println(crudAction);
-//        System.out.println(addActionCompanies);
-//        while (true) {
-//            chooseKeyboard = inputInt();
-//            if (chooseKeyboard == 0) {
-//                chooseKeyboard = 1;
-//                break;
-//            } else if (chooseKeyboard == 1) {
-//                // create
-//                String name;
-//                String fullName;
-//                String city;
-//                String identificationCode;
-//
-//                System.out.println(tableCompaniesAction1);
-//                System.out.println("Please enter all parameters for new company:");
-//                System.out.println("Enter name:");
-//                name = inputString();
-//                System.out.println("Enter full name:");
-//                fullName = inputString();
-//                System.out.println("Enter city:");
-//                city = inputString();
-//                System.out.println("Enter identification code:");
-//                identificationCode = inputString();
-//
-//                Company company = new Company();
-//                company.setName(name);
-//                company.setFullName(fullName);
-//                company.setCity(city);
-//                company.setIdentificationCode(identificationCode);
-//
-//                jdbcCompanyDaoImpl.create(company);
-//
-//                System.out.println("Company created successfully:");
-//                System.out.println(company.toString());
-//
-//                chooseKeyboard = 1;
-//                break;
-//
-//            } else if (chooseKeyboard == 2) {
-//                // read
-//                System.out.println(tableCompaniesAction2);
-//                List<Company> companyList = jdbcCompanyDaoImpl.read();
-//                for (Company company : companyList) {
-//                    System.out.println(company.toString());
-//                }
-//
-//                chooseKeyboard = 1;
-//                break;
-//
-//            } else if (chooseKeyboard == 3) {
-//                // update
-//                int id;
-//                Company company;
-//
-//                System.out.println(tableCompaniesAction3);
-//                System.out.println("Please enter id for update company:");
-//                System.out.println("Enter id:");
-//                id = inputInt();
-//                System.out.println("Current company data:");
-//                company = jdbcCompanyDaoImpl.getById(id);
-//                System.out.println(company.toString());
-//
-//                System.out.println("Enter new name:");
-//                company.setName(inputString());
-//                System.out.println("Enter new full name:");
-//                company.setFullName(inputString());
-//                System.out.println("Enter new city:");
-//                company.setCity(inputString());
-//                System.out.println("Enter identification code:");
-//                company.setIdentificationCode(inputString());
-//
-//                jdbcCompanyDaoImpl.update(company);
-//
-//                System.out.println("Company updated successfully:");
-//                System.out.println(company.toString());
-//
-//                chooseKeyboard = 1;
-//                break;
-//
-//            } else if (chooseKeyboard == 4) {
-//                // delete
-//                int id;
-//
-//                System.out.println(tableCompaniesAction4);
-//                System.out.println("Please enter id for delete company:");
-//                System.out.println("Enter id:");
-//                id = inputInt();
-//
-//                jdbcCompanyDaoImpl.delete(id);
-//                System.out.println("Company deleted successfully.");
-//
-//                chooseKeyboard = 1;
-//                break;
-//
-//            } else if (chooseKeyboard == 5) {
-//                // Read customers from company
-//                int id;
-//                Company company;
-//
-//                System.out.println(tableCompaniesAction5);
-//                System.out.println("Please enter id company for read customers:");
-//                System.out.println("Enter id:");
-//                id = inputInt();
-//
-//                System.out.println("Customers from "+ jdbcCompanyDaoImpl.getById(id).getName()+":");
-//                List<Customer> customerList = jdbcCompanyDaoImpl.getCustomers(id);
-//                for (Customer customer : customerList) {
-//                    System.out.println(customer.toString());
-//                }
-//
-//                chooseKeyboard = 1;
-//                break;
-//
-//            } else if (chooseKeyboard == 6) {
-//                // Add customer to company
-//                int idCustomer;
-//                int idCompany;
-//                Company company;
-//                Customer customer;
-//
-//                System.out.println(tableCompaniesAction6);
-//                System.out.println("Please enter id customer and id company for add customer to company:");
-//                System.out.println("Enter id customer:");
-//                idCustomer = inputInt();
-//                System.out.println("Enter id company:");
-//                idCompany = inputInt();
-//
-//                jdbcCompanyDaoImpl.addCustomer(idCustomer, idCompany);
-//                System.out.println("Customer: " + jdbcCustomerDaoImpl.getById(idCustomer).getName() + " was successfully added to "+
-//                        jdbcCompanyDaoImpl.getById(idCompany).getName());
-//
-//                chooseKeyboard = 1;
-//                break;
-//
-//            } else if (chooseKeyboard == 7) {
-//                // Delete customer from company
-//                int idCustomer;
-//                int idCompany;
-//                Company company;
-//                Customer customer;
-//
-//                System.out.println(tableCompaniesAction7);
-//                System.out.println("Please enter id customer and id company for delete customer from company:");
-//                System.out.println("Enter id customer:");
-//                idCustomer = inputInt();
-//                System.out.println("Enter id company:");
-//                idCompany = inputInt();
-//
-//                jdbcCompanyDaoImpl.deleteCustomer(idCustomer, idCompany);
-//                System.out.println("Customer: " + jdbcCustomerDaoImpl.getById(idCustomer).getName() + " was successfully delete from "+
-//                        jdbcCompanyDaoImpl.getById(idCompany).getName());
-//
-//                chooseKeyboard = 1;
-//                break;
-//            }
-//        }
+    private final int create=1;
+    private final int readAll=2;
+    private final int update=3;
+    private final int delete=4;
+    private final int readCustomersFromCompany=5;
+    private final int addCustomerToCompany=6;
+    private final int deleteCustomerFromCompany=7;
+    private final int returnToMainMenu=0;
 
+    public void view() throws IOException {
+        System.out.println(tableCompanies);
+        System.out.println(crudAction);
+        System.out.println(addActionCompanies);
+        while (true) {
+            chooseKeyboard = keyboardUtil.inputInt();
+
+            switch (chooseKeyboard) {
+                case returnToMainMenu: {
+                    chooseKeyboard = 1;
+                    break;
+                }
+                case create: {
+                    String name;
+                    String fullName;
+                    String city;
+                    String identificationCode;
+
+                    System.out.println(tableCompaniesAction1);
+                    System.out.println("Please enter all parameters for new company:");
+                    System.out.println("Enter name:");
+                    name = keyboardUtil.inputString();
+                    System.out.println("Enter full name:");
+                    fullName = keyboardUtil.inputString();
+                    System.out.println("Enter city:");
+                    city = keyboardUtil.inputString();
+                    System.out.println("Enter identification code:");
+                    identificationCode = keyboardUtil.inputString();
+
+                    Company company = new Company();
+                    company.setName(name);
+                    company.setFullName(fullName);
+                    company.setCity(city);
+                    company.setIdentificationCode(identificationCode);
+
+                    jdbcCompanyDao.create(company);
+
+                    System.out.println("Company created successfully:");
+                    System.out.println(company.toString());
+
+                    chooseKeyboard = 1;
+                    break;
+                }
+                case readAll: {
+                    System.out.println(tableCompaniesAction2);
+                    List<Company> companyList = jdbcCompanyDao.read();
+                    for (Company company : companyList) {
+                        System.out.println(company.toString());
+                    }
+
+                    chooseKeyboard = 1;
+                    break;
+                }
+                case update: {
+                    int id;
+                    Company company;
+
+                    System.out.println(tableCompaniesAction3);
+                    System.out.println("Please enter id for update company:");
+                    System.out.println("Enter id:");
+                    id = keyboardUtil.inputInt();
+                    System.out.println("Current company data:");
+                    company = jdbcCompanyDao.getById(id);
+                    System.out.println(company.toString());
+
+                    System.out.println("Enter new name:");
+                    company.setName(keyboardUtil.inputString());
+                    System.out.println("Enter new full name:");
+                    company.setFullName(keyboardUtil.inputString());
+                    System.out.println("Enter new city:");
+                    company.setCity(keyboardUtil.inputString());
+                    System.out.println("Enter identification code:");
+                    company.setIdentificationCode(keyboardUtil.inputString());
+
+                    jdbcCompanyDao.update(company);
+
+                    System.out.println("Company updated successfully:");
+                    System.out.println(company.toString());
+
+                    chooseKeyboard = 1;
+                    break;
+                }
+                case delete: {
+                    int id;
+
+                    System.out.println(tableCompaniesAction4);
+                    System.out.println("Please enter id for delete company:");
+                    System.out.println("Enter id:");
+                    id = keyboardUtil.inputInt();
+
+                    jdbcCompanyDao.delete(id);
+                    System.out.println("Company deleted successfully.");
+
+                    chooseKeyboard = 1;
+                    break;
+                }
+                case readCustomersFromCompany: {
+                    int id;
+                    Company company;
+
+                    System.out.println(tableCompaniesAction5);
+                    System.out.println("Please enter id company for read customers:");
+                    System.out.println("Enter id:");
+                    id = keyboardUtil.inputInt();
+
+                    System.out.println("Customers from "+ jdbcCompanyDao.getById(id).getName()+":");
+                    List<Customer> customerList = jdbcCompanyDao.getCustomers(id);
+                    for (Customer customer : customerList) {
+                        System.out.println(customer.toString());
+                    }
+
+                    chooseKeyboard = 1;
+                    break;
+                }
+                case addCustomerToCompany: {
+                    int idCustomer;
+                    int idCompany;
+
+                    System.out.println(tableCompaniesAction6);
+                    System.out.println("Please enter id customer and id company for add customer to company:");
+                    System.out.println("Enter id customer:");
+                    idCustomer = keyboardUtil.inputInt();
+                    System.out.println("Enter id company:");
+                    idCompany = keyboardUtil.inputInt();
+
+                    jdbcCompanyDao.addCustomer(idCustomer, idCompany);
+                    System.out.println("Customer: " + jdbcCustomerDao.getById(idCustomer).getName() + " was successfully added to "+
+                            jdbcCompanyDao.getById(idCompany).getName());
+
+                    chooseKeyboard = 1;
+                    break;
+                }
+                case deleteCustomerFromCompany: {
+                    int idCustomer;
+                    int idCompany;
+
+                    System.out.println(tableCompaniesAction7);
+                    System.out.println("Please enter id customer and id company for delete customer from company:");
+                    System.out.println("Enter id customer:");
+                    idCustomer = keyboardUtil.inputInt();
+                    System.out.println("Enter id company:");
+                    idCompany = keyboardUtil.inputInt();
+
+                    jdbcCompanyDao.deleteCustomer(idCustomer, idCompany);
+                    System.out.println("Customer: " + jdbcCustomerDao.getById(idCustomer).getName() + " was successfully delete from "+
+                            jdbcCompanyDao.getById(idCompany).getName());
+
+                    chooseKeyboard = 1;
+                    break;
+                }
+            }
+            break;
+        }
     }
 }

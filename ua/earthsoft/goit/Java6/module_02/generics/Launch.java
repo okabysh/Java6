@@ -1,4 +1,4 @@
-package ua.earthsoft.goit.Java6.module_02.Generics;
+package ua.earthsoft.goit.Java6.module_02.generics;
 
 /**
  * Created by Oleg Kabysh on 03.07.2017.

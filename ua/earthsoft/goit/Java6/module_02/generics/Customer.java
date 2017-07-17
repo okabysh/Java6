@@ -1,11 +1,11 @@
-package ua.earthsoft.goit.Java6.module_02.Generics;
+package ua.earthsoft.goit.Java6.module_02.generics;
 
 /**
  * Created by Oleg Kabysh on 03.07.2017.
  */
-public class Developer {
+public class Customer {
     private String name;
-    private String sex;
+    private String phone;
 
     public String getName() {
         return name;
@@ -15,19 +15,19 @@ public class Developer {
         this.name = name;
     }
 
-    public String getSex() {
-        return sex;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override
     public String toString() {
-        return "Developer{" +
+        return "Customer{" +
                 "name='" + name + '\'' +
-                ", sex='" + sex + '\'' +
+                ", phone='" + phone + '\'' +
                 '}';
     }
 }

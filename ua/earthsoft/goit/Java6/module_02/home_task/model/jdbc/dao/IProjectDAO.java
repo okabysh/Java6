@@ -2,7 +2,6 @@ package ua.earthsoft.goit.Java6.module_02.home_task.model.jdbc.dao;
 
 import ua.earthsoft.goit.Java6.module_02.home_task.model.Developer;
 import ua.earthsoft.goit.Java6.module_02.home_task.model.Project;
-import ua.earthsoft.goit.Java6.module_02.home_task.model.Skill;
 
 import java.util.List;
 
@@ -21,8 +20,6 @@ public interface IProjectDAO {
 
     public Project getById(int id);
 
-    public List<Developer> getDevelopers(int id);
-
-    public List<Skill> getSkills(int developerId);
+    public List<Developer> getDevelopers(int projectId);
 
 }

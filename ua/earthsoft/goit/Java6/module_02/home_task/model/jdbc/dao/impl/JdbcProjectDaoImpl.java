@@ -113,26 +113,6 @@ public class JdbcProjectDaoImpl implements IProjectDAO {
         return null;
     }
 
-    @Override
-    public List<Skill> getSkills(int developerId) {
-        List<Skill> skillList = new ArrayList<>();
-        String sql = SQLQueryUtil.GET_SKILLS_BY_DEVELOPER;
-        JdbcSkillDaoImpl jdbcSkillDaoImpl = new JdbcSkillDaoImpl();
-
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             PreparedStatement ps = connection.prepareStatement(sql))
-        { ps.setInt(1, developerId);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                skillList.add(jdbcSkillDaoImpl.getById(rs.getInt("skill")));
-            }
-            return skillList;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     private void fillStatement(Project project, PreparedStatement ps) throws SQLException {
         ps.setString(1, project.getName());
         ps.setBigDecimal(2, project.getCost());
