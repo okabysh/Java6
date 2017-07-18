@@ -1,6 +1,5 @@
 package ua.earthsoft.goit.Java6.module_02.home_task.view;
 
-import ua.earthsoft.goit.Java6.module_02.home_task.util.CrudUtil;
 import ua.earthsoft.goit.Java6.module_02.home_task.util.KeyboardUtil;
 
 import java.io.IOException;
@@ -10,9 +9,6 @@ import java.text.ParseException;
  * Created by kabysh_ol on 17.07.2017.
  */
 public class MainView {
-
-    private String chooseTable;
-    private CrudUtil crudUtil;
     private KeyboardUtil keyboardUtil = new KeyboardUtil();
     private final int company=1;
     private final int customer=2;
