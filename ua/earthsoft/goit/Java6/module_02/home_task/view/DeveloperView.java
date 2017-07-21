@@ -27,10 +27,9 @@ public class DeveloperView {
     private final String tableDevelopersAction6 = "\n#Main menu -> table: Developers -> Add skill to developer#";
     private final String tableDevelopersAction7 = "\n#Main menu -> table: Developers -> Delete skill from developer#";
 
-    private KeyboardUtil keyboardUtil = new KeyboardUtil();
     JdbcDeveloperDaoImpl jdbcDeveloperDao = JdbcDeveloperDaoImpl.getInstance();
     JdbcSkillDaoImpl jdbcSkillDao = JdbcSkillDaoImpl.getInstance();
-    int chooseKeyboard;
+    private int chooseKeyboard;
 
     private final int create=1;
     private final int readAll=2;
@@ -46,7 +45,7 @@ public class DeveloperView {
         System.out.println(crudAction);
         System.out.println(addActionDevelopers);
         while (true) {
-            chooseKeyboard = keyboardUtil.inputInt();
+            chooseKeyboard = KeyboardUtil.inputInt();
             switch (chooseKeyboard) {
                 case returnToMainMenu: {
                     chooseKeyboard = 1;
@@ -63,17 +62,17 @@ public class DeveloperView {
                     System.out.println(tableDevelopersAction1);
                     System.out.println("Please enter all parameters for new developer:");
                     System.out.println("Enter first name:");
-                    firstName = keyboardUtil.inputString();
+                    firstName = KeyboardUtil.inputString();
                     System.out.println("Enter sur name:");
-                    surName = keyboardUtil.inputString();
+                    surName = KeyboardUtil.inputString();
                     System.out.println("Enter identification code:");
-                    identificationCode = keyboardUtil.inputString();
+                    identificationCode = KeyboardUtil.inputString();
                     System.out.println("Enter birthday:");
-                    birthday = keyboardUtil.inputDate();
+                    birthday = KeyboardUtil.inputDate();
                     System.out.println("Enter phone:");
-                    phone = keyboardUtil.inputString();
+                    phone = KeyboardUtil.inputString();
                     System.out.println("Enter salary:");
-                    salary = keyboardUtil.inputBigDecimal();
+                    salary = KeyboardUtil.inputBigDecimal();
 
                     Developer developer = new Developer();
                     developer.setFirstName(firstName);
@@ -108,23 +107,23 @@ public class DeveloperView {
                     System.out.println(tableDevelopersAction3);
                     System.out.println("Please enter id for update developer:");
                     System.out.println("Enter id:");
-                    id = keyboardUtil.inputInt();
+                    id = KeyboardUtil.inputInt();
                     System.out.println("Current developer data:");
                     developer = jdbcDeveloperDao.getById(id);
                     System.out.println(developer.toString());
 
                     System.out.println("Enter new first name:");
-                    developer.setFirstName(keyboardUtil.inputString());
+                    developer.setFirstName(KeyboardUtil.inputString());
                     System.out.println("Enter sur name:");
-                    developer.setSurName(keyboardUtil.inputString());
+                    developer.setSurName(KeyboardUtil.inputString());
                     System.out.println("Enter new identification code:");
-                    developer.setIdentificationCode(keyboardUtil.inputString());
+                    developer.setIdentificationCode(KeyboardUtil.inputString());
                     System.out.println("Enter new bithday:");
-                    developer.setBirthday((Date) keyboardUtil.inputDate());
+                    developer.setBirthday((Date) KeyboardUtil.inputDate());
                     System.out.println("Enter new phone:");
-                    developer.setPhone(keyboardUtil.inputString());
+                    developer.setPhone(KeyboardUtil.inputString());
                     System.out.println("Enter new salary:");
-                    developer.setSalary(keyboardUtil.inputBigDecimal());
+                    developer.setSalary(KeyboardUtil.inputBigDecimal());
 
                     jdbcDeveloperDao.update(developer);
 
@@ -140,7 +139,7 @@ public class DeveloperView {
                     System.out.println(tableDevelopersAction4);
                     System.out.println("Please enter id for delete developer:");
                     System.out.println("Enter id:");
-                    id = keyboardUtil.inputInt();
+                    id = KeyboardUtil.inputInt();
 
                     jdbcDeveloperDao.delete(id);
 
@@ -155,7 +154,7 @@ public class DeveloperView {
                     System.out.println(tableDevelopersAction5);
                     System.out.println("Please enter id developer for read skills:");
                     System.out.println("Enter id:");
-                    id = keyboardUtil.inputInt();
+                    id = KeyboardUtil.inputInt();
 
                     System.out.println("Skills from "+ jdbcDeveloperDao.getById(id).getFirstName()+ jdbcDeveloperDao.getById(id).getSurName()+":");
                     List<Skill> skillList = jdbcDeveloperDao.getSkillsByDeveloper(id);
@@ -173,9 +172,9 @@ public class DeveloperView {
                     System.out.println(tableDevelopersAction6);
                     System.out.println("Please enter id skill and id developer for add skill to developer:");
                     System.out.println("Enter id skill:");
-                    idSkill = keyboardUtil.inputInt();
+                    idSkill = KeyboardUtil.inputInt();
                     System.out.println("Enter id developer:");
-                    idDeveloper = keyboardUtil.inputInt();
+                    idDeveloper = KeyboardUtil.inputInt();
 
                     jdbcDeveloperDao.addSkillByDeveloper(idDeveloper, idSkill);
                     System.out.println("Skill: " + jdbcSkillDao.getById(idSkill).getName() + " was successfully added to "+
@@ -191,9 +190,9 @@ public class DeveloperView {
                     System.out.println(tableDevelopersAction7);
                     System.out.println("Please enter id skill and id developer for delete skill from developer:");
                     System.out.println("Enter id skill:");
-                    idSkill = keyboardUtil.inputInt();
+                    idSkill = KeyboardUtil.inputInt();
                     System.out.println("Enter id developer:");
-                    idDeveloper = keyboardUtil.inputInt();
+                    idDeveloper = KeyboardUtil.inputInt();
 
                     jdbcDeveloperDao.deleteSkillByDeveloper(idDeveloper, idSkill);
                     System.out.println("Skill: " + jdbcSkillDao.getById(idSkill).getName() + " was successfully delete from "+

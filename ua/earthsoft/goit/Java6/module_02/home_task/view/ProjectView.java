@@ -22,9 +22,8 @@ public class ProjectView {
     private final String tableProjectsAction4 = "\n#Main menu -> table: Customers -> Delete project#";
     private final String tableProjectsAction5 = "\n#Main menu -> table: Customers -> Read developers from project#";
 
-    private KeyboardUtil keyboardUtil = new KeyboardUtil();
     JdbcProjectDaoImpl jdbcProjectDao = JdbcProjectDaoImpl.getInstance();
-    int chooseKeyboard;
+    private int chooseKeyboard;
 
     private final int create=1;
     private final int readAll=2;
@@ -39,7 +38,7 @@ public class ProjectView {
         System.out.println(addActionProjects);
 
         while (true) {
-            chooseKeyboard = keyboardUtil.inputInt();
+            chooseKeyboard = KeyboardUtil.inputInt();
             switch (chooseKeyboard) {
                 case returnToMainMenu: {
                     chooseKeyboard = 1;
@@ -52,9 +51,9 @@ public class ProjectView {
                     System.out.println(tableProjectsAction1);
                     System.out.println("Please enter all parameters for new project:");
                     System.out.println("Enter name:");
-                    name = keyboardUtil.inputString();
+                    name = KeyboardUtil.inputString();
                     System.out.println("Enter cost:");
-                    cost = keyboardUtil.inputBigDecimal();
+                    cost = KeyboardUtil.inputBigDecimal();
 
                     Project project = new Project();
                     project.setName(name);
@@ -85,15 +84,15 @@ public class ProjectView {
                     System.out.println(tableProjectsAction3);
                     System.out.println("Please enter id for update project:");
                     System.out.println("Enter id:");
-                    id = keyboardUtil.inputInt();
+                    id = KeyboardUtil.inputInt();
                     System.out.println("Current project data:");
                     project = jdbcProjectDao.getById(id);
                     System.out.println(project.toString());
 
                     System.out.println("Enter new name:");
-                    project.setName(keyboardUtil.inputString());
+                    project.setName(KeyboardUtil.inputString());
                     System.out.println("Enter cost:");
-                    project.setCost(keyboardUtil.inputBigDecimal());
+                    project.setCost(KeyboardUtil.inputBigDecimal());
 
                     jdbcProjectDao.update(project);
 
@@ -109,7 +108,7 @@ public class ProjectView {
                     System.out.println(tableProjectsAction4);
                     System.out.println("Please enter id for delete project:");
                     System.out.println("Enter id:");
-                    id = keyboardUtil.inputInt();
+                    id = KeyboardUtil.inputInt();
 
                     jdbcProjectDao.delete(id);
 
@@ -120,12 +119,11 @@ public class ProjectView {
                 }
                 case readDevelopersFromProject: {
                     int id;
-                    Project project;
 
                     System.out.println(tableProjectsAction5);
                     System.out.println("Please enter id project for read developers:");
                     System.out.println("Enter id:");
-                    id = keyboardUtil.inputInt();
+                    id = KeyboardUtil.inputInt();
 
                     System.out.println("Developers from "+ jdbcProjectDao.getById(id).getName()+":");
                     List<Developer> developerList = jdbcProjectDao.getDevelopers(id);

@@ -13,7 +13,6 @@ import java.util.List;
  */
 public class JdbcDeveloperDaoImpl implements IDeveloperDAO {
     public static final JdbcDeveloperDaoImpl instance = new JdbcDeveloperDaoImpl();
-    SQLQueryUtil sqlQueryUtil = new SQLQueryUtil();
 
     private JdbcDeveloperDaoImpl() {}
 
@@ -23,7 +22,7 @@ public class JdbcDeveloperDaoImpl implements IDeveloperDAO {
 
     @Override
     public void create(Developer developer) {
-        String sql = sqlQueryUtil.getQuery("developers", CrudUtil.CREATE, 0);
+        String sql = SQLQueryUtil.getQuery("developers", CrudUtil.CREATE, 0);
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql)) {
             fillStatement(developer, ps);
@@ -36,7 +35,7 @@ public class JdbcDeveloperDaoImpl implements IDeveloperDAO {
     public List<Developer> read() {
         List<Developer> developerList = new ArrayList<Developer>();
 
-        String sql = sqlQueryUtil.getQuery("developers", CrudUtil.READ, 0);
+        String sql = SQLQueryUtil.getQuery("developers", CrudUtil.READ, 0);
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              Statement statement = connection.createStatement();
              ResultSet rs  = statement.executeQuery(sql))
@@ -61,7 +60,7 @@ public class JdbcDeveloperDaoImpl implements IDeveloperDAO {
 
     @Override
     public void update(Developer developer) {
-        String sql = sqlQueryUtil.getQuery("developers", CrudUtil.UPDATE, developer.getId());
+        String sql = SQLQueryUtil.getQuery("developers", CrudUtil.UPDATE, developer.getId());
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql)) {
             fillStatement(developer, ps);
@@ -72,7 +71,7 @@ public class JdbcDeveloperDaoImpl implements IDeveloperDAO {
 
     @Override
     public void delete(int id) {
-        String sql = sqlQueryUtil.getQuery("developers", CrudUtil.DELETE, id);
+        String sql = SQLQueryUtil.getQuery("developers", CrudUtil.DELETE, id);
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              Statement statement = connection.createStatement())
             {statement.executeUpdate(sql);

@@ -18,9 +18,8 @@ public class SkillView {
     private final String tableSkillsAction3 = "\n#Main menu -> table: Skills -> Update skill#";
     private final String tableSkillsAction4 = "\n#Main menu -> table: Skills -> Delete skill#";
 
-    private KeyboardUtil keyboardUtil = new KeyboardUtil();
     JdbcSkillDaoImpl jdbcSkillDao = JdbcSkillDaoImpl.getInstance();
-    int chooseKeyboard;
+    private int chooseKeyboard;
 
     private final int create=1;
     private final int readAll=2;
@@ -33,7 +32,7 @@ public class SkillView {
         System.out.println(crudAction);
 
         while (true) {
-            chooseKeyboard = keyboardUtil.inputInt();
+            chooseKeyboard = KeyboardUtil.inputInt();
             switch (chooseKeyboard) {
                 case returnToMainMenu: {
                     chooseKeyboard = 1;
@@ -45,7 +44,7 @@ public class SkillView {
                     System.out.println(tableSkillsAction1);
                     System.out.println("Please enter all parameters for new skill:");
                     System.out.println("Enter name:");
-                    name = keyboardUtil.inputString();
+                    name = KeyboardUtil.inputString();
 
                     Skill skill = new Skill();
                     skill.setName(name);
@@ -75,13 +74,13 @@ public class SkillView {
                     System.out.println(tableSkillsAction3);
                     System.out.println("Please enter id for update skill:");
                     System.out.println("Enter id:");
-                    id = keyboardUtil.inputInt();
+                    id = KeyboardUtil.inputInt();
                     System.out.println("Current skill data:");
                     skill = jdbcSkillDao.getById(id);
                     System.out.println(skill.toString());
 
                     System.out.println("Enter new name:");
-                    skill.setName(keyboardUtil.inputString());
+                    skill.setName(KeyboardUtil.inputString());
 
                     jdbcSkillDao.update(skill);
 
@@ -97,7 +96,7 @@ public class SkillView {
                     System.out.println(tableSkillsAction4);
                     System.out.println("Please enter id for delete skill:");
                     System.out.println("Enter id:");
-                    id = keyboardUtil.inputInt();
+                    id = KeyboardUtil.inputInt();
 
                     jdbcSkillDao.delete(id);
 

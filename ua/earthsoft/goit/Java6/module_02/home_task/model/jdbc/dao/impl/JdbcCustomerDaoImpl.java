@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class JdbcCustomerDaoImpl implements ICustomerDAO {
     public static final JdbcCustomerDaoImpl instance = new JdbcCustomerDaoImpl();
-    SQLQueryUtil sqlQueryUtil = new SQLQueryUtil();
 
     private JdbcCustomerDaoImpl() {}
 
@@ -25,7 +24,7 @@ public class JdbcCustomerDaoImpl implements ICustomerDAO {
 
     @Override
     public void create(Customer customer) {
-        String sql = sqlQueryUtil.getQuery("customers", CrudUtil.CREATE, 0);
+        String sql = SQLQueryUtil.getQuery("customers", CrudUtil.CREATE, 0);
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql)) {
             fillStatement(customer, ps);
@@ -38,7 +37,7 @@ public class JdbcCustomerDaoImpl implements ICustomerDAO {
     public List<Customer> read() {
         List<Customer> customerList = new ArrayList<Customer>();
 
-        String sql = sqlQueryUtil.getQuery("customers", CrudUtil.READ, 0);
+        String sql = SQLQueryUtil.getQuery("customers", CrudUtil.READ, 0);
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              Statement statement = connection.createStatement();
              ResultSet rs  = statement.executeQuery(sql))
@@ -60,7 +59,7 @@ public class JdbcCustomerDaoImpl implements ICustomerDAO {
 
     @Override
     public void update(Customer customer) {
-        String sql = sqlQueryUtil.getQuery("customers", CrudUtil.UPDATE, customer.getId());
+        String sql = SQLQueryUtil.getQuery("customers", CrudUtil.UPDATE, customer.getId());
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql)) {
             fillStatement(customer, ps);
@@ -71,7 +70,7 @@ public class JdbcCustomerDaoImpl implements ICustomerDAO {
 
     @Override
     public void delete(int id) {
-        String sql = sqlQueryUtil.getQuery("customers", CrudUtil.DELETE, id);
+        String sql = SQLQueryUtil.getQuery("customers", CrudUtil.DELETE, id);
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              Statement statement = connection.createStatement())
         {statement.executeUpdate(sql);

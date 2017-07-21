@@ -9,18 +9,18 @@ import java.text.ParseException;
  * Created by kabysh_ol on 17.07.2017.
  */
 public class MainView {
-    private KeyboardUtil keyboardUtil = new KeyboardUtil();
     private final int company=1;
     private final int customer=2;
     private final int project=3;
     private final int developer=4;
     private final int skill=5;
     private final int exitProgram=0;
+    private int chooseKeyboard;
 
     public void view() throws IOException, ParseException {
+
         final String mainMenu = "\n#Main menu# Please choose table: 1-Companies | 2-Customers | 3-Projects | 4-Developers | 5-Skills | 0-Exit";
 
-        int chooseKeyboard;
         CompanyView companyView = new CompanyView();
         CustomerView customerView = new CustomerView();
         ProjectView projectView = new ProjectView();
@@ -31,7 +31,7 @@ public class MainView {
 
         while (true) {
             System.out.println(mainMenu);
-            chooseKeyboard = keyboardUtil.inputInt();
+            chooseKeyboard = KeyboardUtil.inputInt();
 
             switch (chooseKeyboard) {
                 case exitProgram:

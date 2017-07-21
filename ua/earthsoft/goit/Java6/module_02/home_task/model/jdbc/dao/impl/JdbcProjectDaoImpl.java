@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class JdbcProjectDaoImpl implements IProjectDAO {
     public static final JdbcProjectDaoImpl instance = new JdbcProjectDaoImpl();
-    SQLQueryUtil sqlQueryUtil = new SQLQueryUtil();
 
     private JdbcProjectDaoImpl() {}
 
@@ -25,7 +24,7 @@ public class JdbcProjectDaoImpl implements IProjectDAO {
 
     @Override
     public void create(Project project) {
-        String sql = sqlQueryUtil.getQuery("projects", CrudUtil.CREATE, 0);
+        String sql = SQLQueryUtil.getQuery("projects", CrudUtil.CREATE, 0);
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql)) {
             fillStatement(project, ps);
@@ -38,7 +37,7 @@ public class JdbcProjectDaoImpl implements IProjectDAO {
     public List<Project> read() {
         List<Project> projectList = new ArrayList<Project>();
 
-        String sql = sqlQueryUtil.getQuery("projects", CrudUtil.READ, 0);
+        String sql = SQLQueryUtil.getQuery("projects", CrudUtil.READ, 0);
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              Statement statement = connection.createStatement();
              ResultSet rs  = statement.executeQuery(sql))
@@ -59,7 +58,7 @@ public class JdbcProjectDaoImpl implements IProjectDAO {
 
     @Override
     public void update(Project project) {
-        String sql = sqlQueryUtil.getQuery("projects", CrudUtil.UPDATE, project.getId());
+        String sql = SQLQueryUtil.getQuery("projects", CrudUtil.UPDATE, project.getId());
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql)) {
             fillStatement(project, ps);
@@ -70,7 +69,7 @@ public class JdbcProjectDaoImpl implements IProjectDAO {
 
     @Override
     public void delete(int id) {
-        String sql = sqlQueryUtil.getQuery("projects", CrudUtil.DELETE, id);
+        String sql = SQLQueryUtil.getQuery("projects", CrudUtil.DELETE, id);
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              Statement statement = connection.createStatement())
         {statement.executeUpdate(sql);
