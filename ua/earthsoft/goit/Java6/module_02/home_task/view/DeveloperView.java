@@ -28,8 +28,8 @@ public class DeveloperView {
     private final String tableDevelopersAction7 = "\n#Main menu -> table: Developers -> Delete skill from developer#";
 
     private KeyboardUtil keyboardUtil = new KeyboardUtil();
-    JdbcDeveloperDaoImpl jdbcDeveloperDao = new JdbcDeveloperDaoImpl();
-    JdbcSkillDaoImpl jdbcSkillDao = new JdbcSkillDaoImpl();
+    JdbcDeveloperDaoImpl jdbcDeveloperDao = JdbcDeveloperDaoImpl.getInstance();
+    JdbcSkillDaoImpl jdbcSkillDao = JdbcSkillDaoImpl.getInstance();
     int chooseKeyboard;
 
     private final int create=1;

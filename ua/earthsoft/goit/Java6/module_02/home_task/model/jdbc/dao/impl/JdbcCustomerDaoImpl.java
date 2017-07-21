@@ -14,7 +14,14 @@ import java.util.List;
  * Created by Oleg Kabysh on 02.07.2017.
  */
 public class JdbcCustomerDaoImpl implements ICustomerDAO {
+    public static final JdbcCustomerDaoImpl instance = new JdbcCustomerDaoImpl();
     SQLQueryUtil sqlQueryUtil = new SQLQueryUtil();
+
+    private JdbcCustomerDaoImpl() {}
+
+    public static JdbcCustomerDaoImpl getInstance() {
+        return instance;
+    }
 
     @Override
     public void create(Customer customer) {
@@ -99,7 +106,7 @@ public class JdbcCustomerDaoImpl implements ICustomerDAO {
     public List<Project> getProjects(int projectId) {
         List<Project> projectList = new ArrayList<>();
         String sql = SQLQueryUtil.GET_PROJECTS_BY_CUSTOMER;
-        JdbcProjectDaoImpl jdbcProjectDaoImpl = new JdbcProjectDaoImpl();
+        JdbcProjectDaoImpl jdbcProjectDaoImpl = JdbcProjectDaoImpl.getInstance();
 
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql))
@@ -119,7 +126,7 @@ public class JdbcCustomerDaoImpl implements ICustomerDAO {
     public List<Developer> getDevelopers(int customerId) {
         List<Developer> developerList = new ArrayList<>();
         String sql = SQLQueryUtil.GET_DEVELOPERS_BY_CUSTOMER;
-        JdbcDeveloperDaoImpl jdbcDeveloperDaoImpl = new JdbcDeveloperDaoImpl();
+        JdbcDeveloperDaoImpl jdbcDeveloperDaoImpl = JdbcDeveloperDaoImpl.getInstance();
 
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql))

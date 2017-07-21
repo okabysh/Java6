@@ -25,8 +25,8 @@ public class CustomerView {
     private final String tableCustomersAction7 = "\n#Main menu -> table: Customers -> Delete project from customer#";
 
     private KeyboardUtil keyboardUtil = new KeyboardUtil();
-    JdbcCustomerDaoImpl jdbcCustomerDao = new JdbcCustomerDaoImpl();
-    JdbcProjectDaoImpl jdbcProjectDao = new JdbcProjectDaoImpl();
+    JdbcCustomerDaoImpl jdbcCustomerDao = JdbcCustomerDaoImpl.getInstance();
+    JdbcProjectDaoImpl jdbcProjectDao = JdbcProjectDaoImpl.getInstance();
     int chooseKeyboard;
 
     private final int create=1;

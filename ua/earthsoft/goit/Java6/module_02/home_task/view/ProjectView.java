@@ -23,7 +23,7 @@ public class ProjectView {
     private final String tableProjectsAction5 = "\n#Main menu -> table: Customers -> Read developers from project#";
 
     private KeyboardUtil keyboardUtil = new KeyboardUtil();
-    JdbcProjectDaoImpl jdbcProjectDao = new JdbcProjectDaoImpl();
+    JdbcProjectDaoImpl jdbcProjectDao = JdbcProjectDaoImpl.getInstance();
     int chooseKeyboard;
 
     private final int create=1;

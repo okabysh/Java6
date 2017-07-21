@@ -19,7 +19,7 @@ public class SkillView {
     private final String tableSkillsAction4 = "\n#Main menu -> table: Skills -> Delete skill#";
 
     private KeyboardUtil keyboardUtil = new KeyboardUtil();
-    JdbcSkillDaoImpl jdbcSkillDao = new JdbcSkillDaoImpl();
+    JdbcSkillDaoImpl jdbcSkillDao = JdbcSkillDaoImpl.getInstance();
     int chooseKeyboard;
 
     private final int create=1;

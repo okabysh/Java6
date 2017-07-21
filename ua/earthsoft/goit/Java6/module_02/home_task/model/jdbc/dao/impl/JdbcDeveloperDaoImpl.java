@@ -12,7 +12,14 @@ import java.util.List;
  * Created by kabysh_ol on 21.06.2017.
  */
 public class JdbcDeveloperDaoImpl implements IDeveloperDAO {
+    public static final JdbcDeveloperDaoImpl instance = new JdbcDeveloperDaoImpl();
     SQLQueryUtil sqlQueryUtil = new SQLQueryUtil();
+
+    private JdbcDeveloperDaoImpl() {}
+
+    public static JdbcDeveloperDaoImpl getInstance() {
+        return instance;
+    }
 
     @Override
     public void create(Developer developer) {
@@ -103,7 +110,7 @@ public class JdbcDeveloperDaoImpl implements IDeveloperDAO {
     public List<Skill> getSkillsByDeveloper(int developerId) {
         List<Skill> skillList = new ArrayList<>();
         String sql = SQLQueryUtil.GET_SKILLS_BY_DEVELOPER;
-        JdbcSkillDaoImpl jdbcSkillDaoImpl = new JdbcSkillDaoImpl();
+        JdbcSkillDaoImpl jdbcSkillDaoImpl = JdbcSkillDaoImpl.getInstance();
 
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql))

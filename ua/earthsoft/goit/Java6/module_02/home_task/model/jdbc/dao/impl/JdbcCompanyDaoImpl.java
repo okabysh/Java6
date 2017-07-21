@@ -15,7 +15,14 @@ import java.util.List;
  * Created by Oleg Kabysh on 30.06.2017.
  */
 public class JdbcCompanyDaoImpl implements ICompanyDAO {
+    private static final JdbcCompanyDaoImpl instance = new JdbcCompanyDaoImpl();
     SQLQueryUtil sqlQueryUtil = new SQLQueryUtil();
+
+    private JdbcCompanyDaoImpl() {}
+
+    public static JdbcCompanyDaoImpl getInstance() {
+        return instance;
+    }
 
     @Override
     public void create(Company company) {
@@ -105,7 +112,7 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
     public List<Customer> getCustomers(int companyId) {
         List<Customer> customerList = new ArrayList<>();
         String sql = SQLQueryUtil.GET_CUSTOMERS_BY_COMPANY;
-        JdbcCustomerDaoImpl jdbcCustomerDaoImpl = new JdbcCustomerDaoImpl();
+        JdbcCustomerDaoImpl jdbcCustomerDaoImpl = JdbcCustomerDaoImpl.getInstance();
 
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql))

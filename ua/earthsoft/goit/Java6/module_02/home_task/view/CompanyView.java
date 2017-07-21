@@ -25,8 +25,8 @@ public class CompanyView {
     private final String tableCompaniesAction7 = "\n#Main menu -> table: Companies -> Delete customer from company#";
 
     private KeyboardUtil keyboardUtil = new KeyboardUtil();
-    JdbcCompanyDaoImpl jdbcCompanyDao = new JdbcCompanyDaoImpl();
-    JdbcCustomerDaoImpl jdbcCustomerDao = new JdbcCustomerDaoImpl();
+    JdbcCompanyDaoImpl jdbcCompanyDao = JdbcCompanyDaoImpl.getInstance();
+    JdbcCustomerDaoImpl jdbcCustomerDao = JdbcCustomerDaoImpl.getInstance();
     int chooseKeyboard;
 
     private final int create=1;

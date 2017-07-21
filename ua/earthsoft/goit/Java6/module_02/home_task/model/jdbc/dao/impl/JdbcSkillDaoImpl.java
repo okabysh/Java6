@@ -14,7 +14,14 @@ import java.util.List;
  * Created by kabysh_ol on 30.06.2017.
  */
 public class JdbcSkillDaoImpl implements ISkillDAO {
+    public static final JdbcSkillDaoImpl instance = new JdbcSkillDaoImpl();
     SQLQueryUtil sqlQueryUtil = new SQLQueryUtil();
+
+    private JdbcSkillDaoImpl() {}
+
+    public static JdbcSkillDaoImpl getInstance() {
+        return instance;
+    }
 
     @Override
     public void create(Skill skill) {

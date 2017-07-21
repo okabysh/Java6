@@ -14,7 +14,14 @@ import java.util.List;
  * Created by kabysh_ol on 30.06.2017.
  */
 public class JdbcProjectDaoImpl implements IProjectDAO {
+    public static final JdbcProjectDaoImpl instance = new JdbcProjectDaoImpl();
     SQLQueryUtil sqlQueryUtil = new SQLQueryUtil();
+
+    private JdbcProjectDaoImpl() {}
+
+    public static JdbcProjectDaoImpl getInstance() {
+        return instance;
+    }
 
     @Override
     public void create(Project project) {
@@ -97,7 +104,7 @@ public class JdbcProjectDaoImpl implements IProjectDAO {
     public List<Developer> getDevelopers(int projectId) {
         List<Developer> developerList = new ArrayList<>();
         String sql = SQLQueryUtil.GET_DEVELOPERS_BY_PROJECT;
-        JdbcDeveloperDaoImpl jdbcDeveloperDaoImpl = new JdbcDeveloperDaoImpl();
+        JdbcDeveloperDaoImpl jdbcDeveloperDaoImpl = JdbcDeveloperDaoImpl.getInstance();
 
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql))
