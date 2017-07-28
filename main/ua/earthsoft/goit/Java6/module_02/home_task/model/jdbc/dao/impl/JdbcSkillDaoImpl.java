@@ -14,11 +14,17 @@ import java.util.List;
  * Created by kabysh_ol on 30.06.2017.
  */
 public class JdbcSkillDaoImpl implements ISkillDAO {
-    SQLQueryUtil sqlQueryUtil = new SQLQueryUtil();
+    public static final JdbcSkillDaoImpl instance = new JdbcSkillDaoImpl();
+
+    private JdbcSkillDaoImpl() {}
+
+    public static JdbcSkillDaoImpl getInstance() {
+        return instance;
+    }
 
     @Override
     public void create(Skill skill) {
-        String sql = sqlQueryUtil.getQuery("skills", CrudUtil.CREATE, 0);
+        String sql = SQLQueryUtil.getQuery("skills", CrudUtil.CREATE, 0);
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql)) {
             fillStatement(skill, ps);
@@ -31,7 +37,7 @@ public class JdbcSkillDaoImpl implements ISkillDAO {
     public List<Skill> read() {
         List<Skill> skillList = new ArrayList<Skill>();
 
-        String sql = sqlQueryUtil.getQuery("skills", CrudUtil.READ, 0);
+        String sql = SQLQueryUtil.getQuery("skills", CrudUtil.READ, 0);
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              Statement statement = connection.createStatement();
              ResultSet rs  = statement.executeQuery(sql))
@@ -51,7 +57,7 @@ public class JdbcSkillDaoImpl implements ISkillDAO {
 
     @Override
     public void update(Skill skill) {
-        String sql = sqlQueryUtil.getQuery("skills", CrudUtil.UPDATE, skill.getId());
+        String sql = SQLQueryUtil.getQuery("skills", CrudUtil.UPDATE, skill.getId());
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql)) {
             fillStatement(skill, ps);
@@ -62,7 +68,7 @@ public class JdbcSkillDaoImpl implements ISkillDAO {
 
     @Override
     public void delete(int id) {
-        String sql = sqlQueryUtil.getQuery("skills", CrudUtil.DELETE, id);
+        String sql = SQLQueryUtil.getQuery("skills", CrudUtil.DELETE, id);
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              Statement statement = connection.createStatement())
         {statement.executeUpdate(sql);

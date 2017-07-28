@@ -15,11 +15,17 @@ import java.util.List;
  * Created by Oleg Kabysh on 30.06.2017.
  */
 public class JdbcCompanyDaoImpl implements ICompanyDAO {
-    SQLQueryUtil sqlQueryUtil = new SQLQueryUtil();
+    private static final JdbcCompanyDaoImpl instance = new JdbcCompanyDaoImpl();
+
+    private JdbcCompanyDaoImpl() {}
+
+    public static JdbcCompanyDaoImpl getInstance() {
+        return instance;
+    }
 
     @Override
     public void create(Company company) {
-        String sql = sqlQueryUtil.getQuery("companies", CrudUtil.CREATE, 0);
+        String sql = SQLQueryUtil.getQuery("companies", CrudUtil.CREATE, 0);
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql)) {
             connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
@@ -35,7 +41,7 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
     public List<Company> read() {
         List<Company> companyList = new ArrayList<Company>();
 
-        String sql = sqlQueryUtil.getQuery("companies", CrudUtil.READ, 0);
+        String sql = SQLQueryUtil.getQuery("companies", CrudUtil.READ, 0);
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              Statement statement = connection.createStatement();
              ResultSet rs  = statement.executeQuery(sql))
@@ -58,7 +64,7 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
 
     @Override
     public void update(Company company) {
-        String sql = sqlQueryUtil.getQuery("companies", CrudUtil.UPDATE, company.getId());
+        String sql = SQLQueryUtil.getQuery("companies", CrudUtil.UPDATE, company.getId());
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql)) {
             fillStatement(company, ps);
@@ -69,7 +75,7 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
 
     @Override
     public void delete(int id) {
-        String sql = sqlQueryUtil.getQuery("companies", CrudUtil.DELETE, id);
+        String sql = SQLQueryUtil.getQuery("companies", CrudUtil.DELETE, id);
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              Statement statement = connection.createStatement())
         {statement.executeUpdate(sql);
@@ -105,7 +111,7 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
     public List<Customer> getCustomers(int companyId) {
         List<Customer> customerList = new ArrayList<>();
         String sql = SQLQueryUtil.GET_CUSTOMERS_BY_COMPANY;
-        JdbcCustomerDaoImpl jdbcCustomerDaoImpl = new JdbcCustomerDaoImpl();
+        JdbcCustomerDaoImpl jdbcCustomerDaoImpl = JdbcCustomerDaoImpl.getInstance();
 
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql))

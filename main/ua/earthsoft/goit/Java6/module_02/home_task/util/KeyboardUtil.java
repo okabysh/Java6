@@ -11,13 +11,15 @@ import java.text.ParseException;
  * Created by kabysh_ol on 17.07.2017.
  */
 public class KeyboardUtil {
-    private BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    private static BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
-    public String inputString() throws IOException {
+    private KeyboardUtil() {}
+
+    public static String inputString() throws IOException {
         return bufferedReader.readLine();
     }
 
-    public int inputInt() throws IOException {
+    public static int inputInt() throws IOException {
         int number = 0;
         try {
             number = Integer.parseInt(bufferedReader.readLine());
@@ -28,7 +30,7 @@ public class KeyboardUtil {
         return number;
     }
 
-    public BigDecimal inputBigDecimal() throws IOException {
+    public static BigDecimal inputBigDecimal() throws IOException {
         BigDecimal number = BigDecimal.valueOf(0);
         try {
             number = BigDecimal.valueOf(Double.parseDouble(bufferedReader.readLine()));
@@ -39,7 +41,7 @@ public class KeyboardUtil {
         return number;
     }
 
-    public Date inputDate() throws IOException, ParseException {
+    public static Date inputDate() throws IOException, ParseException {
         Date date = Date.valueOf("1900-01-01");
         try {
             date = Date.valueOf(bufferedReader.readLine());

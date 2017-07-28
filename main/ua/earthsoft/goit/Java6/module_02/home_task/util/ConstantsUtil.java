@@ -8,5 +8,6 @@ public class ConstantsUtil {
     public static final String USER = "sa";
     public static final String PASSWORD = "12345";
 
+    private ConstantsUtil() {}
 
 }

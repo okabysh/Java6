@@ -24,10 +24,9 @@ public class CustomerView {
     private final String tableCustomersAction6 = "\n#Main menu -> table: Customers -> Add project to customer#";
     private final String tableCustomersAction7 = "\n#Main menu -> table: Customers -> Delete project from customer#";
 
-    private KeyboardUtil keyboardUtil = new KeyboardUtil();
-    JdbcCustomerDaoImpl jdbcCustomerDao = new JdbcCustomerDaoImpl();
-    JdbcProjectDaoImpl jdbcProjectDao = new JdbcProjectDaoImpl();
-    int chooseKeyboard;
+    JdbcCustomerDaoImpl jdbcCustomerDao = JdbcCustomerDaoImpl.getInstance();
+    JdbcProjectDaoImpl jdbcProjectDao = JdbcProjectDaoImpl.getInstance();
+    private int chooseKeyboard;
 
     private final int create=1;
     private final int readAll=2;
@@ -43,7 +42,7 @@ public class CustomerView {
         System.out.println(crudAction);
         System.out.println(addActionCustomers);
         while (true) {
-            chooseKeyboard = keyboardUtil.inputInt();
+            chooseKeyboard = KeyboardUtil.inputInt();
             switch (chooseKeyboard) {
                 case returnToMainMenu: {
                     chooseKeyboard = 1;
@@ -57,11 +56,11 @@ public class CustomerView {
                     System.out.println(tableCustomersAction1);
                     System.out.println("Please enter all parameters for new customer:");
                     System.out.println("Enter name:");
-                    name = keyboardUtil.inputString();
+                    name = KeyboardUtil.inputString();
                     System.out.println("Enter identification code:");
-                    identificationCode = keyboardUtil.inputString();
+                    identificationCode = KeyboardUtil.inputString();
                     System.out.println("Enter phone:");
-                    phone = keyboardUtil.inputString();
+                    phone = KeyboardUtil.inputString();
 
                     Customer customer = new Customer();
                     customer.setName(name);
@@ -93,17 +92,17 @@ public class CustomerView {
                     System.out.println(tableCustomersAction3);
                     System.out.println("Please enter id for update customer:");
                     System.out.println("Enter id:");
-                    id = keyboardUtil.inputInt();
+                    id = KeyboardUtil.inputInt();
                     System.out.println("Current customer data:");
                     customer = jdbcCustomerDao.getById(id);
                     System.out.println(customer.toString());
 
                     System.out.println("Enter new name:");
-                    customer.setName(keyboardUtil.inputString());
+                    customer.setName(KeyboardUtil.inputString());
                     System.out.println("Enter identification code:");
-                    customer.setIdentificationCode(keyboardUtil.inputString());
+                    customer.setIdentificationCode(KeyboardUtil.inputString());
                     System.out.println("Enter new phone:");
-                    customer.setPhone(keyboardUtil.inputString());
+                    customer.setPhone(KeyboardUtil.inputString());
 
                     jdbcCustomerDao.update(customer);
 
@@ -119,7 +118,7 @@ public class CustomerView {
                     System.out.println(tableCustomersAction4);
                     System.out.println("Please enter id for delete customer:");
                     System.out.println("Enter id:");
-                    id = keyboardUtil.inputInt();
+                    id = KeyboardUtil.inputInt();
 
                     jdbcCustomerDao.delete(id);
 
@@ -130,12 +129,11 @@ public class CustomerView {
                 }
                 case readProjectsFromCustomer: {
                     int id;
-                    Customer customer;
 
                     System.out.println(tableCustomersAction5);
                     System.out.println("Please enter id customer for read projects:");
                     System.out.println("Enter id:");
-                    id = keyboardUtil.inputInt();
+                    id = KeyboardUtil.inputInt();
 
                     System.out.println("Projects from "+ jdbcCustomerDao.getById(id).getName()+":");
                     List<Project> projectList = jdbcCustomerDao.getProjects(id);
@@ -149,15 +147,13 @@ public class CustomerView {
                 case addProjectToCustomer: {
                     int idProject;
                     int idCustomer;
-                    Project project;
-                    Customer customer;
 
                     System.out.println(tableCustomersAction6);
                     System.out.println("Please enter id project and id customer for add project to customer:");
                     System.out.println("Enter id project:");
-                    idProject = keyboardUtil.inputInt();
+                    idProject = KeyboardUtil.inputInt();
                     System.out.println("Enter id customer:");
-                    idCustomer = keyboardUtil.inputInt();
+                    idCustomer = KeyboardUtil.inputInt();
 
                     jdbcCustomerDao.addProject(idProject, idCustomer);
                     System.out.println("Project: " + jdbcProjectDao.getById(idProject).getName() + " was successfully added to "+
@@ -169,15 +165,13 @@ public class CustomerView {
                 case deleteProjectFromCustomer: {
                     int idProject;
                     int idCustomer;
-                    Project project;
-                    Customer customer;
 
                     System.out.println(tableCustomersAction7);
                     System.out.println("Please enter id project and id customer for delete project from customer:");
                     System.out.println("Enter id project:");
-                    idProject = keyboardUtil.inputInt();
+                    idProject = KeyboardUtil.inputInt();
                     System.out.println("Enter id customer:");
-                    idCustomer = keyboardUtil.inputInt();
+                    idCustomer = KeyboardUtil.inputInt();
 
                     jdbcCustomerDao.deleteProject(idProject, idCustomer);
                     System.out.println("Project: " + jdbcProjectDao.getById(idProject).getName() + " was successfully delete from "+

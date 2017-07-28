@@ -24,10 +24,9 @@ public class CompanyView {
     private final String tableCompaniesAction6 = "\n#Main menu -> table: Companies -> Add customer to company#";
     private final String tableCompaniesAction7 = "\n#Main menu -> table: Companies -> Delete customer from company#";
 
-    private KeyboardUtil keyboardUtil = new KeyboardUtil();
-    JdbcCompanyDaoImpl jdbcCompanyDao = new JdbcCompanyDaoImpl();
-    JdbcCustomerDaoImpl jdbcCustomerDao = new JdbcCustomerDaoImpl();
-    int chooseKeyboard;
+    JdbcCompanyDaoImpl jdbcCompanyDao = JdbcCompanyDaoImpl.getInstance();
+    JdbcCustomerDaoImpl jdbcCustomerDao = JdbcCustomerDaoImpl.getInstance();
+    private int chooseKeyboard;
 
     private final int create=1;
     private final int readAll=2;
@@ -43,7 +42,7 @@ public class CompanyView {
         System.out.println(crudAction);
         System.out.println(addActionCompanies);
         while (true) {
-            chooseKeyboard = keyboardUtil.inputInt();
+            chooseKeyboard = KeyboardUtil.inputInt();
 
             switch (chooseKeyboard) {
                 case returnToMainMenu: {
@@ -59,13 +58,13 @@ public class CompanyView {
                     System.out.println(tableCompaniesAction1);
                     System.out.println("Please enter all parameters for new company:");
                     System.out.println("Enter name:");
-                    name = keyboardUtil.inputString();
+                    name = KeyboardUtil.inputString();
                     System.out.println("Enter full name:");
-                    fullName = keyboardUtil.inputString();
+                    fullName = KeyboardUtil.inputString();
                     System.out.println("Enter city:");
-                    city = keyboardUtil.inputString();
+                    city = KeyboardUtil.inputString();
                     System.out.println("Enter identification code:");
-                    identificationCode = keyboardUtil.inputString();
+                    identificationCode = KeyboardUtil.inputString();
 
                     Company company = new Company();
                     company.setName(name);
@@ -98,19 +97,19 @@ public class CompanyView {
                     System.out.println(tableCompaniesAction3);
                     System.out.println("Please enter id for update company:");
                     System.out.println("Enter id:");
-                    id = keyboardUtil.inputInt();
+                    id = KeyboardUtil.inputInt();
                     System.out.println("Current company data:");
                     company = jdbcCompanyDao.getById(id);
                     System.out.println(company.toString());
 
                     System.out.println("Enter new name:");
-                    company.setName(keyboardUtil.inputString());
+                    company.setName(KeyboardUtil.inputString());
                     System.out.println("Enter new full name:");
-                    company.setFullName(keyboardUtil.inputString());
+                    company.setFullName(KeyboardUtil.inputString());
                     System.out.println("Enter new city:");
-                    company.setCity(keyboardUtil.inputString());
+                    company.setCity(KeyboardUtil.inputString());
                     System.out.println("Enter identification code:");
-                    company.setIdentificationCode(keyboardUtil.inputString());
+                    company.setIdentificationCode(KeyboardUtil.inputString());
 
                     jdbcCompanyDao.update(company);
 
@@ -126,7 +125,7 @@ public class CompanyView {
                     System.out.println(tableCompaniesAction4);
                     System.out.println("Please enter id for delete company:");
                     System.out.println("Enter id:");
-                    id = keyboardUtil.inputInt();
+                    id = KeyboardUtil.inputInt();
 
                     jdbcCompanyDao.delete(id);
                     System.out.println("Company deleted successfully.");
@@ -141,7 +140,7 @@ public class CompanyView {
                     System.out.println(tableCompaniesAction5);
                     System.out.println("Please enter id company for read customers:");
                     System.out.println("Enter id:");
-                    id = keyboardUtil.inputInt();
+                    id = KeyboardUtil.inputInt();
 
                     System.out.println("Customers from "+ jdbcCompanyDao.getById(id).getName()+":");
                     List<Customer> customerList = jdbcCompanyDao.getCustomers(id);
@@ -159,9 +158,9 @@ public class CompanyView {
                     System.out.println(tableCompaniesAction6);
                     System.out.println("Please enter id customer and id company for add customer to company:");
                     System.out.println("Enter id customer:");
-                    idCustomer = keyboardUtil.inputInt();
+                    idCustomer = KeyboardUtil.inputInt();
                     System.out.println("Enter id company:");
-                    idCompany = keyboardUtil.inputInt();
+                    idCompany = KeyboardUtil.inputInt();
 
                     jdbcCompanyDao.addCustomer(idCustomer, idCompany);
                     System.out.println("Customer: " + jdbcCustomerDao.getById(idCustomer).getName() + " was successfully added to "+
@@ -177,9 +176,9 @@ public class CompanyView {
                     System.out.println(tableCompaniesAction7);
                     System.out.println("Please enter id customer and id company for delete customer from company:");
                     System.out.println("Enter id customer:");
-                    idCustomer = keyboardUtil.inputInt();
+                    idCustomer = KeyboardUtil.inputInt();
                     System.out.println("Enter id company:");
-                    idCompany = keyboardUtil.inputInt();
+                    idCompany = KeyboardUtil.inputInt();
 
                     jdbcCompanyDao.deleteCustomer(idCustomer, idCompany);
                     System.out.println("Customer: " + jdbcCustomerDao.getById(idCustomer).getName() + " was successfully delete from "+
