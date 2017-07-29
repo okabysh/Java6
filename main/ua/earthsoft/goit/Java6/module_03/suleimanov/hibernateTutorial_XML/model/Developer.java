@@ -1,4 +1,4 @@
-package ua.earthsoft.goit.Java6.module_03.suleimanov.hibernateTutorial.model;
+package ua.earthsoft.goit.Java6.module_03.suleimanov.hibernateTutorial_XML.model;
 
 /**
  * Created by Oleg Kabysh on 28.07.2017.

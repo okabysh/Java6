@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Employee" table="ts_employee">
+        <meta attribute="class-description">
+            This class contains employee's details.
+        </meta>
+        <id name="id" type="int" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="first_name" column="FIRST_NAME" type="string"/>
+        <property name="last_name" column="LAST_NAME" type="string"/>
+        <property name="salary" column="SALARY" type="int"/>
+    </class>
+</hibernate-mapping>

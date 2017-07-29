@@ -1,10 +1,10 @@
-package ua.earthsoft.goit.Java6.module_03.suleimanov.hibernateTutorial;
+package ua.earthsoft.goit.Java6.module_03.suleimanov.hibernateTutorial_XML;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import ua.earthsoft.goit.Java6.module_03.suleimanov.hibernateTutorial.model.Developer;
+import ua.earthsoft.goit.Java6.module_03.suleimanov.hibernateTutorial_XML.model.Developer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +24,27 @@ public class DeveloperRunner {
         developerRunner.addDeveloper("Sergey", "Ivanov", "C#", 3);
         developerRunner.addDeveloper("John", "Connor", "C++", 4);
         developerRunner.addDeveloper("Illya", "Chobot", "PHP", 5);
+
+        List<Developer> developers = developerRunner.listDevelopers();
+        for (Developer developer : developers) {
+            System.out.println(developer.toString());
+        }
+
+        System.out.println("\n");
+
+        developerRunner.updateDeveloper(8,11);
+        developers = developerRunner.listDevelopers();
+        for (Developer developer : developers) {
+            System.out.println(developer.toString());
+        }
+
+        System.out.println("\n");
+
+        developerRunner.removeDeveloper(8);
+        developers = developerRunner.listDevelopers();
+        for (Developer developer : developers) {
+            System.out.println(developer.toString());
+        }
     }
 
     public void addDeveloper(String firstName, String lastName, String speciality, int experience) {
@@ -60,7 +81,7 @@ public class DeveloperRunner {
         transaction = session.beginTransaction();
 
         Developer developer = session.get(Developer.class, developerId);
-        developer.setExperience(7);
+        developer.setExperience(experience);
         session.update(developer);
 
         transaction.commit();

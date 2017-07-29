@@ -13,6 +13,9 @@
 
         <!-- Assume ИМЯ ВАШЕЙ БД is the database name -->
         <property name="hibernate.connection.url">
+            <!--base for Suleimanov-->
+            <!--jdbc:mysql://195.78.112.104/Java6-->
+            <!--base for TutorialsPoint-->
             jdbc:mysql://195.78.112.104/Java6
         </property>
         <property name="hibernate.connection.username">
@@ -21,9 +24,19 @@
         <property name="hibernate.connection.password">
             12345
         </property>
+        <property name="hibernate.connection.pool_size">
+            10
+        </property>
+        <property name="hibernate.connection.autocommit">
+            true
+        </property>
+
 
         <!-- List of XML mapping files -->
-        <mapping resource="Developer.hbm.xml"/>
+        <!--base for Suleimanov-->
+        <!--<mapping resource="Developer.hbm.xml"/>-->
+        <!--base for TutorialsPoint-->
+        <mapping resource="Employee.hbm.xml"/>
 
     </session-factory>
 </hibernate-configuration>
