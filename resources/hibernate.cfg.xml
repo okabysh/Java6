@@ -37,6 +37,7 @@
         <!--<mapping resource="Developer.hbm.xml"/>-->
         <!--base for TutorialsPoint-->
         <mapping resource="Employee.hbm.xml"/>
+        <mapping resource="Certificate.hbm.xml"/>
 
     </session-factory>
 </hibernate-configuration>

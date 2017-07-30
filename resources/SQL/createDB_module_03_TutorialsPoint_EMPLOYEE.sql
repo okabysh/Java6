@@ -1,5 +1,5 @@
 use Java6;
-create table ts.employee
+create table ts_employee
 (
 	id int auto_increment
 		primary key,

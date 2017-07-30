@@ -10,6 +10,10 @@
         <id name="id" type="int" column="ID">
             <generator class="native"/>
         </id>
+        <set name="certificates" cascade="all">
+            <key column="emloyee_id"/>
+            <one-to-many class="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Certificate"/>
+        </set>
         <property name="first_name" column="FIRST_NAME" type="string"/>
         <property name="last_name" column="LAST_NAME" type="string"/>
         <property name="salary" column="SALARY" type="int"/>

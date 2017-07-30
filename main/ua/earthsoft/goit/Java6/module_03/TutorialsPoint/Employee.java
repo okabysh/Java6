@@ -1,5 +1,7 @@
 package ua.earthsoft.goit.Java6.module_03.TutorialsPoint;
 
+import java.util.Set;
+
 /**
  * Created by Oleg Kabysh on 29.07.2017.
  */
@@ -8,6 +10,7 @@ public class Employee {
     private String first_name;
     private String last_name;
     private int salary;
+    private Set certificates;
 
     public Employee() {}
 
@@ -15,6 +18,7 @@ public class Employee {
         this.first_name = first_name;
         this.last_name = last_name;
         this.salary = salary;
+        this.certificates = certificates;
     }
 
     public int getId() {
@@ -49,6 +53,14 @@ public class Employee {
         this.salary = salary;
     }
 
+    public Set getCertificates() {
+        return certificates;
+    }
+
+    public void setCertificates(Set certificates) {
+        this.certificates = certificates;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -56,6 +68,7 @@ public class Employee {
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", salary=" + salary +
+                ", certificates=" + certificates +
                 '}';
     }
 }
