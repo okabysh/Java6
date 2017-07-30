@@ -1,4 +1,4 @@
-package ua.earthsoft.goit.Java6.module_03.TutorialsPoint;
+package ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Set_Mappings;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -23,7 +23,7 @@ public class ManageEmloyeeCertificate {
             System.err.println("Failed to create sessionFactory object."+ex);
             throw new ExceptionInInitializerError(ex);
         }
-        ManageEmloyeeCertificate ME = new ManageEmloyeeCertificate();
+        ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Set_Mappings.ManageEmloyeeCertificate ME = new ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Set_Mappings.ManageEmloyeeCertificate();
 
         HashSet set1 = new HashSet();
         set1.add(new Certificate("MCA"));

@@ -38,6 +38,7 @@
         <!--base for TutorialsPoint-->
         <mapping resource="Employee.hbm.xml"/>
         <mapping resource="Certificate.hbm.xml"/>
+        <mapping resource="Employee_SSM.hbm.xml"/>
 
     </session-factory>
 </hibernate-configuration>

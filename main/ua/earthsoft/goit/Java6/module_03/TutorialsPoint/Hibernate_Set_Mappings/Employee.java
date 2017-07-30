@@ -1,4 +1,4 @@
-package ua.earthsoft.goit.Java6.module_03.TutorialsPoint;
+package ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Set_Mappings;
 
 import java.util.Set;
 

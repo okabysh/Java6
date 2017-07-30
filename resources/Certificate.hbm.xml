@@ -3,7 +3,7 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Certificate" table="ts_certificate">
+    <class name="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Set_Mappings.Certificate" table="ts_certificate">
         <meta attribute="class-description">
             This class contains certificates details.
         </meta>
