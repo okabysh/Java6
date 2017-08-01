@@ -13,9 +13,6 @@
 
         <!-- Assume ИМЯ ВАШЕЙ БД is the database name -->
         <property name="hibernate.connection.url">
-            <!--base for Suleimanov-->
-            <!--jdbc:mysql://195.78.112.104/Java6-->
-            <!--base for TutorialsPoint-->
             jdbc:mysql://195.78.112.104/Java6
         </property>
         <property name="hibernate.connection.username">
@@ -31,13 +28,8 @@
             true
         </property>
 
-
-        <!-- List of XML mapping files -->
-        <!--base for Suleimanov-->
-        <mapping resource="Developer.hbm.xml"/>
-        <!--base for TutorialsPoint-->
-        <mapping resource="Employee.hbm.xml"/>
-        <mapping resource="Certificate.hbm.xml"/>
-        <mapping resource="Employee_SSM.hbm.xml"/>
+        <!--for annotations mapping-->
+        <!--<mapping class="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Annotations.Employee_A"/>-->
+        <mapping resource="Employee_a1.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

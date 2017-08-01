@@ -103,7 +103,7 @@ public class ManageEmloyeeCertificate {
 
         try {
             tx = session.beginTransaction();
-            Employee employee = session.get(Employee.class, EmployeeID);
+            Employee employee = (Employee) session.get(Employee.class, EmployeeID);
             employee.setSalary(salary);
             session.update(employee);
             tx.commit();
@@ -123,7 +123,7 @@ public class ManageEmloyeeCertificate {
 
         try {
             tx = session.beginTransaction();
-            Employee employee = session.get(Employee.class, EmployeeID);
+            Employee employee = (Employee) session.get(Employee.class, EmployeeID);
             session.delete(employee);
             tx.commit();
         } catch (HibernateException e) {

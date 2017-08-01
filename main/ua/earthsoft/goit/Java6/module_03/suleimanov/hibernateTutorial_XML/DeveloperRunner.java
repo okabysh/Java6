@@ -80,7 +80,7 @@ public class DeveloperRunner {
         Transaction transaction = null;
         transaction = session.beginTransaction();
 
-        Developer developer = session.get(Developer.class, developerId);
+        Developer developer = (Developer) session.get(Developer.class, developerId);
         developer.setExperience(experience);
         session.update(developer);
 
@@ -94,7 +94,7 @@ public class DeveloperRunner {
         transaction = session.beginTransaction();
 
         //update
-        Developer developer = session.get(Developer.class, developerId);
+        Developer developer = (Developer) session.get(Developer.class, developerId);
         session.delete(developer);
         transaction.commit();
         session.close();

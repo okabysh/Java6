@@ -3,7 +3,7 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
 <hibernate-configuration>
-    <session-factory name="WRS-MySQL">
+    <session-factory name="MySQL-annotations">
         <property name="hibernate.dialect">
             org.hibernate.dialect.MySQLDialect
         </property>
@@ -31,13 +31,8 @@
             true
         </property>
 
+        <!--for annotations mapping-->
+        <!--<mapping class="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Annotations.Employee_A"/>-->
 
-        <!-- List of XML mapping files -->
-        <!--base for Suleimanov-->
-        <mapping resource="Developer.hbm.xml"/>
-        <!--base for TutorialsPoint-->
-        <mapping resource="Employee.hbm.xml"/>
-        <mapping resource="Certificate.hbm.xml"/>
-        <mapping resource="Employee_SSM.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
