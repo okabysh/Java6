@@ -1,25 +1,24 @@
-package ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Annotations.Associations._1_One_to_One;
+package ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Associations.XML._3_Many_to_One;
 
 /**
  * Created by Oleg Kabysh on 02.08.2017.
  */
-public class Address_A1 {
+public class Address_A3 {
     private int id;
     private String street;
     private String city;
     private String state;
     private String zipcode;
 
-    public Address_A1() {}
+    public Address_A3() {}
 
-    public Address_A1(String street, String city,
-                      String state, String zipcode) {
+    public Address_A3(String street, String city,
+        String state, String zipcode) {
         this.street = street;
         this.city = city;
         this.state = state;
         this.zipcode = zipcode;
     }
-
     public int getId() {
         return id;
     }
@@ -35,7 +34,6 @@ public class Address_A1 {
     public String getCity() {
         return city;
     }
-
     public void setCity( String city ) {
         this.city = city;
     }

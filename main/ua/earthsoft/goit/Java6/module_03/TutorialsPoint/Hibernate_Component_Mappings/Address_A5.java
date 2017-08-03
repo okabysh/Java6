@@ -1,29 +1,31 @@
-package ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Annotations.Associations._3_Many_to_One;
+package ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Component_Mappings;
 
 /**
- * Created by Oleg Kabysh on 02.08.2017.
+ * Created by Oleg Kabysh on 03.08.2017.
  */
-public class Address_A3 {
+public class Address_A5 {
     private int id;
     private String street;
     private String city;
     private String state;
     private String zipcode;
 
-    public Address_A3() {}
+    public Address_A5() {}
 
-    public Address_A3(String street, String city,
-        String state, String zipcode) {
+    public Address_A5(String street, String city,
+                   String state, String zipcode) {
         this.street = street;
         this.city = city;
         this.state = state;
         this.zipcode = zipcode;
     }
+
     public int getId() {
         return id;
     }
     public void setId( int id ) {
         this.id = id;
+
     }
     public String getStreet() {
         return street;

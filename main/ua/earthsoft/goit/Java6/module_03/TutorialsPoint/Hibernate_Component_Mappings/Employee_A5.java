@@ -1,24 +1,25 @@
-package ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Annotations.Associations._3_Many_to_One;
+package ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Component_Mappings;
 
 /**
- * Created by Oleg Kabysh on 02.08.2017.
+ * Created by Oleg Kabysh on 03.08.2017.
  */
-public class Employee_A3 {
+public class Employee_A5 implements java.io.Serializable {
     private int id;
     private String firstName;
     private String lastName;
     private int salary;
-    private Address_A3 address;
+    private Address_A5 address;
 
-    public Employee_A3() {}
+    public Employee_A5() {}
 
-    public Employee_A3(String fname, String lname,
-                    int salary, Address_A3 address ) {
+    public Employee_A5(String fname, String lname,
+                       int salary, Address_A5 address ) {
         this.firstName = fname;
         this.lastName = lname;
         this.salary = salary;
         this.address = address;
     }
+
     public int getId() {
         return id;
     }
@@ -43,10 +44,10 @@ public class Employee_A3 {
     public void setSalary( int salary ) {
         this.salary = salary;
     }
-    public Address_A3 getAddress() {
+    public Address_A5 getAddress() {
         return address;
     }
-    public void setAddress( Address_A3 address ) {
+    public void setAddress( Address_A5 address ) {
         this.address = address;
     }
 }

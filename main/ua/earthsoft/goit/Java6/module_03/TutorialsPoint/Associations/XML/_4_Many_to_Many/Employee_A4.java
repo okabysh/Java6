@@ -1,24 +1,23 @@
-package ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Annotations.Associations._1_One_to_One;
+package ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Associations.XML._4_Many_to_Many;
+
+import java.util.Set;
 
 /**
- * Created by Oleg Kabysh on 02.08.2017.
+ * Created by Oleg Kabysh on 03.08.2017.
  */
-
-public class Employee_A1 {
+public class Employee_A4 {
     private int id;
     private String firstName;
     private String lastName;
     private int salary;
-    private Address_A1 address;
+    private Set certificates;
 
-    public Employee_A1() {}
+    public Employee_A4() {}
 
-    public Employee_A1(String fname, String lname,
-                       int salary, Address_A1 address ) {
+    public Employee_A4(String fname, String lname, int salary) {
         this.firstName = fname;
         this.lastName = lname;
         this.salary = salary;
-        this.address = address;
     }
 
     public int getId() {
@@ -45,11 +44,11 @@ public class Employee_A1 {
     public void setSalary( int salary ) {
         this.salary = salary;
     }
-    public Address_A1 getAddress() {
-        return address;
+    public Set getCertificates() {
+        return certificates;
     }
-    public void setAddress( Address_A1 address ) {
-        this.address = address;
-    }
+    public void setCertificates( Set certificates ) {
+        this.certificates = certificates;
 
+    }
 }

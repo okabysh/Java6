@@ -3,7 +3,7 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Annotations.Associations._1_One_to_One.Employee_A1" table="ts_a1_employee">
+    <class name="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Associations.XML._1_One_to_One.Employee_A1" table="ts_a1_employee">
         <meta attribute="class-description">
             This class contains the employee detail.
         </meta>
@@ -14,9 +14,9 @@
         <property name="lastName" column="last_name" type="string"/>
         <property name="salary" column="salary" type="int"/>
         <many-to-one name="address" column="address" unique="true"
-                     class="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Annotations.Associations._1_One_to_One.Address_A1" not-null="true"/>
+                     class="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Associations.XML._1_One_to_One.Address_A1" not-null="true"/>
     </class>
-    <class name="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Annotations.Associations._1_One_to_One.Address_A1" table="ts_a1_address">
+    <class name="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Associations.XML._1_One_to_One.Address_A1" table="ts_a1_address">
         <meta attribute="class-description">
             This class contains the address detail.
         </meta>

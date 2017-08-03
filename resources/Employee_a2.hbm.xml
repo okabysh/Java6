@@ -3,7 +3,7 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Annotations.Associations._2_One_to_Many.Employee_A2" table="TS_A2_EMPLOYEE">
+    <class name="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Associations.XML._2_One_to_Many.Employee_A2" table="TS_A2_EMPLOYEE">
         <meta attribute="class-description">
             This class contains the employee detail.
         </meta>
@@ -12,14 +12,14 @@
         </id>
         <set name="certificates" cascade="all">
             <key column="employee_id"/>
-            <one-to-many class="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Annotations.Associations._2_One_to_Many.Certificate_A2"/>
+            <one-to-many class="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Associations.XML._2_One_to_Many.Certificate_A2"/>
         </set>
         <property name="firstName" column="first_name" type="string"/>
         <property name="lastName" column="last_name" type="string"/>
         <property name="salary" column="salary" type="int"/>
     </class>
 
-    <class name="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Annotations.Associations._2_One_to_Many.Certificate_A2" table="TS_A2_CERTIFICATE">
+    <class name="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Associations.XML._2_One_to_Many.Certificate_A2" table="TS_A2_CERTIFICATE">
         <meta attribute="class-description">
             This class contains the certificate records.
         </meta>

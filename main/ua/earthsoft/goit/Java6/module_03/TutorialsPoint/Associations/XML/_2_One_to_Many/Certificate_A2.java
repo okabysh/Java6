@@ -1,4 +1,4 @@
-package ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Annotations.Associations._2_One_to_Many;
+package ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Associations.XML._2_One_to_Many;
 
 /**
  * Created by Oleg Kabysh on 02.08.2017.
