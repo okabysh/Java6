@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Annotations.Associations._3_Many_to_One.Employee_A3" table="TS_A3_EMPLOYEE">
+        <meta attribute="class-description">
+            This class contains the employee detail.
+        </meta>
+        <id name="id" type="int" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="firstName" column="first_name" type="string"/>
+        <property name="lastName" column="last_name" type="string"/>
+        <property name="salary" column="salary" type="int"/>
+        <many-to-one name="address" column="address"
+                     class="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Annotations.Associations._3_Many_to_One.Address_A3" not-null="true"/>
+    </class>
+
+    <class name="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Annotations.Associations._3_Many_to_One.Address_A3" table="ts_a3_address">
+        <meta attribute="class-description">
+            This class contains the address detail.
+        </meta>
+        <id name="id" type="int" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="street" column="street_name" type="string"/>
+        <property name="city" column="city_name" type="string"/>
+        <property name="state" column="state_name" type="string"/>
+        <property name="zipcode" column="zipcode" type="string"/>
+    </class>
+
+</hibernate-mapping>
