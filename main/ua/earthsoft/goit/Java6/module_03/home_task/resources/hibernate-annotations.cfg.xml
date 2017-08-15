@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory name="MySQL-annotations">
+        <property name="hibernate.dialect">
+            org.hibernate.dialect.MySQLDialect
+        </property>
+        <property name="hibernate.connection.driver_class">
+            com.mysql.jdbc.Driver
+        </property>
+
+        <!-- Assume ИМЯ ВАШЕЙ БД is the database name -->
+        <property name="hibernate.connection.url">
+            <!--base for Suleimanov-->
+            <!--jdbc:mysql://195.78.112.104/Java6-->
+            <!--base for TutorialsPoint-->
+            jdbc:mysql://195.78.112.104/Java6
+        </property>
+        <property name="hibernate.connection.username">
+            sa
+        </property>
+        <property name="hibernate.connection.password">
+            12345
+        </property>
+        <property name="hibernate.connection.pool_size">
+            5
+        </property>
+        <property name="hibernate.connection.autocommit">
+            true
+        </property>
+
+        <!--for annotations mapping-->
+        <!--<mapping class="ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Annotations.Employee_A"/>-->
+
+    </session-factory>
+</hibernate-configuration>
