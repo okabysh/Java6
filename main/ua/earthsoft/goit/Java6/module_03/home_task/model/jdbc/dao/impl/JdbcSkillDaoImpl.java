@@ -1,10 +1,12 @@
 package ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.impl;
 
 import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import ua.earthsoft.goit.Java6.module_03.home_task.Launch;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.Company;
+import ua.earthsoft.goit.Java6.module_03.home_task.model.Customer;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.Project;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.ISkillDAO;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.Skill;
@@ -14,6 +16,7 @@ import ua.earthsoft.goit.Java6.module_03.home_task.util.SQLQueryUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -103,25 +106,27 @@ public class JdbcSkillDaoImpl implements ISkillDAO {
     @Override
     public Skill getById(int id) {
         String sql = SQLQueryUtil.GET_SKILL_BY_ID;
-
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             PreparedStatement ps = connection.prepareStatement(sql))
-        { ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                Skill skill = new Skill();
-                skill.setId(rs.getInt("id"));
-                skill.setName(rs.getString("name"));
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            SQLQuery query = session.createSQLQuery(sql);
+            query.setInteger(0, id);
+            query.addEntity(Skill.class);
+            List result = query.list();
+            tx.commit();
+            for (Iterator iterator = result.iterator(); iterator.hasNext();){
+                Skill skill = (Skill) iterator.next();
                 return skill;
             }
-        } catch (SQLException e) {
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return null;
-    }
-
-    private void fillStatement(Skill skill, PreparedStatement ps) throws SQLException {
-        ps.setString(1, skill.getName());
-        ps.executeUpdate();
     }
 }

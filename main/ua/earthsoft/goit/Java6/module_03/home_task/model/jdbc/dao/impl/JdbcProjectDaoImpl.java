@@ -1,6 +1,7 @@
 package ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.impl;
 
 import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import ua.earthsoft.goit.Java6.module_03.home_task.Launch;
@@ -12,6 +13,7 @@ import ua.earthsoft.goit.Java6.module_03.home_task.util.SQLQueryUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -102,20 +104,26 @@ public class JdbcProjectDaoImpl implements IProjectDAO {
     @Override
     public Project getById(int id) {
         String sql = SQLQueryUtil.GET_PROJECT_BY_ID;
-
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             PreparedStatement ps = connection.prepareStatement(sql))
-        { ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                Project project = new Project();
-                project.setId(rs.getInt("id"));
-                project.setName(rs.getString("name"));
-                project.setCost(rs.getBigDecimal("cost"));
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            SQLQuery query = session.createSQLQuery(sql);
+            query.setInteger(0, id);
+            query.addEntity(Project.class);
+            List result = query.list();
+            tx.commit();
+            for (Iterator iterator = result.iterator(); iterator.hasNext();){
+                Project project = (Project) iterator.next();
                 return project;
             }
-        } catch (SQLException e) {
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return null;
     }

@@ -1,6 +1,7 @@
 package ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.impl;
 
 import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import ua.earthsoft.goit.Java6.module_03.home_task.Launch;
@@ -10,6 +11,7 @@ import ua.earthsoft.goit.Java6.module_03.home_task.model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -104,24 +106,26 @@ public class JdbcDeveloperDaoImpl implements IDeveloperDAO {
     @Override
     public Developer getById(int id) {
         String sql = SQLQueryUtil.GET_DEVELOPER_BY_ID;
-
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             PreparedStatement ps = connection.prepareStatement(sql))
-        { ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                Developer developer = new Developer();
-                developer.setId(rs.getInt("id"));
-                developer.setFirstName(rs.getString("firstName"));
-                developer.setSurName(rs.getString("surName"));
-                developer.setIdentificationCode(rs.getString("identificationCode"));
-                developer.setBirthday(rs.getDate("birthday"));
-                developer.setPhone(rs.getString("phone"));
-                developer.setSalary(rs.getBigDecimal("salary"));
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            SQLQuery query = session.createSQLQuery(sql);
+            query.setInteger(0, id);
+            query.addEntity(Developer.class);
+            List result = query.list();
+            tx.commit();
+            for (Iterator iterator = result.iterator(); iterator.hasNext();){
+                Developer developer = (Developer) iterator.next();
                 return developer;
             }
-        } catch (SQLException e) {
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return null;
     }

@@ -1,8 +1,6 @@
 package ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.impl;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Annotations.Employee_A;
 import ua.earthsoft.goit.Java6.module_03.home_task.Launch;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.Company;
@@ -13,8 +11,7 @@ import ua.earthsoft.goit.Java6.module_03.home_task.util.ConstantsUtil;
 import ua.earthsoft.goit.Java6.module_03.home_task.util.SQLQueryUtil;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Oleg Kabysh on 30.06.2017.
@@ -106,22 +103,26 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
     @Override
     public Company getById(int id) {
         String sql = SQLQueryUtil.GET_COMPANY_BY_ID;
-
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             PreparedStatement ps = connection.prepareStatement(sql))
-        { ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                Company company = new Company();
-                company.setId(rs.getInt("id"));
-                company.setName(rs.getString("name"));
-                company.setFullName(rs.getString("fullName"));
-                company.setCity(rs.getString("city"));
-                company.setIdentificationCode(rs.getString("identificationCode"));
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            SQLQuery query = session.createSQLQuery(sql);
+            query.setInteger(0, id);
+            query.addEntity(Company.class);
+            List result = query.list();
+            tx.commit();
+            for (Iterator iterator = result.iterator(); iterator.hasNext();){
+                Company company = (Company) iterator.next();
                 return company;
             }
-        } catch (SQLException e) {
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return null;
     }

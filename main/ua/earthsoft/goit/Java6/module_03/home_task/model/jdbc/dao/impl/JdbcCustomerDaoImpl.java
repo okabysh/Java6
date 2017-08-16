@@ -1,6 +1,7 @@
 package ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.impl;
 
 import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import ua.earthsoft.goit.Java6.module_03.home_task.Launch;
@@ -12,6 +13,7 @@ import ua.earthsoft.goit.Java6.module_03.home_task.util.SQLQueryUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -103,21 +105,26 @@ public class JdbcCustomerDaoImpl implements ICustomerDAO {
     @Override
     public Customer getById(int id) {
         String sql = SQLQueryUtil.GET_CUSTOMER_BY_ID;
-
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             PreparedStatement ps = connection.prepareStatement(sql))
-        { ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                Customer customer = new Customer();
-                customer.setId(rs.getInt("id"));
-                customer.setName(rs.getString("name"));
-                customer.setIdentificationCode(rs.getString("identificationCode"));
-                customer.setPhone(rs.getString("phone"));
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            SQLQuery query = session.createSQLQuery(sql);
+            query.setInteger(0, id);
+            query.addEntity(Customer.class);
+            List result = query.list();
+            tx.commit();
+            for (Iterator iterator = result.iterator(); iterator.hasNext();){
+                Customer customer = (Customer) iterator.next();
                 return customer;
             }
-        } catch (SQLException e) {
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return null;
     }
