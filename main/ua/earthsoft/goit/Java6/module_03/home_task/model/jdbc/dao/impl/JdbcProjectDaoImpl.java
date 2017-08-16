@@ -1,5 +1,9 @@
 package ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.impl;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import ua.earthsoft.goit.Java6.module_03.home_task.Launch;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.*;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.IProjectDAO;
 import ua.earthsoft.goit.Java6.module_03.home_task.util.CrudUtil;
@@ -24,57 +28,74 @@ public class JdbcProjectDaoImpl implements IProjectDAO {
 
     @Override
     public void create(Project project) {
-        String sql = SQLQueryUtil.getQuery("projects", CrudUtil.CREATE, 0);
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-            fillStatement(project, ps);
-        } catch (SQLException e) {
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.save(project);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
 
     @Override
     public List<Project> read() {
-        List<Project> projectList = new ArrayList<Project>();
-
-        String sql = SQLQueryUtil.getQuery("projects", CrudUtil.READ, 0);
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             Statement statement = connection.createStatement();
-             ResultSet rs  = statement.executeQuery(sql))
-        {
-            while (rs.next()) {
-                Project project = new Project();
-                project.setId(rs.getInt("id"));
-                project.setName(rs.getString("name"));
-                project.setCost(rs.getBigDecimal("cost"));
-                projectList.add(project);
-            }
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            List<Project> projectList = (List<Project>) session.createQuery("FROM ua.earthsoft.goit.Java6.module_03.home_task.model.Project").list();
             return projectList;
-        } catch (SQLException e) {
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return null;
     }
 
     @Override
     public void update(Project project) {
-        String sql = SQLQueryUtil.getQuery("projects", CrudUtil.UPDATE, project.getId());
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-            fillStatement(project, ps);
-        } catch (SQLException e) {
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Project projectForUpdate = (Project) session.get(Project.class, project.getId());
+            projectForUpdate.setName(project.getName());
+            projectForUpdate.setCost(project.getCost());
+            session.update(projectForUpdate);
+            tx.commit();
+        } catch (HibernateException e) {
+            tx.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
 
     @Override
     public void delete(int id) {
-        String sql = SQLQueryUtil.getQuery("projects", CrudUtil.DELETE, id);
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             Statement statement = connection.createStatement())
-        {statement.executeUpdate(sql);
-        } catch (SQLException e) {
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Project projectForDelete = (Project) session.get(Project.class, id);
+            session.delete(projectForDelete);
+            tx.commit();
+        } catch (HibernateException e) {
+            tx.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
 

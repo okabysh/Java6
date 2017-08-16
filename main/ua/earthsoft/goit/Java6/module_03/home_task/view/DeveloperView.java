@@ -67,7 +67,7 @@ public class DeveloperView {
                     surName = KeyboardUtil.inputString();
                     System.out.println("Enter identification code:");
                     identificationCode = KeyboardUtil.inputString();
-                    System.out.println("Enter birthday:");
+                    System.out.println("Enter birthday (YYYY-MM-DD):");
                     birthday = KeyboardUtil.inputDate();
                     System.out.println("Enter phone:");
                     phone = KeyboardUtil.inputString();
@@ -75,6 +75,7 @@ public class DeveloperView {
                     salary = KeyboardUtil.inputBigDecimal();
 
                     Developer developer = new Developer();
+                    developer.setFullName(firstName+" "+surName);
                     developer.setFirstName(firstName);
                     developer.setSurName(surName);
                     developer.setIdentificationCode(identificationCode);

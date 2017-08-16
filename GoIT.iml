@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="hibernate" name="Hibernate">
+      <configuration>
+        <datasource-map />
+        <naming-strategy-map />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/main/ua/earthsoft/goit/Java6/module_03/TutorialsPoint/Associations/XML/_1_One_to_One/resources/hibernate_a1.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/main/ua/earthsoft/goit/Java6/module_03/TutorialsPoint/Associations/XML/_2_One_to_Many/resources/hibernate_a2.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/main/ua/earthsoft/goit/Java6/module_03/TutorialsPoint/Associations/XML/_3_Many_to_One/resources/hibernate_a3.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/main/ua/earthsoft/goit/Java6/module_03/TutorialsPoint/Associations/XML/_4_Many_to_Many/resources/hibernate_a4.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/main/ua/earthsoft/goit/Java6/module_03/TutorialsPoint/Hibernate_Annotations/resources/hibernate-annotations.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/main/ua/earthsoft/goit/Java6/module_03/TutorialsPoint/Hibernate_Component_Mappings/resources/hibernate_a5.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/main/ua/earthsoft/goit/Java6/module_03/home_task/resources/hibernate-annotations.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/resources/hibernate.cfg.xml" />
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />

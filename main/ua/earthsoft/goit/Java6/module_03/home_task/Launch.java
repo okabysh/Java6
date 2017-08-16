@@ -35,11 +35,11 @@ public class Launch {
             throw new ExceptionInInitializerError(ex);
         }
 
-//        RegisterDriver registerDriver = new RegisterDriver();
-//        if (!registerDriver.register()) {
-//            System.out.println("Do not registered driver.");
-//            System.exit(1);
-//        }
+        RegisterDriver registerDriver = new RegisterDriver();
+        if (!registerDriver.register()) {
+            System.out.println("Do not registered driver.");
+            System.exit(1);
+        }
 
         MainView mainView = new MainView();
         mainView.view();

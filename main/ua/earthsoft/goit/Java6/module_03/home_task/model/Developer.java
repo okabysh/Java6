@@ -15,6 +15,9 @@ public class Developer {
     @Column(name = "id")
     private int id;
 
+    @Column(name = "fullName")
+    private String fullName;
+
     @Column(name = "firstName")
     private String firstName;
 
@@ -35,6 +38,10 @@ public class Developer {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public void setFirstName(String firstName) {
@@ -63,6 +70,10 @@ public class Developer {
 
     public int getId() {
         return id;
+    }
+
+    public String getFullName() {
+        return fullName;
     }
 
     public String getFirstName() {

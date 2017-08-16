@@ -1,5 +1,10 @@
 package ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.impl;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Annotations.Employee_A;
+import ua.earthsoft.goit.Java6.module_03.home_task.Launch;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.Company;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.Customer;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.ICompanyDAO;
@@ -25,63 +30,76 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
 
     @Override
     public void create(Company company) {
-//        String sql = SQLQueryUtil.getQuery("companies", CrudUtil.CREATE, 0);
-//        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-//             PreparedStatement ps = connection.prepareStatement(sql)) {
-//            connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-//            connection.setAutoCommit(false);
-//            fillStatement(company, ps);
-//            connection.commit();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.save(company);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public List<Company> read() {
-        List<Company> companyList = new ArrayList<Company>();
-
-        String sql = SQLQueryUtil.getQuery("companies", CrudUtil.READ, 0);
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             Statement statement = connection.createStatement();
-             ResultSet rs  = statement.executeQuery(sql))
-        {
-            while (rs.next()) {
-                Company company = new Company();
-                company.setId(rs.getInt("id"));
-                company.setName(rs.getString("name"));
-                company.setFullName(rs.getString("fullName"));
-                company.setCity(rs.getString("city"));
-                company.setIdentificationCode(rs.getString("identificationCode"));
-                companyList.add(company);
-            }
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            List<Company> companyList = (List<Company>) session.createQuery("FROM ua.earthsoft.goit.Java6.module_03.home_task.model.Company").list();
             return companyList;
-        } catch (SQLException e) {
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return null;
     }
 
     @Override
     public void update(Company company) {
-        String sql = SQLQueryUtil.getQuery("companies", CrudUtil.UPDATE, company.getId());
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-            fillStatement(company, ps);
-        } catch (SQLException e) {
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Company companyForUpdate = (Company) session.get(Company.class, company.getId());
+            companyForUpdate.setName(company.getName());
+            companyForUpdate.setFullName(company.getFullName());
+            companyForUpdate.setCity(company.getCity());
+            companyForUpdate.setIdentificationCode(company.getIdentificationCode());
+            session.update(companyForUpdate);
+            tx.commit();
+        } catch (HibernateException e) {
+            tx.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
 
     @Override
     public void delete(int id) {
-        String sql = SQLQueryUtil.getQuery("companies", CrudUtil.DELETE, id);
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             Statement statement = connection.createStatement())
-        {statement.executeUpdate(sql);
-        } catch (SQLException e) {
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Company companyForDelete = (Company) session.get(Company.class, id);
+            session.delete(companyForDelete);
+            tx.commit();
+        } catch (HibernateException e) {
+            tx.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
 

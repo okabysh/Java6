@@ -1,5 +1,9 @@
 package ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.impl;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import ua.earthsoft.goit.Java6.module_03.home_task.Launch;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.IDeveloperDAO;
 import ua.earthsoft.goit.Java6.module_03.home_task.util.*;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.*;
@@ -22,61 +26,78 @@ public class JdbcDeveloperDaoImpl implements IDeveloperDAO {
 
     @Override
     public void create(Developer developer) {
-        String sql = SQLQueryUtil.getQuery("developers", CrudUtil.CREATE, 0);
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-            fillStatement(developer, ps);
-        } catch (SQLException e) {
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.save(developer);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
 
     @Override
     public List<Developer> read() {
-        List<Developer> developerList = new ArrayList<Developer>();
-
-        String sql = SQLQueryUtil.getQuery("developers", CrudUtil.READ, 0);
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             Statement statement = connection.createStatement();
-             ResultSet rs  = statement.executeQuery(sql))
-            {
-                while (rs.next()) {
-                    Developer developer = new Developer();
-                    developer.setId(rs.getInt("id"));
-                    developer.setFirstName(rs.getString("firstName"));
-                    developer.setSurName(rs.getString("surName"));
-                    developer.setIdentificationCode(rs.getString("identificationCode"));
-                    developer.setBirthday(rs.getDate("birthday"));
-                    developer.setPhone(rs.getString("phone"));
-                    developer.setSalary(rs.getBigDecimal("salary"));
-                    developerList.add(developer);
-                }
-                return developerList;
-            } catch (SQLException e) {
-                e.printStackTrace();
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            List<Developer> developerList = (List<Developer>) session.createQuery("FROM ua.earthsoft.goit.Java6.module_03.home_task.model.Developer").list();
+            return developerList;
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
             }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
         return null;
     }
 
     @Override
     public void update(Developer developer) {
-        String sql = SQLQueryUtil.getQuery("developers", CrudUtil.UPDATE, developer.getId());
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-            fillStatement(developer, ps);
-        } catch (SQLException e) {
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Developer developerForUpdate = (Developer) session.get(Developer.class, developer.getId());
+            developerForUpdate.setFirstName(developer.getFirstName());
+            developerForUpdate.setSurName(developer.getSurName());
+            developerForUpdate.setIdentificationCode(developer.getIdentificationCode());
+            developerForUpdate.setBirthday(developer.getBirthday());
+            developerForUpdate.setPhone(developer.getPhone());
+            developerForUpdate.setSalary(developer.getSalary());
+            session.update(developerForUpdate);
+            tx.commit();
+        } catch (HibernateException e) {
+            tx.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
 
     @Override
     public void delete(int id) {
-        String sql = SQLQueryUtil.getQuery("developers", CrudUtil.DELETE, id);
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             Statement statement = connection.createStatement())
-            {statement.executeUpdate(sql);
-        } catch (SQLException e) {
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Developer developerForDelete = (Developer) session.get(Developer.class, id);
+            session.delete(developerForDelete);
+            tx.commit();
+        } catch (HibernateException e) {
+            tx.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
 

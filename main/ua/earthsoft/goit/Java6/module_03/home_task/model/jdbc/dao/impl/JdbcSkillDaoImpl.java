@@ -1,5 +1,11 @@
 package ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.impl;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import ua.earthsoft.goit.Java6.module_03.home_task.Launch;
+import ua.earthsoft.goit.Java6.module_03.home_task.model.Company;
+import ua.earthsoft.goit.Java6.module_03.home_task.model.Project;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.ISkillDAO;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.Skill;
 import ua.earthsoft.goit.Java6.module_03.home_task.util.CrudUtil;
@@ -24,56 +30,73 @@ public class JdbcSkillDaoImpl implements ISkillDAO {
 
     @Override
     public void create(Skill skill) {
-        String sql = SQLQueryUtil.getQuery("skills", CrudUtil.CREATE, 0);
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-            fillStatement(skill, ps);
-        } catch (SQLException e) {
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.save(skill);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
 
     @Override
     public List<Skill> read() {
-        List<Skill> skillList = new ArrayList<Skill>();
-
-        String sql = SQLQueryUtil.getQuery("skills", CrudUtil.READ, 0);
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             Statement statement = connection.createStatement();
-             ResultSet rs  = statement.executeQuery(sql))
-        {
-            while (rs.next()) {
-                Skill skill = new Skill();
-                skill.setId(rs.getInt("id"));
-                skill.setName(rs.getString("name"));
-                skillList.add(skill);
-            }
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            List<Skill> skillList = (List<Skill>) session.createQuery("FROM ua.earthsoft.goit.Java6.module_03.home_task.model.Skill").list();
             return skillList;
-        } catch (SQLException e) {
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return null;
     }
 
     @Override
     public void update(Skill skill) {
-        String sql = SQLQueryUtil.getQuery("skills", CrudUtil.UPDATE, skill.getId());
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-            fillStatement(skill, ps);
-        } catch (SQLException e) {
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Skill skillForUpdate = (Skill) session.get(Skill.class, skill.getId());
+            skillForUpdate.setName(skill.getName());
+            session.update(skillForUpdate);
+            tx.commit();
+        } catch (HibernateException e) {
+            tx.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
 
     @Override
     public void delete(int id) {
-        String sql = SQLQueryUtil.getQuery("skills", CrudUtil.DELETE, id);
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             Statement statement = connection.createStatement())
-        {statement.executeUpdate(sql);
-        } catch (SQLException e) {
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Skill skillForDelete = (Skill) session.get(Skill.class, id);
+            session.delete(skillForDelete);
+            tx.commit();
+        } catch (HibernateException e) {
+            tx.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
 

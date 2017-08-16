@@ -1,5 +1,9 @@
 package ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.impl;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import ua.earthsoft.goit.Java6.module_03.home_task.Launch;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.*;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.ICustomerDAO;
 import ua.earthsoft.goit.Java6.module_03.home_task.util.CrudUtil;
@@ -24,58 +28,75 @@ public class JdbcCustomerDaoImpl implements ICustomerDAO {
 
     @Override
     public void create(Customer customer) {
-        String sql = SQLQueryUtil.getQuery("customers", CrudUtil.CREATE, 0);
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-            fillStatement(customer, ps);
-        } catch (SQLException e) {
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.save(customer);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
 
     @Override
     public List<Customer> read() {
-        List<Customer> customerList = new ArrayList<Customer>();
-
-        String sql = SQLQueryUtil.getQuery("customers", CrudUtil.READ, 0);
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             Statement statement = connection.createStatement();
-             ResultSet rs  = statement.executeQuery(sql))
-        {
-            while (rs.next()) {
-                Customer customer = new Customer();
-                customer.setId(rs.getInt("id"));
-                customer.setName(rs.getString("name"));
-                customer.setIdentificationCode(rs.getString("identificationCode"));
-                customer.setPhone(rs.getString("phone"));
-                customerList.add(customer);
-            }
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            List<Customer> customerList = (List<Customer>) session.createQuery("FROM ua.earthsoft.goit.Java6.module_03.home_task.model.Customer").list();
             return customerList;
-        } catch (SQLException e) {
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return null;
     }
 
     @Override
     public void update(Customer customer) {
-        String sql = SQLQueryUtil.getQuery("customers", CrudUtil.UPDATE, customer.getId());
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-            fillStatement(customer, ps);
-        } catch (SQLException e) {
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Customer customerForUpdate = (Customer) session.get(Customer.class, customer.getId());
+            customerForUpdate.setName(customer.getName());
+            customerForUpdate.setIdentificationCode(customer.getIdentificationCode());
+            customerForUpdate.setPhone(customer.getPhone());
+            session.update(customerForUpdate);
+            tx.commit();
+        } catch (HibernateException e) {
+            tx.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
 
     @Override
     public void delete(int id) {
-        String sql = SQLQueryUtil.getQuery("customers", CrudUtil.DELETE, id);
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             Statement statement = connection.createStatement())
-        {statement.executeUpdate(sql);
-        } catch (SQLException e) {
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Customer customerForDelete = (Customer) session.get(Customer.class, id);
+            session.delete(customerForDelete);
+            tx.commit();
+        } catch (HibernateException e) {
+            tx.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
 
