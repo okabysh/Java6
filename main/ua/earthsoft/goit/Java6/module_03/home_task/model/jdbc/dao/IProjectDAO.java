@@ -20,6 +20,6 @@ public interface IProjectDAO {
 
     public Project getById(int id);
 
-    public List<Developer> getDevelopers(int projectId);
+    public List<Developer> getDevelopersByProject(int projectId);
 
 }

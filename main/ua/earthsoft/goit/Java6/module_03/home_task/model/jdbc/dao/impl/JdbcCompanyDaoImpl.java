@@ -128,21 +128,29 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
     }
 
     @Override
-    public List<Customer> getCustomers(int companyId) {
+    public List<Customer> getCustomersByCompany(int companyId) {
         List<Customer> customerList = new ArrayList<>();
         String sql = SQLQueryUtil.GET_CUSTOMERS_BY_COMPANY;
-        JdbcCustomerDaoImpl jdbcCustomerDaoImpl = JdbcCustomerDaoImpl.getInstance();
-
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             PreparedStatement ps = connection.prepareStatement(sql))
-        { ps.setInt(1, companyId);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                customerList.add(jdbcCustomerDaoImpl.getById(rs.getInt("customer")));
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            SQLQuery query = session.createSQLQuery(sql);
+            query.setInteger(0, companyId);
+            query.addEntity(Customer.class);
+            List result = query.list();
+            tx.commit();
+            for (Iterator iterator = result.iterator(); iterator.hasNext();){
+                customerList.add((Customer) iterator.next());
             }
             return customerList;
-        } catch (SQLException e) {
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return null;
     }
@@ -150,14 +158,22 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
     @Override
     public void addCustomer(int customerId, int companyId) {
         String sql = SQLQueryUtil.ADD_CUSTOMER_TO_COMPANY;
-
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             PreparedStatement ps = connection.prepareStatement(sql))
-        { ps.setInt(1, companyId);
-            ps.setInt(2, customerId);
-            ps.executeUpdate();
-        } catch (SQLException e) {
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            SQLQuery query = session.createSQLQuery(sql);
+            query.setInteger(0, companyId);
+            query.setInteger(1, customerId);
+            List result = query.list();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
 

@@ -126,7 +126,7 @@ public class ProjectView {
                     id = KeyboardUtil.inputInt();
 
                     System.out.println("Developers from "+ jdbcProjectDao.getById(id).getName()+":");
-                    List<Developer> developerList = jdbcProjectDao.getDevelopers(id);
+                    List<Developer> developerList = jdbcProjectDao.getDevelopersByProject(id);
                     for (Developer developer : developerList) {
                         System.out.println(developer.toString());
                     }

@@ -131,23 +131,29 @@ public class JdbcDeveloperDaoImpl implements IDeveloperDAO {
     }
 
     @Override
-    public List<Skill> getSkillsByDeveloper(int developerId) {
+    public List<Skill> getSkillsByDeveloper(int id) {
         List<Skill> skillList = new ArrayList<>();
         String sql = SQLQueryUtil.GET_SKILLS_BY_DEVELOPER;
-        JdbcSkillDaoImpl jdbcSkillDaoImpl = JdbcSkillDaoImpl.getInstance();
-
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             PreparedStatement ps = connection.prepareStatement(sql))
-             //   Statement ps = connection.createStatement();)
-        { ps.setInt(1, developerId);
-            ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
-                    Skill skill = new Skill();
-                    skillList.add(jdbcSkillDaoImpl.getById(rs.getInt("skill")));
-                }
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            SQLQuery query = session.createSQLQuery(sql);
+            query.setInteger(0, id);
+            query.addEntity(Skill.class);
+            List result = query.list();
+            tx.commit();
+            for (Iterator iterator = result.iterator(); iterator.hasNext();){
+                skillList.add((Skill) iterator.next());
+            }
             return skillList;
-        } catch (SQLException e) {
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return null;
     }

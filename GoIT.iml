@@ -3,7 +3,11 @@
   <component name="FacetManager">
     <facet type="hibernate" name="Hibernate">
       <configuration>
-        <datasource-map />
+        <datasource-map>
+          <unit-entry name="MySQL-annotations" />
+          <unit-entry name="SF-Task3-Hibernate-Annotations" />
+          <unit-entry name="WRS-MySQL" />
+        </datasource-map>
         <naming-strategy-map />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/main/ua/earthsoft/goit/Java6/module_03/TutorialsPoint/Associations/XML/_1_One_to_One/resources/hibernate_a1.cfg.xml" />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/main/ua/earthsoft/goit/Java6/module_03/TutorialsPoint/Associations/XML/_2_One_to_Many/resources/hibernate_a2.cfg.xml" />

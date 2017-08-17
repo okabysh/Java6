@@ -20,7 +20,7 @@ public interface ICompanyDAO {
 
     public Company getById(int id);
 
-    public List<Customer> getCustomers(int companyId);
+    public List<Customer> getCustomersByCompany(int companyId);
 
     public void addCustomer(int customerId, int companyId);
 

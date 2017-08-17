@@ -130,27 +130,36 @@ public class JdbcCustomerDaoImpl implements ICustomerDAO {
     }
 
     @Override
-    public List<Project> getProjects(int projectId) {
+    public List<Project> getProjects(int id) {
         List<Project> projectList = new ArrayList<>();
         String sql = SQLQueryUtil.GET_PROJECTS_BY_CUSTOMER;
-        JdbcProjectDaoImpl jdbcProjectDaoImpl = JdbcProjectDaoImpl.getInstance();
 
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             PreparedStatement ps = connection.prepareStatement(sql))
-        { ps.setInt(1, projectId);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                projectList.add(jdbcProjectDaoImpl.getById(rs.getInt("project")));
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            SQLQuery query = session.createSQLQuery(sql);
+            query.setInteger(0, id);
+            query.addEntity(Project.class);
+            List result = query.list();
+            tx.commit();
+            for (Iterator iterator = result.iterator(); iterator.hasNext();){
+                projectList.add((Project) iterator.next());
             }
             return projectList;
-        } catch (SQLException e) {
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return null;
     }
 
     @Override
-    public List<Developer> getDevelopers(int customerId) {
+    public List<Developer> getDevelopersByCustomer(int customerId) {
         List<Developer> developerList = new ArrayList<>();
         String sql = SQLQueryUtil.GET_DEVELOPERS_BY_CUSTOMER;
         JdbcDeveloperDaoImpl jdbcDeveloperDaoImpl = JdbcDeveloperDaoImpl.getInstance();

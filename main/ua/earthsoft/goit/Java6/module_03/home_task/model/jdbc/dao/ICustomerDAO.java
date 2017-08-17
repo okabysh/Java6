@@ -23,7 +23,7 @@ public interface ICustomerDAO {
 
     public List<Project> getProjects(int projectId);
 
-    public List<Developer> getDevelopers(int customerId);
+    public List<Developer> getDevelopersByCustomer(int customerId);
 
     public void addProject(int projectId, int customerId);
 

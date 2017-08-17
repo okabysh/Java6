@@ -129,21 +129,29 @@ public class JdbcProjectDaoImpl implements IProjectDAO {
     }
 
     @Override
-    public List<Developer> getDevelopers(int projectId) {
+    public List<Developer> getDevelopersByProject(int id) {
         List<Developer> developerList = new ArrayList<>();
         String sql = SQLQueryUtil.GET_DEVELOPERS_BY_PROJECT;
-        JdbcDeveloperDaoImpl jdbcDeveloperDaoImpl = JdbcDeveloperDaoImpl.getInstance();
-
-        try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
-             PreparedStatement ps = connection.prepareStatement(sql))
-        { ps.setInt(1, projectId);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                developerList.add(jdbcDeveloperDaoImpl.getById(rs.getInt("developer")));
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            SQLQuery query = session.createSQLQuery(sql);
+            query.setInteger(0, id);
+            query.addEntity(Developer.class);
+            List result = query.list();
+            tx.commit();
+            for (Iterator iterator = result.iterator(); iterator.hasNext();){
+                developerList.add((Developer) iterator.next());
             }
             return developerList;
-        } catch (SQLException e) {
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return null;
     }
