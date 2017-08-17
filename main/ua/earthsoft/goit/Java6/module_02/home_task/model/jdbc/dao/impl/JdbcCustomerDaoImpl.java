@@ -102,14 +102,14 @@ public class JdbcCustomerDaoImpl implements ICustomerDAO {
     }
 
     @Override
-    public List<Project> getProjects(int projectId) {
+    public List<Project> getProjects(int id) {
         List<Project> projectList = new ArrayList<>();
         String sql = SQLQueryUtil.GET_PROJECTS_BY_CUSTOMER;
         JdbcProjectDaoImpl jdbcProjectDaoImpl = JdbcProjectDaoImpl.getInstance();
 
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql))
-        { ps.setInt(1, projectId);
+        { ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 projectList.add(jdbcProjectDaoImpl.getById(rs.getInt("project")));
