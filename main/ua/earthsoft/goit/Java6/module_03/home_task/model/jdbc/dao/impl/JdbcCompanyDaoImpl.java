@@ -1,15 +1,14 @@
 package ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.impl;
 
 import org.hibernate.*;
-import ua.earthsoft.goit.Java6.module_03.TutorialsPoint.Hibernate_Annotations.Employee_A;
 import ua.earthsoft.goit.Java6.module_03.home_task.Launch;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.Company;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.Customer;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.ICompanyDAO;
-import ua.earthsoft.goit.Java6.module_03.home_task.util.CrudUtil;
 import ua.earthsoft.goit.Java6.module_03.home_task.util.ConstantsUtil;
 import ua.earthsoft.goit.Java6.module_03.home_task.util.SQLQueryUtil;
 
+import javax.persistence.*;
 import java.sql.*;
 import java.util.*;
 
@@ -18,6 +17,7 @@ import java.util.*;
  */
 public class JdbcCompanyDaoImpl implements ICompanyDAO {
     private static final JdbcCompanyDaoImpl instance = new JdbcCompanyDaoImpl();
+    //private Set<Customer> customers = new HashSet<Customer>(0);
 
     private JdbcCompanyDaoImpl() {}
 
@@ -154,6 +154,19 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
         }
         return null;
     }
+
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinTable(name = "mtm_company_customer", joinColumns = {
+//            @JoinColumn(name = "company", nullable = false, updatable = false) },
+//            inverseJoinColumns = { @JoinColumn(name = "customer",
+//                    nullable = false, updatable = false) })
+//    public Set<Customer> getCustomers() {
+//        return this.customers;
+//    }
+//
+//    public void setCategories(Set<Customer> customers) {
+//        this.customers = customers;
+//    }
 
     @Override
     public void addCustomer(int customerId, int companyId) {
