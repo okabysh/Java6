@@ -22,6 +22,8 @@ public interface ICompanyDAO {
 
     public List<Customer> getCustomersByCompany(int companyId);
 
+    public List<Customer> getCustomers(Company company);
+
     public void addCustomer(int customerId, int companyId);
 
     public void deleteCustomer(int customerId, int companyId);

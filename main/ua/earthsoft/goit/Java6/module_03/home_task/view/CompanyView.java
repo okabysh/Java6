@@ -144,9 +144,6 @@ public class CompanyView {
 
                     System.out.println("Customers from "+ jdbcCompanyDao.getById(id).getName()+":");
                     List<Customer> customerList = jdbcCompanyDao.getCustomersByCompany(id);
-                    for (Customer customer : customerList) {
-                        System.out.println(customer.toString());
-                    }
 
                     chooseKeyboard = 1;
                     break;

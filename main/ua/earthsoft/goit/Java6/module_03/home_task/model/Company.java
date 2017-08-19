@@ -1,6 +1,8 @@
 package ua.earthsoft.goit.Java6.module_03.home_task.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Oleg Kabysh on 30.06.2017.
@@ -25,6 +27,8 @@ public class Company {
 
     @Column(name = "identificationCode")
     private String identificationCode;
+
+    private Set<Customer> customers = new HashSet<Customer>(0);
 
     public int getId() {
         return id;
@@ -64,6 +68,19 @@ public class Company {
 
     public void setIdentificationCode(String identificationCode) {
         this.identificationCode = identificationCode;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "mtm_company_customer", joinColumns = {
+            @JoinColumn(name = "company", nullable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "customer",
+                    nullable = false, updatable = false) })
+    public Set<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(Set<Customer> customers) {
+        this.customers = customers;
     }
 
     @Override
