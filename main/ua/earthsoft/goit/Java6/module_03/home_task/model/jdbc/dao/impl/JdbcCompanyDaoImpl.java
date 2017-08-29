@@ -163,9 +163,9 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            List<Company> companyList = (List<Company>) session.createQuery("FROM ua.earthsoft.goit.Java6.module_03.home_task.model.Company").list();
+            customerList = (List<Customer>) session.createQuery("FROM ua.earthsoft.goit.Java6.module_03.home_task.model.Customer WHERE (select * FROM company = :paramCompany").list();
             tx.commit();
-            for (Iterator iterator = companyList.iterator(); iterator.hasNext();){
+            for (Iterator iterator = customerList.iterator(); iterator.hasNext();){
                 //(Company) iterator.next();
             }
             return customerList;

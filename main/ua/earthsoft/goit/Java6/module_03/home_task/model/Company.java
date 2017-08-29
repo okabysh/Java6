@@ -28,6 +28,9 @@ public class Company {
     @Column(name = "identificationCode")
     private String identificationCode;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "mtm_company_customer", joinColumns = {@JoinColumn(name = "company") },
+            inverseJoinColumns = { @JoinColumn(name = "customer") })
     private Set<Customer> customers = new HashSet<Customer>(0);
 
     public int getId() {
@@ -70,11 +73,6 @@ public class Company {
         this.identificationCode = identificationCode;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "mtm_company_customer", joinColumns = {
-            @JoinColumn(name = "company", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "customer",
-                    nullable = false, updatable = false) })
     public Set<Customer> getCustomers() {
         return customers;
     }
