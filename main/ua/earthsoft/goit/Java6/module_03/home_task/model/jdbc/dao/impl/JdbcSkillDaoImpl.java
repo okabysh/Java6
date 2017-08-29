@@ -5,17 +5,10 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import ua.earthsoft.goit.Java6.module_03.home_task.Launch;
-import ua.earthsoft.goit.Java6.module_03.home_task.model.Company;
-import ua.earthsoft.goit.Java6.module_03.home_task.model.Customer;
-import ua.earthsoft.goit.Java6.module_03.home_task.model.Project;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.ISkillDAO;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.Skill;
-import ua.earthsoft.goit.Java6.module_03.home_task.util.CrudUtil;
-import ua.earthsoft.goit.Java6.module_03.home_task.util.ConstantsUtil;
 import ua.earthsoft.goit.Java6.module_03.home_task.util.SQLQueryUtil;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 

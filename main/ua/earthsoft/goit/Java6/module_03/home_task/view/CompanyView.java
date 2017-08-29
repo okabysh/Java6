@@ -143,7 +143,7 @@ public class CompanyView {
                     id = KeyboardUtil.inputInt();
 
                     System.out.println("Customers from "+ jdbcCompanyDao.getById(id).getName()+":");
-                    List<Customer> customerList0 = jdbcCompanyDao.getCustomers(jdbcCompanyDao.getById(id));
+                    //List<Customer> customerList0 = jdbcCompanyDao.getCustomers(jdbcCompanyDao.getById(id));
                     List<Customer> customerList = jdbcCompanyDao.getCustomersByCompany(id);
 
                     chooseKeyboard = 1;

@@ -7,8 +7,6 @@ import org.hibernate.Transaction;
 import ua.earthsoft.goit.Java6.module_03.home_task.Launch;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.*;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.IProjectDAO;
-import ua.earthsoft.goit.Java6.module_03.home_task.util.CrudUtil;
-import ua.earthsoft.goit.Java6.module_03.home_task.util.ConstantsUtil;
 import ua.earthsoft.goit.Java6.module_03.home_task.util.SQLQueryUtil;
 
 import java.sql.*;

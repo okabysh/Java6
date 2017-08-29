@@ -8,7 +8,6 @@ import ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.ICompanyDAO;
 import ua.earthsoft.goit.Java6.module_03.home_task.util.ConstantsUtil;
 import ua.earthsoft.goit.Java6.module_03.home_task.util.SQLQueryUtil;
 
-import javax.persistence.*;
 import java.sql.*;
 import java.util.*;
 
@@ -157,40 +156,75 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
 
     @Override
     public List<Customer> getCustomers(Company company) {
-        List<Customer> customerList = new ArrayList<>();
-        String sql = SQLQueryUtil.GET_CUSTOMERS_BY_COMPANY;
-        Session session = Launch.factory.openSession();
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            customerList = (List<Customer>) session.createQuery("FROM ua.earthsoft.goit.Java6.module_03.home_task.model.Customer WHERE (select * FROM company = :paramCompany").list();
-            tx.commit();
-            for (Iterator iterator = customerList.iterator(); iterator.hasNext();){
-                //(Company) iterator.next();
-            }
-            return customerList;
-        } catch (HibernateException e) {
-            if (tx!=null) {
-                tx.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
+        //TODO return List Customers by company
+//        List<Customer> customerList = new ArrayList<>();
+//        String sql = SQLQueryUtil.GET_CUSTOMERS_BY_COMPANY;
+//        Session session = Launch.factory.openSession();
+//        Transaction tx = null;
+//        try {
+//            tx = session.beginTransaction();
+//            customerList = (List<Customer>) session.createQuery("FROM ua.earthsoft.goit.Java6.module_03.home_task.model.Company comp WHERE customers = :paramCompany").list();
+//            tx.commit();
+//            for (Iterator iterator = customerList.iterator(); iterator.hasNext();){
+//                //(Company) iterator.next();
+//            }
+//            return customerList;
+//        } catch (HibernateException e) {
+//            if (tx!=null) {
+//                tx.rollback();
+//            }
+//            e.printStackTrace();
+//        } finally {
+//            session.close();
+//        }
         return null;
     }
 
     @Override
     public void addCustomer(int customerId, int companyId) {
-        String sql = SQLQueryUtil.ADD_CUSTOMER_TO_COMPANY;
+//        String sql = SQLQueryUtil.ADD_CUSTOMER_TO_COMPANY;
+//        Session session = Launch.factory.openSession();
+//        Transaction tx = null;
+//        try {
+//            tx = session.beginTransaction();
+//            SQLQuery query = session.createSQLQuery(sql);
+//            query.setInteger(0, companyId);
+//            query.setInteger(1, customerId);
+//            List result = query.list();
+//            tx.commit();
+//        } catch (HibernateException e) {
+//            if (tx!=null) {
+//                tx.rollback();
+//            }
+//            e.printStackTrace();
+//        } finally {
+//            session.close();
+//        }
+
+//        DomesticCat pk = new DomesticCat();
+//        pk.setColor(Color.TABBY);
+//        pk.setSex('F');
+//        pk.setName("PK");
+//        pk.setKittens( new HashSet() );
+//        pk.addKitten(fritz);
+//        sess.save( pk, new Long(1234) );
+
+        Company company;
+        Customer customer;
+        JdbcCompanyDaoImpl jdbcCompanyDao = null;
+        JdbcCustomerDaoImpl jdbcCustomerDao = null;
+        company = jdbcCompanyDao.getById(companyId);
+        customer = jdbcCustomerDao.getById(customerId);
+
+
         Session session = Launch.factory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            SQLQuery query = session.createSQLQuery(sql);
-            query.setInteger(0, companyId);
-            query.setInteger(1, customerId);
-            List result = query.list();
+            HashSet<Customer> setCustomers = new HashSet<>();
+            setCustomers.add(customer);
+            company.setCustomers(setCustomers);
+            session.save(company);
             tx.commit();
         } catch (HibernateException e) {
             if (tx!=null) {
