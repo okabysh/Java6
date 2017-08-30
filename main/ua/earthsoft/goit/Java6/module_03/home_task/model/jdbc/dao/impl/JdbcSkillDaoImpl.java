@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 import ua.earthsoft.goit.Java6.module_03.home_task.Launch;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.ISkillDAO;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.Skill;
-import ua.earthsoft.goit.Java6.module_03.home_task.util.SQLQueryUtil;
+import ua.earthsoft.goit.Java6.module_03.home_task.util.QueryUtil;
 
 import java.util.Iterator;
 import java.util.List;
@@ -98,7 +98,7 @@ public class JdbcSkillDaoImpl implements ISkillDAO {
 
     @Override
     public Skill getById(int id) {
-        String sql = SQLQueryUtil.GET_SKILL_BY_ID;
+        String sql = QueryUtil.GET_SKILL_BY_ID;
         Session session = Launch.factory.openSession();
         Transaction tx = null;
         try {

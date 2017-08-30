@@ -105,7 +105,7 @@ public class JdbcDeveloperDaoImpl implements IDeveloperDAO {
 
     @Override
     public Developer getById(int id) {
-        String sql = SQLQueryUtil.GET_DEVELOPER_BY_ID;
+        String sql = QueryUtil.GET_DEVELOPER_BY_ID;
         Session session = Launch.factory.openSession();
         Transaction tx = null;
         try {
@@ -133,7 +133,7 @@ public class JdbcDeveloperDaoImpl implements IDeveloperDAO {
     @Override
     public List<Skill> getSkillsByDeveloper(int id) {
         List<Skill> skillList = new ArrayList<>();
-        String sql = SQLQueryUtil.GET_SKILLS_BY_DEVELOPER;
+        String sql = QueryUtil.GET_SKILLS_BY_DEVELOPER;
         Session session = Launch.factory.openSession();
         Transaction tx = null;
         try {
@@ -160,7 +160,7 @@ public class JdbcDeveloperDaoImpl implements IDeveloperDAO {
 
     @Override
     public void addSkillByDeveloper(int developerId, int skillId) {
-        String sql = SQLQueryUtil.ADD_SKILL_TO_DEVELOPER;
+        String sql = QueryUtil.ADD_SKILL_TO_DEVELOPER;
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql))
         { ps.setInt(1, developerId);
@@ -173,7 +173,7 @@ public class JdbcDeveloperDaoImpl implements IDeveloperDAO {
 
     @Override
     public void deleteSkillByDeveloper(int developerId, int skillId) {
-        String sql = SQLQueryUtil.DELETE_SKILL_FROM_DEVELOPER;
+        String sql = QueryUtil.DELETE_SKILL_FROM_DEVELOPER;
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql))
         { ps.setInt(1, developerId);

@@ -3,7 +3,7 @@ package ua.earthsoft.goit.Java6.module_03.home_task.util;
 /**
  * Created by Oleg Kabysh on 28.06.2017.
  */
-public class SQLQueryUtil {
+public class QueryUtil {
     public static final String GET_COMPANY_BY_ID = "SELECT * FROM companies WHERE id = ?";
     public static final String ADD_CUSTOMER_TO_COMPANY = "INSERT INTO mtm_company_customer VALUES(?, ?)";
     public static final String DELETE_CUSTOMER_FROM_COMPANY = "DELETE FROM mtm_company_customer WHERE company=? AND customer=?";
@@ -25,7 +25,7 @@ public class SQLQueryUtil {
     //public static final String GET_DEVELOPERS_BY_PROJECT = "SELECT developer FROM mtm_customer_project_developer WHERE project = ? GROUP BY developer";
     public static final String GET_DEVELOPERS_BY_PROJECT = "SELECT * FROM developers WHERE id IN (SELECT developer FROM mtm_customer_project_developer WHERE project = ? GROUP BY developer)";
 
-    private SQLQueryUtil() {}
+    private QueryUtil() {}
 
     public static String getQuery(String tableName, CrudUtil crudUtil, int id) {
         String sql = "";

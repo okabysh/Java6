@@ -6,7 +6,7 @@ import ua.earthsoft.goit.Java6.module_03.home_task.model.Company;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.Customer;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.ICompanyDAO;
 import ua.earthsoft.goit.Java6.module_03.home_task.util.ConstantsUtil;
-import ua.earthsoft.goit.Java6.module_03.home_task.util.SQLQueryUtil;
+import ua.earthsoft.goit.Java6.module_03.home_task.util.QueryUtil;
 
 import java.sql.*;
 import java.util.*;
@@ -101,7 +101,7 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
 
     @Override
     public Company getById(int id) {
-        String sql = SQLQueryUtil.GET_COMPANY_BY_ID;
+        String sql = QueryUtil.GET_COMPANY_BY_ID;
         Session session = Launch.factory.openSession();
         Transaction tx = null;
         try {
@@ -129,7 +129,7 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
     @Override
     public List<Customer> getCustomersByCompany(int companyId) {
         List<Customer> customerList = new ArrayList<>();
-        String sql = SQLQueryUtil.GET_CUSTOMERS_BY_COMPANY;
+        String sql = QueryUtil.GET_CUSTOMERS_BY_COMPANY;
         Session session = Launch.factory.openSession();
         Transaction tx = null;
         try {
@@ -158,7 +158,7 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
     public List<Customer> getCustomers(Company company) {
         //TODO return List Customers by company
 //        List<Customer> customerList = new ArrayList<>();
-//        String sql = SQLQueryUtil.GET_CUSTOMERS_BY_COMPANY;
+//        String sql = QueryUtil.GET_CUSTOMERS_BY_COMPANY;
 //        Session session = Launch.factory.openSession();
 //        Transaction tx = null;
 //        try {
@@ -182,7 +182,7 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
 
     @Override
     public void addCustomer(int customerId, int companyId) {
-//        String sql = SQLQueryUtil.ADD_CUSTOMER_TO_COMPANY;
+//        String sql = QueryUtil.ADD_CUSTOMER_TO_COMPANY;
 //        Session session = Launch.factory.openSession();
 //        Transaction tx = null;
 //        try {
@@ -209,12 +209,9 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
 //        pk.addKitten(fritz);
 //        sess.save( pk, new Long(1234) );
 
-        Company company;
-        Customer customer;
-        JdbcCompanyDaoImpl jdbcCompanyDao = null;
-        JdbcCustomerDaoImpl jdbcCustomerDao = null;
-        company = jdbcCompanyDao.getById(companyId);
-        customer = jdbcCustomerDao.getById(customerId);
+        JdbcCustomerDaoImpl jdbcCustomerDao = JdbcCustomerDaoImpl.getInstance();
+        Company company = getInstance().getById(companyId);
+        Customer customer = jdbcCustomerDao.getById(customerId);
 
 
         Session session = Launch.factory.openSession();
@@ -238,7 +235,7 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
 
     @Override
     public void deleteCustomer(int customerId, int companyId) {
-        String sql = SQLQueryUtil.DELETE_CUSTOMER_FROM_COMPANY;
+        String sql = QueryUtil.DELETE_CUSTOMER_FROM_COMPANY;
 
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql))

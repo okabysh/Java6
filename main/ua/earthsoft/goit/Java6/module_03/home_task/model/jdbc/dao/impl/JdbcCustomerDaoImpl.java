@@ -8,7 +8,7 @@ import ua.earthsoft.goit.Java6.module_03.home_task.Launch;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.*;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.ICustomerDAO;
 import ua.earthsoft.goit.Java6.module_03.home_task.util.ConstantsUtil;
-import ua.earthsoft.goit.Java6.module_03.home_task.util.SQLQueryUtil;
+import ua.earthsoft.goit.Java6.module_03.home_task.util.QueryUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -103,7 +103,7 @@ public class JdbcCustomerDaoImpl implements ICustomerDAO {
 
     @Override
     public Customer getById(int id) {
-        String sql = SQLQueryUtil.GET_CUSTOMER_BY_ID;
+        String sql = QueryUtil.GET_CUSTOMER_BY_ID;
         Session session = Launch.factory.openSession();
         Transaction tx = null;
         try {
@@ -131,7 +131,7 @@ public class JdbcCustomerDaoImpl implements ICustomerDAO {
     @Override
     public List<Project> getProjects(int id) {
         List<Project> projectList = new ArrayList<>();
-        String sql = SQLQueryUtil.GET_PROJECTS_BY_CUSTOMER;
+        String sql = QueryUtil.GET_PROJECTS_BY_CUSTOMER;
 
         Session session = Launch.factory.openSession();
         Transaction tx = null;
@@ -160,7 +160,7 @@ public class JdbcCustomerDaoImpl implements ICustomerDAO {
     @Override
     public List<Developer> getDevelopersByCustomer(int customerId) {
         List<Developer> developerList = new ArrayList<>();
-        String sql = SQLQueryUtil.GET_DEVELOPERS_BY_CUSTOMER;
+        String sql = QueryUtil.GET_DEVELOPERS_BY_CUSTOMER;
         JdbcDeveloperDaoImpl jdbcDeveloperDaoImpl = JdbcDeveloperDaoImpl.getInstance();
 
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
@@ -179,7 +179,7 @@ public class JdbcCustomerDaoImpl implements ICustomerDAO {
 
     @Override
     public void addProject(int projectId, int customerId) {
-        String sql = SQLQueryUtil.ADD_PROJECT_TO_CUSTOMER;
+        String sql = QueryUtil.ADD_PROJECT_TO_CUSTOMER;
 
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql))
@@ -193,7 +193,7 @@ public class JdbcCustomerDaoImpl implements ICustomerDAO {
 
     @Override
     public void deleteProject(int projectId, int customerId) {
-        String sql = SQLQueryUtil.DELETE_PROJECT_FROM_CUSTOMER;
+        String sql = QueryUtil.DELETE_PROJECT_FROM_CUSTOMER;
 
         try (Connection connection = DriverManager.getConnection(ConstantsUtil.DATABASE_URL, ConstantsUtil.USER, ConstantsUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(sql))

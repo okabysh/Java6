@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 import ua.earthsoft.goit.Java6.module_03.home_task.Launch;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.*;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.IProjectDAO;
-import ua.earthsoft.goit.Java6.module_03.home_task.util.SQLQueryUtil;
+import ua.earthsoft.goit.Java6.module_03.home_task.util.QueryUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -101,7 +101,7 @@ public class JdbcProjectDaoImpl implements IProjectDAO {
 
     @Override
     public Project getById(int id) {
-        String sql = SQLQueryUtil.GET_PROJECT_BY_ID;
+        String sql = QueryUtil.GET_PROJECT_BY_ID;
         Session session = Launch.factory.openSession();
         Transaction tx = null;
         try {
@@ -129,7 +129,7 @@ public class JdbcProjectDaoImpl implements IProjectDAO {
     @Override
     public List<Developer> getDevelopersByProject(int id) {
         List<Developer> developerList = new ArrayList<>();
-        String sql = SQLQueryUtil.GET_DEVELOPERS_BY_PROJECT;
+        String sql = QueryUtil.GET_DEVELOPERS_BY_PROJECT;
         Session session = Launch.factory.openSession();
         Transaction tx = null;
         try {
