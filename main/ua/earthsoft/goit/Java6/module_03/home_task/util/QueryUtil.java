@@ -4,23 +4,28 @@ package ua.earthsoft.goit.Java6.module_03.home_task.util;
  * Created by Oleg Kabysh on 28.06.2017.
  */
 public class QueryUtil {
-    public static final String GET_COMPANY_BY_ID = "SELECT * FROM companies WHERE id = ?";
+    public static final String SQL_GET_COMPANY_BY_ID = "SELECT * FROM companies WHERE id = ?";
+    public static final String HQL_GET_COMPANY_BY_ID = "FROM Company WHERE id = :parameter";
     public static final String ADD_CUSTOMER_TO_COMPANY = "INSERT INTO mtm_company_customer VALUES(?, ?)";
     public static final String DELETE_CUSTOMER_FROM_COMPANY = "DELETE FROM mtm_company_customer WHERE company=? AND customer=?";
     public static final String ADD_PROJECT_TO_CUSTOMER = "INSERT INTO mtm_customer_project VALUES(?, ?)";
     public static final String DELETE_PROJECT_FROM_CUSTOMER = "DELETE FROM mtm_customer_project WHERE customer=? AND project=?";
     public static final String GET_SKILL_BY_ID = "SELECT * FROM skills WHERE id = ?";
+    public static final String HQL_GET_SKILL_BY_ID = "FROM Skill WHERE id = :parameter";
     //public static final String GET_SKILLS_BY_DEVELOPER = "SELECT skill FROM mtm_developer_skill WHERE developer = ?";
     public static final String GET_SKILLS_BY_DEVELOPER = "SELECT * FROM skills WHERE id IN (SELECT skill FROM mtm_developer_skill WHERE developer = ? GROUP BY skill)";
     public static final String ADD_SKILL_TO_DEVELOPER = "INSERT INTO mtm_developer_skill VALUES(?, ?)";
     public static final String DELETE_SKILL_FROM_DEVELOPER = "DELETE FROM mtm_developer_skill WHERE developer = ? AND skill = ?";
-    public static final String GET_CUSTOMER_BY_ID = "SELECT * FROM customers WHERE id = ?";
+    public static final String SQL_GET_CUSTOMER_BY_ID = "SELECT * FROM customers WHERE id = ?";
+    public static final String HQL_GET_CUSTOMER_BY_ID = "FROM Customer WHERE id = :parameter";
     //public static final String GET_CUSTOMERS_BY_COMPANY = "SELECT customer FROM mtm_company_customer WHERE company = ?";
     public static final String GET_CUSTOMERS_BY_COMPANY = "SELECT * FROM customers WHERE id IN (SELECT customer FROM mtm_company_customer WHERE company = ? GROUP BY customer)";
     public static final String GET_PROJECT_BY_ID = "SELECT * FROM projects WHERE id = ?";
+    public static final String HQL_GET_PROJECT_BY_ID = "FROM Project WHERE id = :parameter";
     //public static final String GET_PROJECTS_BY_CUSTOMER = "SELECT project FROM mtm_customer_project WHERE customer = ?";
     public static final String GET_PROJECTS_BY_CUSTOMER = "SELECT * FROM projects WHERE id IN (SELECT project FROM mtm_customer_project WHERE customer = ? GROUP BY project)";
     public static final String GET_DEVELOPER_BY_ID = "SELECT * FROM developers WHERE id = ?";
+    public static final String HQL_GET_DEVELOPER_BY_ID = "FROM Developers WHERE id = :parameter";
     public static final String GET_DEVELOPERS_BY_CUSTOMER = "SELECT developer FROM mtm_customer_project_developer WHERE customer = ? GROUP BY developer";
     //public static final String GET_DEVELOPERS_BY_PROJECT = "SELECT developer FROM mtm_customer_project_developer WHERE project = ? GROUP BY developer";
     public static final String GET_DEVELOPERS_BY_PROJECT = "SELECT * FROM developers WHERE id IN (SELECT developer FROM mtm_customer_project_developer WHERE project = ? GROUP BY developer)";

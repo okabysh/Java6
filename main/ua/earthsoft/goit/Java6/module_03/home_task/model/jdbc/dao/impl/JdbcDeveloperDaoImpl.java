@@ -1,9 +1,6 @@
 package ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.impl;
 
-import org.hibernate.HibernateException;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import ua.earthsoft.goit.Java6.module_03.home_task.Launch;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.IDeveloperDAO;
 import ua.earthsoft.goit.Java6.module_03.home_task.util.*;
@@ -105,14 +102,13 @@ public class JdbcDeveloperDaoImpl implements IDeveloperDAO {
 
     @Override
     public Developer getById(int id) {
-        String sql = QueryUtil.GET_DEVELOPER_BY_ID;
+        String hql = QueryUtil.HQL_GET_DEVELOPER_BY_ID;
         Session session = Launch.factory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            SQLQuery query = session.createSQLQuery(sql);
-            query.setInteger(0, id);
-            query.addEntity(Developer.class);
+            Query query = session.createQuery(hql);
+            query.setInteger("parameter", id);
             List result = query.list();
             tx.commit();
             for (Iterator iterator = result.iterator(); iterator.hasNext();){

@@ -4,10 +4,13 @@ import org.hibernate.*;
 import ua.earthsoft.goit.Java6.module_03.home_task.Launch;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.Company;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.Customer;
+import ua.earthsoft.goit.Java6.module_03.home_task.model.Developer;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.ICompanyDAO;
 import ua.earthsoft.goit.Java6.module_03.home_task.util.ConstantsUtil;
 import ua.earthsoft.goit.Java6.module_03.home_task.util.QueryUtil;
 
+import java.lang.reflect.*;
+import java.lang.reflect.Array;
 import java.sql.*;
 import java.util.*;
 
@@ -101,14 +104,14 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
 
     @Override
     public Company getById(int id) {
-        String sql = QueryUtil.GET_COMPANY_BY_ID;
+        String hql = QueryUtil.HQL_GET_COMPANY_BY_ID;
         Session session = Launch.factory.openSession();
         Transaction tx = null;
+
         try {
             tx = session.beginTransaction();
-            SQLQuery query = session.createSQLQuery(sql);
-            query.setInteger(0, id);
-            query.addEntity(Company.class);
+            Query query = session.createQuery(hql);
+            query.setInteger("parameter", id);
             List result = query.list();
             tx.commit();
             for (Iterator iterator = result.iterator(); iterator.hasNext();){
@@ -157,26 +160,26 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
     @Override
     public List<Customer> getCustomers(Company company) {
         //TODO return List Customers by company
-//        List<Customer> customerList = new ArrayList<>();
-//        String sql = QueryUtil.GET_CUSTOMERS_BY_COMPANY;
-//        Session session = Launch.factory.openSession();
-//        Transaction tx = null;
-//        try {
-//            tx = session.beginTransaction();
-//            customerList = (List<Customer>) session.createQuery("FROM ua.earthsoft.goit.Java6.module_03.home_task.model.Company comp WHERE customers = :paramCompany").list();
-//            tx.commit();
-//            for (Iterator iterator = customerList.iterator(); iterator.hasNext();){
-//                //(Company) iterator.next();
-//            }
-//            return customerList;
-//        } catch (HibernateException e) {
-//            if (tx!=null) {
-//                tx.rollback();
-//            }
-//            e.printStackTrace();
-//        } finally {
-//            session.close();
-//        }
+        List<Customer> customerList = new ArrayList<>();
+        String sql = QueryUtil.GET_CUSTOMERS_BY_COMPANY;
+        Session session = Launch.factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            customerList = (List<Customer>) session.createQuery("FROM ua.earthsoft.goit.Java6.module_03.home_task.model.Company comp WHERE ua.earthsoft.goit.Java6.module_03.home_task.model.Company.customers = :paramCompany").list();
+            tx.commit();
+            for (Iterator iterator = customerList.iterator(); iterator.hasNext();){
+                //(Company) iterator.next();
+            }
+            return customerList;
+        } catch (HibernateException e) {
+            if (tx!=null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
         return null;
     }
 
@@ -221,7 +224,7 @@ public class JdbcCompanyDaoImpl implements ICompanyDAO {
             HashSet<Customer> setCustomers = new HashSet<>();
             setCustomers.add(customer);
             company.setCustomers(setCustomers);
-            session.save(company);
+            session.update(company);
             tx.commit();
         } catch (HibernateException e) {
             if (tx!=null) {

@@ -24,7 +24,10 @@ public class Customer {
     @Column(name = "phone")
     private String phone;
 
-//    private Set<Company> companies = new HashSet<Company>(0);
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "mtm_company_customer", joinColumns = {@JoinColumn(name = "customer") },
+            inverseJoinColumns = { @JoinColumn(name = "company") })
+    private Set<Company> companies = new HashSet<Company>(0);
 
     public int getId() {
         return id;
@@ -58,14 +61,14 @@ public class Customer {
         this.phone = phone;
     }
 
-//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "companies")
-//    public Set<Company> getCompanies() {
-//        return companies;
-//    }
-//
-//    public void setCompanies(Set<Company> companies) {
-//        this.companies = companies;
-//    }
+    //@ManyToMany(fetch = FetchType.LAZY, mappedBy = "companies")
+    public Set<Company> getCompanies() {
+        return companies;
+    }
+
+    public void setCompanies(Set<Company> companies) {
+        this.companies = companies;
+    }
 
     @Override
     public String toString() {

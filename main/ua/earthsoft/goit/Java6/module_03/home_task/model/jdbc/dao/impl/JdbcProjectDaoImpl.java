@@ -1,9 +1,6 @@
 package ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.impl;
 
-import org.hibernate.HibernateException;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import ua.earthsoft.goit.Java6.module_03.home_task.Launch;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.*;
 import ua.earthsoft.goit.Java6.module_03.home_task.model.jdbc.dao.IProjectDAO;
@@ -101,14 +98,13 @@ public class JdbcProjectDaoImpl implements IProjectDAO {
 
     @Override
     public Project getById(int id) {
-        String sql = QueryUtil.GET_PROJECT_BY_ID;
+        String hql = QueryUtil.HQL_GET_PROJECT_BY_ID;
         Session session = Launch.factory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            SQLQuery query = session.createSQLQuery(sql);
-            query.setInteger(0, id);
-            query.addEntity(Project.class);
+            Query query = session.createQuery(hql);
+            query.setInteger("parameter", id);
             List result = query.list();
             tx.commit();
             for (Iterator iterator = result.iterator(); iterator.hasNext();){
